@@ -1,12 +1,14 @@
 {
   "pages": [
     "pages/index/index",
+    "pages/news/news",
+    "pages/news-detail/news-detail",
     "pages/works/works",
     "pages/work-detail/work-detail",
     "pages/events/events",
     "pages/event-detail/event-detail",
-    "pages/live/live",
-    "pages/live-detail/live-detail",
+    "pages/videos/videos",
+    "pages/video-detail/video-detail",
     "pages/profile/profile",
     "pages/search/search",
     "pages/artist-detail/artist-detail",
@@ -24,9 +26,9 @@
     "backgroundColor": "#FFFFFF",
     "list": [
       { "pagePath": "pages/index/index", "text": "首页" },
+      { "pagePath": "pages/news/news", "text": "资讯" },
       { "pagePath": "pages/works/works", "text": "剧目" },
-      { "pagePath": "pages/events/events", "text": "展演" },
-      { "pagePath": "pages/live/live", "text": "直播" },
+      { "pagePath": "pages/videos/videos", "text": "视频" },
       { "pagePath": "pages/profile/profile", "text": "我的" }
     ]
   },
