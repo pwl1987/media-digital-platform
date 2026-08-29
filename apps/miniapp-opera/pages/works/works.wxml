@@ -1,7 +1,13 @@
 <view class="container">
   <view class="title">精品剧目</view>
-  <view class="subtitle">传统戏曲、现代小戏、红色题材与优秀地方剧目。</view>
-  <view class="card" style="margin-top:28rpx">示例剧目 A</view>
-  <view class="card" style="margin-top:20rpx">示例剧目 B</view>
-  <view class="card" style="margin-top:20rpx">示例剧目 C</view>
+  <view class="subtitle">从作品、演员、剧团与演出记录认识沂蒙小戏小剧。</view>
+  <view wx:if="{{works.length}}" class="work-list">
+    <view wx:for="{{works}}" wx:key="id" class="card work-card" bindtap="openWork" data-id="{{item.id}}">
+      <view class="work-tag">{{item.tag}}</view>
+      <view class="work-title">{{item.title}}</view>
+      <view class="work-summary">{{item.summary}}</view>
+      <view class="work-meta">{{item.organization.title}} · {{item.performances[0].date}}</view>
+    </view>
+  </view>
+  <view wx:else class="card muted">暂无剧目</view>
 </view>
