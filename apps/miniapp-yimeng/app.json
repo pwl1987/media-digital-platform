@@ -1,0 +1,32 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/knowledge/knowledge",
+    "pages/ai/ai",
+    "pages/museum/museum",
+    "pages/profile/profile",
+    "pages/search/search",
+    "pages/detail/detail"
+  ],
+  "window": {
+    "navigationBarTitleText": "沂蒙精神智能平台",
+    "navigationBarTextStyle": "white",
+    "navigationBarBackgroundColor": "#9E1B32",
+    "backgroundColor": "#F7F7F5"
+  },
+  "tabBar": {
+    "color": "#777777",
+    "selectedColor": "#9E1B32",
+    "backgroundColor": "#FFFFFF",
+    "list": [
+      { "pagePath": "pages/index/index", "text": "首页" },
+      { "pagePath": "pages/knowledge/knowledge", "text": "知识" },
+      { "pagePath": "pages/ai/ai", "text": "AI问答" },
+      { "pagePath": "pages/museum/museum", "text": "展馆" },
+      { "pagePath": "pages/profile/profile", "text": "我的" }
+    ]
+  },
+  "style": "v2",
+  "lazyCodeLoading": "requiredComponents",
+  "sitemapLocation": "sitemap.json"
+}

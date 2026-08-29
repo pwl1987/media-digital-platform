@@ -1,0 +1,25 @@
+<view class="container">
+  <view class="card hero" bindtap="goAI">
+    <view class="eyebrow">沂蒙精神 · 智能平台</view>
+    <view class="title">传承沂蒙精神</view>
+    <view class="subtitle" style="color:#f7e9ed">让红色文化看得见、听得到、问得懂</view>
+    <view class="hero-action">和 AI 一起探索 ›</view>
+  </view>
+
+  <view class="search" bindtap="goSearch">搜索人物、故事、历史、地点</view>
+
+  <view class="section-title">探索沂蒙</view>
+  <view class="grid">
+    <view class="card entry" bindtap="goAI"><view class="entry-icon">AI</view><view>智能问答</view></view>
+    <view class="card entry" bindtap="goKnowledge"><view class="entry-icon">知</view><view>人物与故事</view></view>
+    <view class="card entry" bindtap="goMuseum"><view class="entry-icon">馆</view><view>数字展馆</view></view>
+    <view class="card entry"><view class="entry-icon">展</view><view>专题内容</view></view>
+  </view>
+
+  <view class="section-title">精选内容 <text class="more">更多 ›</text></view>
+  <view wx:for="{{featured}}" wx:key="id" class="card content-card" data-type="{{item.type}}" data-id="{{item.id}}" bindtap="openFeatured">
+    <view class="content-tag">{{item.type}}</view>
+    <view class="content-title">{{item.title}}</view>
+    <view class="content-arrow">›</view>
+  </view>
+</view>

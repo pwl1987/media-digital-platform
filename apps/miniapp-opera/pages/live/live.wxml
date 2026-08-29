@@ -1,0 +1,5 @@
+<view class="container">
+  <view class="title">现场直播</view>
+  <view class="subtitle">正在进行的展演、活动与舞台直播。</view>
+  <view class="card" style="margin-top:28rpx">当前直播将在接入 Live API 后展示</view>
+</view>

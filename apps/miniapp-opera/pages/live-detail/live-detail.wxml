@@ -1,0 +1,30 @@
+<view class="container" wx:if="{{item}}">
+  <view class="card hero">
+    <view class="work-tag">{{statusLabel}}</view>
+    <view class="title">{{item.title}}</view>
+    <view class="subtitle">{{item.startAt}} · {{item.place}}</view>
+  </view>
+
+  <view wx:if="{{item.status === 'live'}}" class="player-card">
+    <video class="player" controls autoplay poster="">
+    </video>
+    <view class="player-note">直播进行中，真实播放地址由 Live API 提供。</view>
+  </view>
+
+  <view wx:if="{{item.status === 'scheduled'}}" class="card state-card">
+    <view class="state-title">直播预告</view>
+    <view class="state-text">直播尚未开始。到达直播时间后，此页面将切换为直播状态。</view>
+  </view>
+
+  <view wx:if="{{item.status === 'ended'}}" class="card state-card">
+    <view class="state-title">直播已结束</view>
+    <view class="state-text">可以从活动详情查看演出回顾、精彩视频与图集。</view>
+  </view>
+
+  <view class="section-title">直播信息</view>
+  <view class="card">
+    <view class="detail-row"><text>时间</text><text>{{item.startAt}}</text></view>
+    <view class="detail-row"><text>地点</text><text>{{item.place}}</text></view>
+    <view class="detail-row"><text>状态</text><text>{{statusLabel}}</text></view>
+  </view>
+</view>

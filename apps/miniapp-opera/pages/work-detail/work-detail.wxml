@@ -1,0 +1,23 @@
+<view class="container" wx:if="{{work}}">
+  <view class="card hero">
+    <view class="work-tag">{{work.tag}}</view>
+    <view class="title">{{work.title}}</view>
+    <view class="subtitle">{{work.summary}}</view>
+  </view>
+
+  <view class="section-title">作品信息</view>
+  <view class="card">
+    <view class="detail-row"><text>剧团</text><text bindtap="openOrganization" data-id="{{work.organization.id}}">{{work.organization.title}} ›</text></view>
+    <view class="detail-row"><text>代表演员</text><text bindtap="openArtist" data-id="{{work.artists[0].id}}">{{work.artists[0].title}} ›</text></view>
+  </view>
+
+  <view class="section-title">演出记录</view>
+  <view wx:for="{{work.performances}}" wx:key="id" class="card relation-card" bindtap="openEvent" data-id="{{item.eventId}}">
+    <view class="relation-title">{{item.title}}</view>
+    <view class="work-meta">{{item.date}} · {{item.place}}</view>
+  </view>
+
+  <view class="section-title">相关内容</view>
+  <view class="card muted">相关视频、图集与专题将在 Media / Content API 接入后显示。</view>
+</view>
+<view wx:else class="container"><view class="card muted">内容不存在或已下架</view></view>

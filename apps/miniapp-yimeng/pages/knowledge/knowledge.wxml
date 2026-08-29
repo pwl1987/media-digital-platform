@@ -1,0 +1,12 @@
+<view class="container">
+  <view class="title">知识中心</view>
+  <view class="subtitle">从人物、故事、历史与地点认识沂蒙。</view>
+  <view class="grid" style="margin-top:28rpx">
+    <view class="card entry">人物</view>
+    <view class="card entry">故事</view>
+    <view class="card entry">历史</view>
+    <view class="card entry">地点</view>
+    <view class="card entry">文献</view>
+    <view class="card entry">专题</view>
+  </view>
+</view>

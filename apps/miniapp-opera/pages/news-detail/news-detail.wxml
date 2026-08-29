@@ -1,0 +1,21 @@
+<view class="page">
+  <view wx:if="{{loading}}" class="state">正在加载资讯…</view>
+  <view wx:elif="{{error}}" class="state">
+    <view class="state-title">资讯加载失败</view>
+    <button size="mini" bindtap="retry">重试</button>
+  </view>
+  <block wx:else>
+    <view class="official-badge">官方资讯</view>
+    <view class="title">{{news.title}}</view>
+    <view class="meta">{{news.sourceName}} · {{news.date}}</view>
+    <view class="body">{{news.body || news.summary}}</view>
+    <view wx:if="{{news.summary}}" class="summary">{{news.summary}}</view>
+    <view wx:if="{{news.relations.length}}" class="section">
+      <view class="section-title">相关内容</view>
+      <view wx:for="{{news.relations}}" wx:key="target.id" class="relation" data-id="{{item.target.id}}" data-type="{{item.target.type}}" bindtap="openRelation">
+        <view><text class="relation-type">{{item.type}}</text>{{item.target.title}}</view><text>›</text>
+      </view>
+    </view>
+    <button open-type="share" class="share">分享这篇资讯</button>
+  </block>
+</view>
