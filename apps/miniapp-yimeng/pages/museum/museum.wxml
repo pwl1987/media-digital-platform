@@ -1,0 +1,11 @@
+<view class="container">
+  <view class="title">数字展馆</view>
+  <view class="subtitle">用图文、视频与时间轴沉浸式了解沂蒙文化。</view>
+  <view class="card" style="margin-top:28rpx">
+    <view style="font-size:34rpx;font-weight:650">沂蒙精神数字展馆</view>
+    <view class="subtitle">专题展陈入口</view>
+  </view>
+  <view class="card" style="margin-top:20rpx">红色人物馆</view>
+  <view class="card" style="margin-top:20rpx">红色故事馆</view>
+  <view class="card" style="margin-top:20rpx">影像资料馆</view>
+</view>
