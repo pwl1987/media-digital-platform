@@ -1,0 +1,19 @@
+<view class="container">
+  <view class="card hero">
+    <view class="title">传承沂蒙精神</view>
+    <view class="subtitle">让红色文化看得见、听得到、问得懂</view>
+  </view>
+
+  <view class="section-title">你可以这样了解沂蒙</view>
+  <view class="grid">
+    <view class="card entry" bindtap="goAI">AI问答</view>
+    <view class="card entry" bindtap="goKnowledge">人物与故事</view>
+    <view class="card entry" bindtap="goMuseum">数字展馆</view>
+    <view class="card entry">专题内容</view>
+  </view>
+
+  <view class="section-title">精选内容</view>
+  <view class="card">
+    <view class="muted">内容将通过统一 Content API 接入</view>
+  </view>
+</view>
