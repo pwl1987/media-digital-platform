@@ -1,0 +1,16 @@
+<view class="container" wx:if="{{event}}">
+  <view class="card hero">
+    <view class="work-tag">展演活动</view>
+    <view class="title">{{event.title}}</view>
+    <view class="subtitle">{{event.startAt}} · {{event.place}}</view>
+  </view>
+
+  <view class="section-title">演出场次</view>
+  <view wx:for="{{eventPerformances}}" wx:key="id" class="card relation-card">
+    <view class="relation-title">{{item.title}}</view>
+    <view class="work-meta">{{item.startAt}} · {{item.place}}</view>
+  </view>
+
+  <view class="section-title">活动信息</view>
+  <view class="card">节目单、主办承办、现场图片、直播与活动回顾将在真实 Content / Media API 接入后展示。</view>
+</view>
