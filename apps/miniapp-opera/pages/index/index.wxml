@@ -1,15 +1,37 @@
 <view class="container">
   <view class="card hero">
+    <view class="eyebrow">沂蒙小戏小剧 · 数字展演平台</view>
     <view class="title">精彩小戏小剧，云上尽情看</view>
-    <view class="subtitle" style="color:#F2E4E0">剧目、展演、直播与沂蒙文化数字档案</view>
+    <view class="subtitle" style="color:#F2E4E0">一部作品，一群演员，一座舞台，一段沂蒙文化记忆。</view>
   </view>
+
+  <view class="search-entry" bindtap="goWorks">搜索剧目、演员、剧团、活动 <text>⌕</text></view>
+
   <view class="section-title">精彩入口</view>
   <view class="grid">
-    <view class="card entry" bindtap="goWorks">精品剧目</view>
-    <view class="card entry" bindtap="goEvents">展演活动</view>
-    <view class="card entry" bindtap="goLive">现场直播</view>
-    <view class="card entry">演员 / 剧团</view>
+    <view class="card entry" bindtap="goWorks"><view class="entry-icon">剧</view><view>精品剧目</view></view>
+    <view class="card entry" bindtap="goEvents"><view class="entry-icon">展</view><view>展演活动</view></view>
+    <view class="card entry" bindtap="goLive"><view class="entry-icon">播</view><view>现场直播</view></view>
+    <view class="card entry" bindtap="goWorks"><view class="entry-icon">档</view><view>演员 / 剧团</view></view>
   </view>
-  <view class="section-title">精品推荐</view>
-  <view class="card"><view class="muted">内容将通过统一 Content API 接入</view></view>
+
+  <view class="section-title">精品剧目 <text class="more" bindtap="goWorks">更多 ›</text></view>
+  <view wx:for="{{works}}" wx:key="id" class="card content-card" data-id="{{item.id}}" bindtap="openWork">
+    <view class="poster-mini">舞台<br/>影像</view>
+    <view class="content-main">
+      <view class="content-tag">{{item.tag}}</view>
+      <view class="content-title">{{item.title}}</view>
+      <view class="content-meta">{{item.organization.title}} · {{item.artists[0].title}}</view>
+    </view>
+    <view class="content-arrow">›</view>
+  </view>
+
+  <view class="section-title">近期展演 <text class="more" bindtap="goEvents">全部 ›</text></view>
+  <view wx:for="{{events}}" wx:key="id" class="card event-card" data-id="{{item.id}}" bindtap="openEvent">
+    <view class="event-date">2026</view>
+    <view class="event-main">
+      <view class="content-title">{{item.title}}</view>
+      <view class="content-meta">{{item.place}} · {{item.startAt}}</view>
+    </view>
+  </view>
 </view>
