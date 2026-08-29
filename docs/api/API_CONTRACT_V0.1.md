@@ -1,18 +1,19 @@
 # API Contract V0.1
 
-> 前端先行、契约先行。具体实现后续接入 `news-media-system` 与 Yimeng Intelligence。
+> 前端先行、契约先行。具体实现接入 `news-media-system` 与 Yimeng Intelligence。
 
 ## 0. Contract Scope
 
-本 Contract 服务于两个公众体验应用：沂蒙精神智能平台、沂蒙小戏小剧展演平台。
+本 Contract 服务于公众体验层，包括：
 
-API 按领域对象组织，不按页面组织。页面、Mock 与真实服务必须遵守同一语义。
+- 沂蒙精神智能平台小程序
+- 沂蒙小戏小剧官方宣传小程序
+- 沂蒙小戏小剧 H5
+- 后续 PC Web / H5 Experience
+
+API 按领域对象组织，不按页面组织；Mock 与真实 API 必须遵守相同语义。
 
 ## 1. Common Envelope
-
-所有接口建议统一前缀 `/api/v1`。
-
-成功响应：
 
 ```json
 {
@@ -22,57 +23,57 @@ API 按领域对象组织，不按页面组织。页面、Mock 与真实服务�
 }
 ```
 
-失败响应：
-
-```json
-{
-  "data": null,
-  "meta": { "request_id": "..." },
-  "error": { "code": "CONTENT_NOT_FOUND", "message": "内容不存在" }
-}
-```
+错误响应必须保留稳定 `error.code`。
 
 ## 2. Canonical Resources
 
-稳定 `id` 是资源身份；URL 只是 locator。
+核心领域对象：
 
-核心对象：`Content`、`Person`、`Organization`、`Place`、`Work`、`Story`、`Event`、`Performance`、`MediaAsset`、`Collection`、`Topic`、`Evidence`、`Knowledge`、`Session`。
+- `Content`
+- `News`
+- `Person`
+- `Organization`
+- `Place`
+- `Work`
+- `Story`
+- `Event`
+- `Performance`
+- `MediaAsset`
+- `Collection`
+- `Topic`
+- `Evidence`
+- `Knowledge`
+- `Session`
 
-详情资源应尽量返回 `relations`，让客户端继续导航到关联内容。
+资源身份使用稳定 `id`。详情响应应尽量提供 `relations`，允许客户端继续发现关联内容。
 
-## 3. Experience Feeds
-
-首页不直接绑定数据库栏目，而由产品 Feed 返回有序 sections：
+## 3. Feeds / Home
 
 ```text
-GET /api/v1/feeds/yimeng-home
-GET /api/v1/feeds/opera-home
+GET /api/v1/yimeng/home
+GET /api/v1/opera/home
 GET /api/v1/feeds/:feed_id
 ```
 
-建议 payload：
+Feed 使用有序 `sections`，运营位不写死在客户端：
 
 ```json
 {
   "sections": [
-    {
-      "id": "hero",
-      "type": "hero",
-      "title": "重点内容",
-      "items": []
-    }
+    { "id": "hero", "type": "hero", "title": "...", "items": [] },
+    { "id": "latest-news", "type": "news", "items": [] }
   ]
 }
 ```
 
-这样运营位可以调整而不要求客户端重新发版。
-
-## 4. Shared Content APIs
+## 4. Shared Content
 
 ```text
 GET /api/v1/search?q=...
 GET /api/v1/contents
 GET /api/v1/contents/:id
+GET /api/v1/news
+GET /api/v1/news/:id
 GET /api/v1/collections/:id
 GET /api/v1/topics/:id
 GET /api/v1/media/:id
@@ -88,9 +89,9 @@ GET /api/v1/performances
 GET /api/v1/performances/:id
 ```
 
-## 5. Yimeng Experience APIs
+`News` 是官方宣传内容的一等对象；新闻详情可以关联 `Work / Event / Person / MediaAsset / Topic`。
 
-产品领域入口只表达体验语义，底层内容仍使用共享对象：
+## 5. Yimeng
 
 ```text
 GET  /api/v1/yimeng/knowledge
@@ -102,7 +103,7 @@ POST /api/v1/yimeng/ai/chat
 GET  /api/v1/yimeng/ai/sessions/:id
 ```
 
-AI response minimum fields：
+AI 最低返回：
 
 ```json
 {
@@ -114,9 +115,11 @@ AI response minimum fields：
 }
 ```
 
-## 6. Opera Experience APIs
+## 6. Opera Promotion
 
 ```text
+GET /api/v1/opera/news
+GET /api/v1/opera/news/:id
 GET /api/v1/opera/works
 GET /api/v1/opera/works/:id
 GET /api/v1/opera/artists
@@ -127,32 +130,45 @@ GET /api/v1/opera/events
 GET /api/v1/opera/events/:id
 GET /api/v1/opera/performances
 GET /api/v1/opera/performances/:id
+GET /api/v1/opera/videos
+GET /api/v1/opera/videos/:id
 GET /api/v1/opera/live
 GET /api/v1/opera/live/:id
 ```
 
-`Performance` 表达具体演出场次；`Work` 表达作品本体；`Event` 表达展演/活动，三者不可混为一个对象。
+小戏小剧的一级传播重点为 `News / Work / Media / Event`；直播是内容的一种传播场景，不强制成为一级导航。
+
+`Work` 表达作品本体；`Performance` 表达具体演出场次；`Event` 表达展演/活动。
 
 ## 7. Relations
 
-详情接口可以返回：
+统一关系形式：
 
 ```json
 {
   "relations": [
     {
       "type": "PERFORMED_BY",
-      "target": {
-        "id": "...",
-        "type": "Organization",
-        "title": "..."
-      }
+      "target": { "id": "...", "type": "Organization", "title": "..." }
     }
   ]
 }
 ```
 
-第一版 relation type 至少包括：`RELATED_TO`、`PART_OF`、`CREATED_BY`、`PERFORMED_BY`、`PERFORMED_AT`、`PARTICIPATED_IN`、`REFERENCES`、`HAS_MEDIA`、`HAS_EVIDENCE`、`OCCURRED_AT`。
+第一版至少支持：
+
+- `RELATED_TO`
+- `PART_OF`
+- `CREATED_BY`
+- `PERFORMED_BY`
+- `PERFORMED_AT`
+- `PARTICIPATED_IN`
+- `REFERENCES`
+- `HAS_MEDIA`
+- `HAS_EVIDENCE`
+- `OCCURRED_AT`
+- `REPORTS_ON`
+- `FEATURES`
 
 ## 8. User
 
@@ -165,17 +181,32 @@ GET    /api/v1/me/history
 POST   /api/v1/me/history
 ```
 
-未登录情况下，客户端可退化到本地历史/收藏；真实账号能力以后接微信身份体系。
+未登录客户端允许本地收藏/历史；登录后再同步。
 
-## 9. Client Rules
+## 9. H5 Rules
+
+H5 复用上述资源接口，不创建另一套 H5 内容 API。
+
+重点支持：
+
+- `/news/:id`
+- `/works/:id`
+- `/events/:id`
+- `/videos/:id`
+- `/topics/:id`
+
+分享链接必须可以直接落到内容详情，不能要求先进入首页。
+
+## 10. Client Rules
 
 1. 页面不得直接拼接业务 URL。
-2. 页面不得直接调用 `wx.request`。
+2. 页面不得直接调用 `wx.request`；统一经 API Client。
 3. Mock 与真实 API 使用相同 payload schema。
 4. ID 与访问 URL 分离。
 5. 时间使用 ISO 8601。
-6. 列表统一保留分页元数据。
-7. 空结果、错误、未找到、下架使用显式状态表达。
+6. 列表必须有分页元数据。
+7. 空结果、网络错误、未找到、下架必须有显式状态。
 8. AI 必须能够表达来源与证据。
-9. 所有详情页必须允许继续导航到 `relations`。
-10. Content / Media / Knowledge 的身份不可用显示标题代替。
+9. 详情页允许继续导航到 `relations`。
+10. 标题不得作为资源身份。
+11. H5、小程序、PC 尽可能共享同一 Content / News / Media / Event 语义。
