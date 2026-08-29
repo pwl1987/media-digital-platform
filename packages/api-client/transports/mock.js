@@ -12,6 +12,13 @@ function createMockTransport() {
   return {
     request(path, options = {}) {
       const method = options.method || 'GET';
+      if (method === 'GET' && path === '/api/v1/news') {
+        const { category, page = 1, pageSize = 20 } = options.query || {};
+        const items = category ? opera.news.filter((item) => item.category === category) : opera.news;
+        const start = (Number(page) - 1) * Number(pageSize);
+        return ok({ items: items.slice(start, start + Number(pageSize)), page: Number(page), pageSize: Number(pageSize), total: items.length, hasMore: start + Number(pageSize) < items.length });
+      }
+      if (method === 'GET' && path.startsWith('/api/v1/news/')) return ok(findById(opera.news, path.split('/').pop()));
       if (method === 'GET' && path === '/api/v1/opera/news') return ok({ items: opera.news, page: 1, pageSize: opera.news.length, total: opera.news.length, hasMore: false });
       if (method === 'GET' && path.startsWith('/api/v1/opera/news/')) return ok(findById(opera.news, path.split('/').pop()));
       if (method === 'GET' && path === '/api/v1/opera/works') return ok({ items: opera.works, page: 1, pageSize: opera.works.length, total: opera.works.length, hasMore: false });
