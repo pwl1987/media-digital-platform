@@ -1,0 +1,30 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/works/works",
+    "pages/events/events",
+    "pages/live/live",
+    "pages/profile/profile"
+  ],
+  "window": {
+    "navigationBarTitleText": "沂蒙小戏小剧",
+    "navigationBarTextStyle": "white",
+    "navigationBarBackgroundColor": "#7A1F1F",
+    "backgroundColor": "#F7F5F2"
+  },
+  "tabBar": {
+    "color": "#777777",
+    "selectedColor": "#7A1F1F",
+    "backgroundColor": "#FFFFFF",
+    "list": [
+      { "pagePath": "pages/index/index", "text": "首页" },
+      { "pagePath": "pages/works/works", "text": "剧目" },
+      { "pagePath": "pages/events/events", "text": "展演" },
+      { "pagePath": "pages/live/live", "text": "直播" },
+      { "pagePath": "pages/profile/profile", "text": "我的" }
+    ]
+  },
+  "style": "v2",
+  "lazyCodeLoading": "requiredComponents",
+  "sitemapLocation": "sitemap.json"
+}
