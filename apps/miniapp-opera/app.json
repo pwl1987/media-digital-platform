@@ -6,6 +6,7 @@
     "pages/events/events",
     "pages/event-detail/event-detail",
     "pages/live/live",
+    "pages/live-detail/live-detail",
     "pages/profile/profile",
     "pages/search/search",
     "pages/artist-detail/artist-detail",
