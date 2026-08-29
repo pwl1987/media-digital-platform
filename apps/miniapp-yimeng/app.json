@@ -5,6 +5,7 @@
     "pages/ai/ai",
     "pages/museum/museum",
     "pages/profile/profile",
+    "pages/search/search",
     "pages/detail/detail"
   ],
   "window": {
