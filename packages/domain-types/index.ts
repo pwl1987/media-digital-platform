@@ -1,5 +1,7 @@
 export type ContentStatus = 'draft' | 'review' | 'approved' | 'scheduled' | 'published' | 'unpublished' | 'retracted';
 export type ContentSourceLevel = 'official' | 'organizer' | 'media' | 'historical' | 'user';
+export type EventLifecycleStatus = 'upcoming' | 'ongoing' | 'ended' | 'cancelled';
+export type LiveStatus = 'upcoming' | 'live' | 'ended' | 'offline';
 export type ContentType = 'Content' | 'News' | 'Story' | 'Person' | 'Organization' | 'Place' | 'Work' | 'Event' | 'Performance' | 'MediaAsset' | 'Topic' | 'Evidence' | 'Knowledge';
 
 export interface RelationTarget { id: string; type: ContentType; title: string; url?: string; }
@@ -39,9 +41,9 @@ export interface Work extends BaseContent {
 
 export interface Person extends BaseContent { type: 'Person'; bio?: string; organizationIds?: string[]; }
 export interface Organization extends BaseContent { type: 'Organization'; intro?: string; }
-export interface Event extends BaseContent { type: 'Event'; startAt?: string; endAt?: string; placeId?: string; performanceIds?: string[]; }
+export interface Event extends BaseContent { type: 'Event'; lifecycleStatus: EventLifecycleStatus; startAt?: string; endAt?: string; placeId?: string; performanceIds?: string[]; }
 export interface Performance extends BaseContent { type: 'Performance'; workId: string; eventId?: string; startAt?: string; placeId?: string; }
-export interface MediaAsset extends BaseContent { type: 'MediaAsset'; mediaType: 'image' | 'video' | 'audio' | 'document' | 'live'; url?: string; durationSeconds?: number; }
+export interface MediaAsset extends BaseContent { type: 'MediaAsset'; mediaType: 'image' | 'video' | 'audio' | 'document' | 'live'; url?: string; durationSeconds?: number; liveStatus?: LiveStatus; }
 export interface Topic extends BaseContent { type: 'Topic'; itemIds?: string[]; }
 export interface Evidence extends BaseContent { type: 'Evidence'; sourceId?: string; excerpt?: string; }
 export interface Knowledge extends BaseContent { type: 'Knowledge'; evidenceIds?: string[]; }
