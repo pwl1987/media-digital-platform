@@ -1,0 +1,10 @@
+<view class="container">
+  <view class="title">AI问答</view>
+  <view class="subtitle">基于沂蒙精神知识与可靠资料的智能问答入口。</view>
+  <view class="card" style="margin-top:28rpx">
+    <view class="subtitle">示例问题</view>
+    <view style="margin-top:20rpx">沂蒙精神是在怎样的历史背景下形成的？</view>
+    <view style="margin-top:20rpx">沂蒙有哪些代表人物和经典故事？</view>
+  </view>
+  <view class="card" style="margin-top:20rpx">AI 对话区（下一阶段接入 /api/v1/ai/chat）</view>
+</view>
