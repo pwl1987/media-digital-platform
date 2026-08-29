@@ -1,7 +1,12 @@
 <view class="container">
   <view class="title">展演活动</view>
-  <view class="subtitle">查看近期演出、文化活动和精彩回顾。</view>
-  <view class="card" style="margin-top:28rpx">近期展演</view>
-  <view class="card" style="margin-top:20rpx">活动日历</view>
-  <view class="card" style="margin-top:20rpx">精彩回顾</view>
+  <view class="subtitle">即将开始、正在进行与历史回顾，统一进入活动详情。</view>
+  <view wx:if="{{events.length}}">
+    <view wx:for="{{events}}" wx:key="id" class="card relation-card" bindtap="openEvent" data-id="{{item.id}}">
+      <view class="work-tag">{{item.status === 'upcoming' ? '即将开始' : '展演'}}</view>
+      <view class="relation-title">{{item.title}}</view>
+      <view class="work-meta">{{item.startAt}} · {{item.place}}</view>
+    </view>
+  </view>
+  <view wx:else class="card muted">暂无展演活动</view>
 </view>
