@@ -1,0 +1,7 @@
+<view class="container">
+  <view class="title">展演活动</view>
+  <view class="subtitle">查看近期演出、文化活动和精彩回顾。</view>
+  <view class="card" style="margin-top:28rpx">近期展演</view>
+  <view class="card" style="margin-top:20rpx">活动日历</view>
+  <view class="card" style="margin-top:20rpx">精彩回顾</view>
+</view>
