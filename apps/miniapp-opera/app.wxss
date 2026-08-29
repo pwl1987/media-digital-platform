@@ -1,5 +1,5 @@
 page { background: #F7F5F2; color: #241F1D; font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif; }
-.container { padding: 32rpx; box-sizing: border-box; }
+.container { padding: 32rpx; box-sizing: border-box; padding-bottom: 50rpx; }
 .card { background: #FFFFFF; border-radius: 20rpx; padding: 28rpx; box-shadow: 0 8rpx 24rpx rgba(0,0,0,.04); }
 .title { font-size: 40rpx; font-weight: 700; }
 .subtitle { margin-top: 12rpx; color: #777777; font-size: 26rpx; line-height: 1.6; }
@@ -8,3 +8,23 @@ page { background: #F7F5F2; color: #241F1D; font-family: -apple-system, BlinkMac
 .entry { min-height: 150rpx; display: flex; align-items: flex-end; font-weight: 650; }
 .hero { background: linear-gradient(135deg, #7A1F1F, #A43A34); color: #FFFFFF; }
 .muted { color: #888888; }
+.filter-scroll { margin: 26rpx -32rpx 20rpx; white-space: nowrap; }
+.filter-row { display: inline-flex; padding: 0 32rpx; gap: 14rpx; }
+.filter { display: inline-flex; align-items: center; padding: 14rpx 24rpx; border-radius: 999rpx; background: #fff; color: #7b716d; font-size: 25rpx; }
+.filter-active { background: #7A1F1F; color: #fff; }
+.work-list { display: flex; flex-direction: column; gap: 18rpx; }
+.work-card { display: flex; align-items: center; gap: 22rpx; padding: 20rpx; position: relative; }
+.poster-placeholder { flex: 0 0 180rpx; height: 220rpx; border-radius: 16rpx; background: linear-gradient(145deg, #8b4037, #c77d68); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 25rpx; }
+.work-content { flex: 1; min-width: 0; }
+.work-tag { display: inline-block; background: #f7e9e5; color: #8e3027; padding: 6rpx 12rpx; border-radius: 8rpx; font-size: 21rpx; }
+.work-title { margin-top: 12rpx; font-size: 31rpx; font-weight: 700; }
+.work-summary { margin-top: 10rpx; font-size: 25rpx; color: #6f6662; line-height: 1.5; }
+.work-meta { margin-top: 14rpx; font-size: 23rpx; color: #958c87; }
+.arrow { font-size: 42rpx; color: #aaa; }
+.empty { margin-top: 24rpx; text-align: center; color: #888; }
+.detail-row { display: flex; justify-content: space-between; gap: 20rpx; padding: 20rpx 0; border-bottom: 1px solid #f0ecea; font-size: 26rpx; }
+.detail-row:last-child { border-bottom: 0; }
+.detail-row text:last-child { color: #7A1F1F; }
+.relation-card { margin-bottom: 16rpx; }
+.relation-title { font-size: 29rpx; font-weight: 650; }
+.work-detail-meta { color: #7f7772; font-size: 24rpx; margin-top: 10rpx; }
