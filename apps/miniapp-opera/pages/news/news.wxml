@@ -1,0 +1,19 @@
+<view class="page">
+  <view class="header">
+    <view class="eyebrow">OFFICIAL NEWS</view>
+    <view class="title">资讯</view>
+    <view class="subtitle">权威发布 · 展演动态 · 剧目消息</view>
+  </view>
+  <scroll-view scroll-x class="filters" show-scrollbar="false">
+    <view wx:for="{{filters}}" wx:key="*this" class="filter {{active === item ? 'active' : ''}}" data-filter="{{item}}" bindtap="selectFilter">{{item}}</view>
+  </scroll-view>
+  <view wx:if="{{!news.length}}" class="empty">暂无相关资讯</view>
+  <view wx:else class="list">
+    <view wx:for="{{news}}" wx:key="id" class="item" data-id="{{item.id}}" bindtap="openNews">
+      <view class="badge">{{item.category}}</view>
+      <view class="item-title">{{item.title}}</view>
+      <view class="summary">{{item.summary}}</view>
+      <view class="meta">{{item.sourceName || '官方平台'}} · {{item.date}}</view>
+    </view>
+  </view>
+</view>
