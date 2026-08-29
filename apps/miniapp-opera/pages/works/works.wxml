@@ -1,0 +1,7 @@
+<view class="container">
+  <view class="title">精品剧目</view>
+  <view class="subtitle">传统戏曲、现代小戏、红色题材与优秀地方剧目。</view>
+  <view class="card" style="margin-top:28rpx">示例剧目 A</view>
+  <view class="card" style="margin-top:20rpx">示例剧目 B</view>
+  <view class="card" style="margin-top:20rpx">示例剧目 C</view>
+</view>
