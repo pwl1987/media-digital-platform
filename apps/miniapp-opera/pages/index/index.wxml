@@ -1,0 +1,15 @@
+<view class="container">
+  <view class="card hero">
+    <view class="title">精彩小戏小剧，云上尽情看</view>
+    <view class="subtitle" style="color:#F2E4E0">剧目、展演、直播与沂蒙文化数字档案</view>
+  </view>
+  <view class="section-title">精彩入口</view>
+  <view class="grid">
+    <view class="card entry" bindtap="goWorks">精品剧目</view>
+    <view class="card entry" bindtap="goEvents">展演活动</view>
+    <view class="card entry" bindtap="goLive">现场直播</view>
+    <view class="card entry">演员 / 剧团</view>
+  </view>
+  <view class="section-title">精品推荐</view>
+  <view class="card"><view class="muted">内容将通过统一 Content API 接入</view></view>
+</view>
