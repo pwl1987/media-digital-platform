@@ -1,0 +1,7 @@
+<view class="container">
+  <view class="title">我的</view>
+  <view class="card" style="margin-top:28rpx">收藏</view>
+  <view class="card" style="margin-top:20rpx">浏览历史</view>
+  <view class="card" style="margin-top:20rpx">我的问答</view>
+  <view class="card" style="margin-top:20rpx">关于平台</view>
+</view>
