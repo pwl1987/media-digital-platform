@@ -1,0 +1,24 @@
+<view class="container">
+  <view class="title">精品剧目</view>
+  <view class="subtitle">从一部作品出发，认识演员、剧团与每一场演出。</view>
+
+  <scroll-view class="filter-scroll" scroll-x="true" enhanced="true" show-scrollbar="false">
+    <view class="filter-row">
+      <view wx:for="{{filterTags}}" wx:key="*this" class="filter {{activeTag === item ? 'filter-active' : ''}}" data-tag="{{item}}" bindtap="selectTag">{{item}}</view>
+    </view>
+  </scroll-view>
+
+  <view wx:if="{{works.length}}" class="work-list">
+    <view wx:for="{{works}}" wx:key="id" class="card work-card" data-id="{{item.id}}" bindtap="openWork">
+      <view class="poster-placeholder">舞台影像</view>
+      <view class="work-content">
+        <view class="work-tag">{{item.tag}}</view>
+        <view class="work-title">{{item.title}}</view>
+        <view class="work-summary">{{item.summary}}</view>
+        <view class="work-meta">{{item.organization.title}} · {{item.artists[0].title}}</view>
+      </view>
+      <view class="arrow">›</view>
+    </view>
+  </view>
+  <view wx:else class="card empty">暂无剧目</view>
+</view>

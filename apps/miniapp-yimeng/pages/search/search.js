@@ -1,16 +1,20 @@
 const { knowledgeItems, featured } = require('../../utils/mock');
 
 Page({
-  data: { q: '', results: [] },
-  onInput(e) { this.setData({ q: e.detail.value }); },
-  doSearch() {
-    const q = (this.data.q || '').trim().toLowerCase();
-    const all = knowledgeItems.concat(featured);
-    const results = q ? all.filter(x => `${x.title} ${x.summary || ''} ${x.tag || ''}`.toLowerCase().includes(q)) : all;
-    this.setData({ results });
+  data: { query: '', history: [], results: [], searched: false },
+  onLoad() { this.setData({ history: wx.getStorageSync('yimeng_search_history') || [] }); },
+  onInput(e) { this.setData({ query: e.detail.value }); },
+  onConfirm() { this.search(); },
+  search() {
+    const query = (this.data.query || '').trim();
+    if (!query) return;
+    const all = [...knowledgeItems, ...featured];
+    const results = all.filter((item) => `${item.title}${item.summary || ''}`.includes(query));
+    const history = [query, ...this.data.history.filter((item) => item !== query)].slice(0, 8);
+    wx.setStorageSync('yimeng_search_history', history);
+    this.setData({ results, searched: true, history });
   },
-  openResult(e) {
-    const { type, id } = e.currentTarget.dataset;
-    wx.navigateTo({ url: `/pages/detail/detail?type=${type}&id=${id}` });
-  }
+  useHistory(e) { const query = e.currentTarget.dataset.query; this.setData({ query }); this.search(); },
+  clearHistory() { wx.removeStorageSync('yimeng_search_history'); this.setData({ history: [] }); },
+  openItem(e) { wx.navigateTo({ url: e.currentTarget.dataset.path }); }
 });

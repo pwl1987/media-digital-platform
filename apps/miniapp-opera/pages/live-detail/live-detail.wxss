@@ -1,0 +1,10 @@
+.hero { background: linear-gradient(140deg,#741B1B,#AB473A); color:#fff; min-height:260rpx; }
+.state-card { margin-top:24rpx; }
+.state-title { font-size:32rpx; font-weight:700; }
+.state-text { margin-top:12rpx; color:#666; font-size:26rpx; line-height:1.7; }
+.player-card { margin-top:24rpx; background:#111; border-radius:20rpx; overflow:hidden; }
+.player { width:100%; height:420rpx; display:block; }
+.player-note { padding:18rpx 22rpx; color:#bbb; background:#1a1a1a; font-size:23rpx; line-height:1.5; }
+.detail-row { display:flex; justify-content:space-between; gap:18rpx; padding:20rpx 0; border-bottom:1px solid #f0ecea; font-size:26rpx; }
+.detail-row:last-child { border-bottom:0; }
+.detail-row text:last-child { color:#7A1F1F; text-align:right; }

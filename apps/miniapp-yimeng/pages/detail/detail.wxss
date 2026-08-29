@@ -1,0 +1,8 @@
+.container { padding-bottom: 48rpx; }
+.eyebrow { color:#9E1B32; font-size:24rpx; margin-bottom:14rpx; letter-spacing:2rpx; }
+.intro { margin-top:28rpx; }
+.body { line-height:1.9; color:#444; }
+.ai-btn { margin:32rpx 0; background:#9E1B32; color:#fff; border-radius:999rpx; font-size:30rpx; }
+.ai-btn::after { border:0; }
+.relation { display:flex; justify-content:space-between; align-items:center; margin-top:16rpx; }
+.relation-title { font-size:30rpx; font-weight:600; }

@@ -1,15 +1,24 @@
 <view class="container">
+  <view class="title">搜索</view>
   <view class="search-bar">
-    <input value="{{q}}" placeholder="搜索人物、故事、历史、地点" confirm-type="search" bindinput="onInput" bindconfirm="doSearch" />
-    <button size="mini" bindtap="doSearch">搜索</button>
+    <input value="{{query}}" placeholder="人物、故事、历史、地点" confirm-type="search" bindinput="onInput" bindconfirm="onConfirm" />
+    <button bindtap="search">搜索</button>
   </view>
-  <view wx:if="{{results.length}}" class="result-list">
-    <view wx:for="{{results}}" wx:key="id" class="card result-card" data-type="{{item.type}}" data-id="{{item.id}}" bindtap="openResult">
-      <view class="result-tag">{{item.tag || item.type}}</view>
-      <view class="result-title">{{item.title}}</view>
-      <view class="result-summary">{{item.summary || '查看详细内容与关联资料'}}</view>
-      <view class="result-arrow">›</view>
+
+  <view wx:if="{{!searched && history.length}}" class="section-title">最近搜索 <text class="clear" bindtap="clearHistory">清空</text></view>
+  <view wx:if="{{!searched}}" class="history-grid">
+    <view wx:for="{{history}}" wx:key="*this" class="history-item" data-query="{{item}}" bindtap="useHistory">{{item}}</view>
+  </view>
+
+  <view wx:if="{{searched}}">
+    <view class="section-title">搜索结果 <text class="count">{{results.length}} 条</text></view>
+    <view wx:if="{{results.length}}">
+      <view wx:for="{{results}}" wx:key="id" class="card result" data-path="{{item.path}}" bindtap="openItem">
+        <view class="content-tag">{{item.type || item.tag}}</view>
+        <view class="result-title">{{item.title}}</view>
+        <view class="result-summary">{{item.summary}}</view>
+      </view>
     </view>
+    <view wx:else class="card empty">没有找到相关内容，试试更换关键词。</view>
   </view>
-  <view wx:else class="card empty">没有找到相关内容</view>
 </view>

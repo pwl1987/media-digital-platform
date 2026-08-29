@@ -1,0 +1,13 @@
+{
+  "name": "media-digital-platform",
+  "private": true,
+  "version": "0.1.0",
+  "packageManager": "npm@11",
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
+  "scripts": {
+    "validate:packages": "node scripts/validate-packages.mjs"
+  }
+}

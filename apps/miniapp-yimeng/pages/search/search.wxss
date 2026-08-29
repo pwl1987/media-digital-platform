@@ -1,0 +1,11 @@
+.search-bar { display:flex; align-items:center; gap:14rpx; background:#fff; border-radius:20rpx; padding:12rpx; box-shadow:0 6rpx 20rpx rgba(0,0,0,.04); }
+.search-bar input { flex:1; min-width:0; padding:18rpx 16rpx; font-size:27rpx; }
+.search-bar button { margin:0; width:130rpx; height:70rpx; line-height:70rpx; padding:0; background:#9E1B32; color:#fff; border-radius:14rpx; font-size:26rpx; }
+.search-bar button::after { border:0; }
+.clear,.count { float:right; color:#9E1B32; font-size:24rpx; font-weight:400; }
+.history-grid { display:flex; flex-wrap:wrap; gap:14rpx; }
+.history-item { background:#fff; padding:14rpx 20rpx; border-radius:999rpx; color:#666; font-size:24rpx; }
+.result { margin-top:16rpx; padding-right:38rpx; }
+.result-title { margin-top:12rpx; font-size:30rpx; font-weight:650; line-height:1.5; }
+.result-summary { margin-top:8rpx; color:#777; font-size:24rpx; line-height:1.6; }
+.empty { margin-top:20rpx; text-align:center; color:#888; }

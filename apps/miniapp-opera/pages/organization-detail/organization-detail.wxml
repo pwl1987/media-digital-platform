@@ -1,0 +1,8 @@
+<view class="container" wx:if="{{organization}}">
+  <view class="card hero">
+    <view class="title">{{organization.title}}</view>
+    <view class="subtitle">{{organization.summary}}</view>
+  </view>
+  <view class="section-title">团队档案</view>
+  <view class="card">代表剧目、主要演员、演出记录与相关影像由统一内容平台持续补充。</view>
+</view>
