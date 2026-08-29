@@ -4,7 +4,8 @@
     "pages/knowledge/knowledge",
     "pages/ai/ai",
     "pages/museum/museum",
-    "pages/profile/profile"
+    "pages/profile/profile",
+    "pages/detail/detail"
   ],
   "window": {
     "navigationBarTitleText": "沂蒙精神智能平台",
