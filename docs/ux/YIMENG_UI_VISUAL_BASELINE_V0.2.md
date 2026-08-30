@@ -102,6 +102,8 @@ AI 回答的 sources/evidence 与史料著录区必带。
 
 在 V0.1 三段（sources/evidence/related）基础上：
 
+- 回答顶部**AI 生成标识条**（slate-100 底 + 蓝灰字）："本回答由沂蒙精神智能服务生成 ·
+  参考资料 N 项（A 类 x · B 类 y …）"——统计由 sources 的 grade 分布推导（PRD §5.3）；
 - 每条 source 附 SourceGradeBadge；
 - 时间敏感问题（PRD §5.2）时，正文分为 **历史依据**（单色缩略）与 **新时代案例**（彩色缩略）两组。
 

@@ -11,7 +11,7 @@
 
 ```ts
 export type HeritageSourceGrade = 'A' | 'B' | 'C' | 'D';
-// A=官方档案  B=权威出版物  C=媒体报道  D=一般资料
+// A=官方档案  B=权威出版物  C=权威媒体  D=一般资料
 
 export type ArchiveType = 'document' | 'image' | 'press' | 'file'
   | 'oral-history' | 'video' | 'audio';
@@ -112,6 +112,23 @@ export interface TimelineEvent extends BaseContent {
 - `MediaAsset`：沿用；**双色调规则不新增字段**——历史单色/当代彩色由 `era` 或发布年代推导，属视觉层规则（视觉基线 V0.2 §3）。
 - `Evidence`：扩展 `grade: HeritageSourceGrade` 与 `refId?: string; refType?: ContentType`（指向 HeritageResource）。
 - `Knowledge`：沿用，作为精神源流词条载体（`evidenceIds` 挂证据）。
+
+### 2.6 HeritagePlace（评审新增，**Y1.1 extension 预留，暂不实现**）
+
+沂蒙精神强烈依赖空间（沂蒙山区、革命旧址、纪念馆、根据地、红色教育基地），
+未来必然出现 地点—事件—人物—史料 关系：
+
+```ts
+export interface HeritagePlace extends BaseContent {
+  type: 'HeritagePlace';
+  location?: string;                               // 地址描述
+  coordinates?: { lng: number; lat: number };
+  placeType?: 'memorial' | 'site' | 'base' | 'museum' | 'region';
+  relatedResourceIds?: string[];                   // 关联人物/事件/史料
+}
+```
+
+标记为 Y1.1 extension：Y1 首批实现不含本对象，落地时需同步 `ContentType` 联合与契约增补。
 
 ## 3. 引用关系（citation graph，Y2 交付）
 
