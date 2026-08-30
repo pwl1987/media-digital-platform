@@ -1,0 +1,38 @@
+<view class="container">
+  <view class="page-head">
+    <view class="page-title">新时代传承</view>
+    <view class="page-sub">沂蒙精神不止于历史——基层实践、文化传承、教育案例与新时代答卷</view>
+  </view>
+
+  <scroll-view class="type-tabs" scroll-x>
+    <view
+      wx:for="{{tabs}}"
+      wx:key="key"
+      class="type-tab {{activeType === item.key ? 'type-tab--on' : ''}}"
+      data-key="{{item.key}}"
+      bindtap="switchType"
+    >{{item.label}}</view>
+  </scroll-view>
+
+  <view wx:if="{{loading}}" class="state">正在整理传承故事…</view>
+  <view wx:elif="{{error}}" class="state">
+    <view>故事调取失败</view>
+    <view class="retry-btn" bindtap="retry">重新调取</view>
+  </view>
+
+  <block wx:else>
+    <block wx:for="{{items}}" wx:key="id">
+      <view wx:if="{{!activeType || item.storyType === activeType}}" class="story-card">
+        <view class="story-tag story-tag--{{item.storyType === 'new-era-practice' ? 'red' : 'plain'}}">{{item.typeLabel}}</view>
+        <view class="story-title">{{item.title}}</view>
+        <view class="story-summary">{{item.summary}}</view>
+        <view class="story-persons">
+          <text wx:for="{{item.personIds}}" wx:key="*this" wx:for-item="pid" wx:for-index="pidx"
+            class="story-person" data-id="{{pid}}" catchtap="openPerson">{{item.personNames[pidx]}}</text>
+        </view>
+      </view>
+    </block>
+    <view class="to-memory">回望来路：进入「历史记忆」时间轴 →</view>
+    <view class="seed-note">本页内容为工程种子数据，正式内容由平台审核后发布</view>
+  </block>
+</view>

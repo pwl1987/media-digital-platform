@@ -1,0 +1,26 @@
+/* 人物档案：黑白庄重人像 + 红色名条 + 金色仅勋章（V0.2 §2.1/§4.2） */
+.container { padding: 32rpx; padding-bottom: 56rpx; }
+
+.person-card { background: var(--ymh-surface); border: 1rpx solid var(--ymh-paper-deep); border-radius: 12rpx; box-shadow: var(--ymh-shadow-rest); overflow: hidden; }
+.portrait { height: 360rpx; background: var(--ymh-stone); display: flex; align-items: center; justify-content: center; filter: grayscale(1); }
+.portrait-glyph { font-size: 120rpx; color: var(--ymh-paper); font-family: "Songti SC", "STSong", serif; }
+.name-bar { background: var(--ymh-red-800); padding: 24rpx 32rpx; display: flex; align-items: baseline; gap: 20rpx; }
+.name { font-size: 38rpx; font-weight: 700; color: #F2ECDF; font-family: "Songti SC", "STSong", serif; }
+.years { font-size: 24rpx; color: rgba(242, 236, 223, 0.85); font-variant-numeric: tabular-nums; }
+.identity { padding: 20rpx 32rpx 0; font-size: 26rpx; color: var(--ymh-slate-700); }
+.honors { padding: 20rpx 32rpx 28rpx; display: flex; gap: 12rpx; }
+.honor-medal { font-size: 22rpx; color: #8C6E14; background: var(--ymh-gold-bg); border: 1rpx solid var(--ymh-gold-500); border-radius: 4rpx; padding: 6rpx 16rpx; }
+
+.section { margin-top: 40rpx; }
+.section-title { font-size: 30rpx; font-weight: 650; color: var(--ymh-ink); padding-left: 16rpx; border-left: 6rpx solid var(--ymh-red-800); line-height: 1.3; }
+.body-text { margin-top: 20rpx; font-size: 28rpx; line-height: 1.75; color: var(--ymh-text); }
+
+.related-row { display: flex; align-items: center; gap: 16rpx; padding: 20rpx 0; border-bottom: 1rpx solid var(--ymh-paper-deep); }
+.related-type { font-size: 22rpx; color: var(--ymh-slate-700); background: var(--ymh-slate-100); border-radius: 4rpx; padding: 4rpx 12rpx; flex-shrink: 0; }
+.related-title { flex: 1; font-size: 26rpx; color: var(--ymh-text); line-height: 1.4; }
+.arrow { color: var(--ymh-text-3); font-size: 32rpx; }
+
+.seed-note { margin-top: 40rpx; text-align: center; font-size: 22rpx; color: var(--ymh-text-3); }
+
+.state { margin-top: 96rpx; text-align: center; color: var(--ymh-text-2); font-size: 26rpx; }
+.retry-btn { margin: 24rpx auto 0; width: 200rpx; padding: 14rpx 0; border: 1rpx solid var(--ymh-slate-600); border-radius: 8rpx; color: var(--ymh-slate-700); font-size: 26rpx; }

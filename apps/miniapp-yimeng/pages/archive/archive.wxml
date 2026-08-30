@@ -1,0 +1,53 @@
+<view class="container">
+  <view class="workbench-head">
+    <view class="wb-title">珍贵史料</view>
+    <view class="wb-sub">沂蒙精神数字资源 · 共 {{total}} 条著录</view>
+    <view class="search-box">
+      <input class="search-input" placeholder="检索史料名称、著录内容" value="{{q}}" bindinput="onInput" bindconfirm="onSearch" confirm-type="search" />
+      <view class="search-btn" bindtap="onSearch">检索</view>
+    </view>
+    <scroll-view class="type-tabs" scroll-x>
+      <view
+        wx:for="{{tabs}}"
+        wx:key="key"
+        class="type-tab {{activeType === item.key ? 'type-tab--on' : ''}}"
+        data-key="{{item.key}}"
+        bindtap="switchType"
+      >{{item.label}}</view>
+    </scroll-view>
+  </view>
+
+  <view wx:if="{{loading}}" class="state">正在调取档案…</view>
+
+  <view wx:elif="{{error}}" class="state">
+    <view>调阅失败，请重试</view>
+    <view class="retry-btn" bindtap="retry">重新调阅</view>
+  </view>
+
+  <view wx:elif="{{!items.length}}" class="state">
+    {{searched ? '未检索到匹配史料，可调整分类或关键词' : '暂无史料著录'}}
+  </view>
+
+  <block wx:else>
+    <view
+      wx:for="{{items}}"
+      wx:key="id"
+      class="archive-card"
+      data-id="{{item.id}}"
+      bindtap="openDetail"
+    >
+      <view class="ac-thumb ac-thumb--{{item.archiveType}}">
+        <view class="ac-type">{{item.typeLabel}}</view>
+      </view>
+      <view class="ac-body">
+        <view class="ac-title">{{item.title}}</view>
+        <view class="ac-meta">
+          <text class="ac-era">{{item.era}}</text>
+          <text class="grade-badge grade-badge--{{item.grade}}">{{item.gradeLabel}}</text>
+        </view>
+        <view class="ac-summary">{{item.summary}}</view>
+      </view>
+    </view>
+    <view class="seed-note">本库当前为工程种子数据（{{items.length}} 条 · 未审核）</view>
+  </block>
+</view>

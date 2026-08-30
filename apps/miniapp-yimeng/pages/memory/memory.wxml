@@ -1,0 +1,60 @@
+<view class="container">
+  <view class="page-head">
+    <view class="page-title">历史记忆</view>
+    <view class="page-sub">从根据地创建到新时代的时间脉络 · 点击节点展开人物与史料</view>
+  </view>
+
+  <view wx:if="{{loading}}" class="state">正在铺开时间轴…</view>
+  <view wx:elif="{{error}}" class="state">
+    <view>时间轴调取失败</view>
+    <view class="retry-btn" bindtap="retry">重新调取</view>
+  </view>
+
+  <block wx:else>
+    <view wx:for="{{eras}}" wx:key="era" wx:for-item="group" class="era-group">
+      <view class="era-anchor">
+        <view class="era-line"></view>
+        <view class="era-text">{{group.era}}</view>
+      </view>
+
+      <view
+        wx:for="{{group.events}}"
+        wx:key="id"
+        class="event-card {{activeEventId === item.id ? 'event-card--open' : ''}}"
+      >
+        <view class="event-head" data-id="{{item.id}}" bindtap="toggleEvent">
+          <view class="event-date">{{item.date}}</view>
+          <view class="event-title">{{item.title}}</view>
+          <view class="event-summary">{{item.summary}}</view>
+          <view class="event-foot">
+            <text wx:if="{{item.personNames.length}}" class="event-persons">{{item.personNames}}</text>
+            <text class="event-count">{{item.archiveCount}} 份史料</text>
+            <text class="event-toggle">{{activeEventId === item.id ? '收起' : '展开'}}</text>
+          </view>
+        </view>
+
+        <view wx:if="{{activeEventId === item.id}}" class="event-body">
+          <view wx:if="{{!item.archives.length}}" class="rel-empty">史料调取中…</view>
+          <view
+            wx:for="{{item.archives}}"
+            wx:key="id"
+            wx:for-item="arch"
+            class="mini-archive"
+            data-id="{{arch.id}}"
+            bindtap="openArchive"
+          >
+            <text class="mini-type">{{arch.typeLabel}}</text>
+            <text class="mini-title">{{arch.title}}</text>
+            <text class="mini-arrow">›</text>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <view class="era-continue">
+      <view class="era-line"></view>
+      <view class="era-text era-text--today">新时代 · 传承继续</view>
+    </view>
+    <view class="to-stories" bindtap="openStories">进入「新时代传承」→</view>
+  </block>
+</view>

@@ -1,0 +1,40 @@
+<view class="container">
+  <view wx:if="{{loading}}" class="state">正在调取人物档案…</view>
+
+  <view wx:elif="{{error || !person}}" class="state">
+    <view>人物档案不存在</view>
+    <view class="retry-btn" bindtap="retry">重新调取</view>
+  </view>
+
+  <block wx:else>
+    <view class="person-card">
+      <view class="portrait">
+        <view class="portrait-glyph">{{nameGlyph}}</view>
+      </view>
+      <view class="name-bar">
+        <text class="name">{{person.title}}</text>
+        <text class="years">{{years}}</text>
+      </view>
+      <view class="identity">{{person.identity}}</view>
+      <view wx:if="{{person.honors && person.honors.length}}" class="honors">
+        <text wx:for="{{person.honors}}" wx:key="*this" class="honor-medal">{{item}}</text>
+      </view>
+    </view>
+
+    <view class="section">
+      <view class="section-title">事迹</view>
+      <view class="body-text">{{person.deeds || person.summary}}</view>
+    </view>
+
+    <view class="section" wx:if="{{archives.length}}">
+      <view class="section-title">相关史料</view>
+      <view wx:for="{{archives}}" wx:key="id" class="related-row" data-id="{{item.id}}" bindtap="openArchive">
+        <text class="related-type">{{item.typeLabel}}</text>
+        <text class="related-title">{{item.title}}</text>
+        <text class="arrow">›</text>
+      </view>
+    </view>
+
+    <view class="seed-note">人物档案为工程种子数据，正式内容以官方审核发布为准</view>
+  </block>
+</view>

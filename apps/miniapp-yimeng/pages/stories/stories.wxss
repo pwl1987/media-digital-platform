@@ -1,0 +1,24 @@
+/* 新时代传承：故事卡；新时代内容按“当代=彩色”叙事可用彩色点缀（V0.2 §3） */
+.container { padding: 32rpx; padding-bottom: 56rpx; }
+
+.page-title { font-size: 40rpx; font-weight: 700; color: var(--ymh-ink); font-family: "Songti SC", "STSong", serif; }
+.page-sub { margin-top: 8rpx; font-size: 24rpx; color: var(--ymh-slate-600); line-height: 1.5; }
+
+.type-tabs { margin-top: 24rpx; white-space: nowrap; }
+.type-tab { display: inline-block; padding: 12rpx 28rpx; margin-right: 12rpx; border-radius: 4rpx; background: var(--ymh-slate-100); color: var(--ymh-slate-700); font-size: 24rpx; }
+.type-tab--on { background: var(--ymh-red-800); color: #F2ECDF; }
+
+.story-card { margin-top: 20rpx; background: var(--ymh-surface); border: 1rpx solid var(--ymh-paper-deep); border-radius: 12rpx; box-shadow: var(--ymh-shadow-rest); padding: 28rpx; }
+.story-tag { display: inline-block; padding: 4rpx 14rpx; border-radius: 4rpx; font-size: 22rpx; }
+.story-tag--red { background: var(--ymh-red-800); color: #F2ECDF; }
+.story-tag--plain { background: var(--ymh-slate-100); color: var(--ymh-slate-700); }
+.story-title { margin-top: 16rpx; font-size: 30rpx; font-weight: 650; color: var(--ymh-ink); }
+.story-summary { margin-top: 10rpx; font-size: 25rpx; line-height: 1.6; color: var(--ymh-text-2); }
+.story-persons { margin-top: 18rpx; display: flex; flex-wrap: wrap; gap: 12rpx; }
+.story-person { font-size: 24rpx; color: var(--ymh-red-800); background: var(--ymh-paper); border: 1rpx solid var(--ymh-paper-deep); border-radius: 4rpx; padding: 8rpx 18rpx; }
+
+.to-memory { margin-top: 36rpx; text-align: center; font-size: 26rpx; color: var(--ymh-slate-700); padding: 8rpx 0; }
+.seed-note { margin-top: 24rpx; text-align: center; font-size: 22rpx; color: var(--ymh-text-3); }
+
+.state { margin-top: 96rpx; text-align: center; color: var(--ymh-text-2); font-size: 26rpx; }
+.retry-btn { margin: 24rpx auto 0; width: 200rpx; padding: 14rpx 0; border: 1rpx solid var(--ymh-slate-600); border-radius: 8rpx; color: var(--ymh-slate-700); font-size: 26rpx; }

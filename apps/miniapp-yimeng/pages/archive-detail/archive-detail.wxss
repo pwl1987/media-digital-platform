@@ -1,0 +1,46 @@
+/* 数字档案卡：著录表格化、蓝灰标签（V0.2 §4/§6.2/§6.3） */
+.container { padding: 32rpx; padding-bottom: 56rpx; }
+
+.catalog-card { background: var(--ymh-surface); border: 1rpx solid var(--ymh-paper-deep); border-radius: 12rpx; box-shadow: var(--ymh-shadow-rest); padding: 32rpx; }
+.cc-type { display: inline-block; padding: 6rpx 16rpx; background: var(--ymh-slate-100); color: var(--ymh-slate-700); font-size: 22rpx; border-radius: 4rpx; }
+.cc-title { margin-top: 20rpx; font-size: 36rpx; font-weight: 700; line-height: 1.35; color: var(--ymh-ink); font-family: "Songti SC", "STSong", serif; }
+.cc-rows { margin-top: 28rpx; border-top: 1rpx solid var(--ymh-stone); }
+.cc-row { display: flex; justify-content: space-between; align-items: center; padding: 20rpx 0; border-bottom: 1rpx solid var(--ymh-paper-deep); }
+.cc-label { font-size: 24rpx; color: var(--ymh-slate-600); }
+.cc-value { font-size: 26rpx; color: var(--ymh-text); font-variant-numeric: tabular-nums; }
+.cc-code { font-size: 24rpx; color: var(--ymh-slate-700); }
+
+.grade-badge { padding: 4rpx 14rpx; border-radius: 4rpx; font-size: 22rpx; }
+.grade-badge--A { background: var(--ymh-grade-a-bg); color: var(--ymh-grade-a-fg); }
+.grade-badge--B { background: var(--ymh-grade-b-bg); color: var(--ymh-grade-b-fg); }
+.grade-badge--C { background: var(--ymh-grade-c-bg); color: var(--ymh-grade-c-fg); }
+.grade-badge--D { background: var(--ymh-grade-d-bg); color: var(--ymh-grade-d-fg); }
+
+.section { margin-top: 40rpx; }
+.section-title { font-size: 30rpx; font-weight: 650; color: var(--ymh-ink); padding-left: 16rpx; border-left: 6rpx solid var(--ymh-red-800); line-height: 1.3; }
+.body-text { margin-top: 20rpx; font-size: 28rpx; line-height: 1.75; color: var(--ymh-text); }
+
+.transcript { margin-top: 24rpx; background: var(--ymh-paper); border-left: 6rpx solid var(--ymh-red-800); padding: 24rpx; }
+.transcript-label { font-size: 22rpx; color: var(--ymh-slate-600); margin-bottom: 12rpx; }
+
+.source-row { margin-top: 16rpx; display: flex; gap: 16rpx; align-items: flex-start; background: var(--ymh-paper); padding: 20rpx; border-radius: 8rpx; }
+.source-body { flex: 1; }
+.source-name { font-size: 26rpx; color: var(--ymh-ink); }
+.source-locator { margin-top: 6rpx; font-size: 22rpx; color: var(--ymh-slate-600); font-variant-numeric: tabular-nums; }
+
+.rel-group { margin-top: 24rpx; }
+.rel-label { font-size: 22rpx; color: var(--ymh-slate-600); margin-bottom: 12rpx; }
+.person-chip { display: inline-block; margin: 0 16rpx 16rpx 0; background: var(--ymh-surface); border: 1rpx solid var(--ymh-stone); border-radius: 8rpx; padding: 16rpx 24rpx; }
+.person-name { font-size: 28rpx; font-weight: 650; color: var(--ymh-ink); }
+.person-identity { margin-top: 4rpx; font-size: 22rpx; color: var(--ymh-slate-600); }
+
+.event-row, .related-row { display: flex; align-items: center; gap: 16rpx; padding: 20rpx 0; border-bottom: 1rpx solid var(--ymh-paper-deep); }
+.event-era { font-size: 22rpx; color: var(--ymh-slate-600); font-variant-numeric: tabular-nums; font-family: "Songti SC", "STSong", serif; }
+.event-title, .related-title { flex: 1; font-size: 26rpx; color: var(--ymh-text); }
+.related-type { font-size: 22rpx; color: var(--ymh-slate-700); background: var(--ymh-slate-100); border-radius: 4rpx; padding: 4rpx 12rpx; }
+.event-arrow { color: var(--ymh-text-3); font-size: 32rpx; }
+
+.seed-note { margin-top: 40rpx; text-align: center; font-size: 22rpx; color: var(--ymh-text-3); }
+
+.state { margin-top: 96rpx; text-align: center; color: var(--ymh-text-2); font-size: 26rpx; }
+.retry-btn { margin: 24rpx auto 0; width: 200rpx; padding: 14rpx 0; border: 1rpx solid var(--ymh-slate-600); border-radius: 8rpx; color: var(--ymh-slate-700); font-size: 26rpx; }

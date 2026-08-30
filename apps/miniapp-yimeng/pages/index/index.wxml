@@ -1,19 +1,19 @@
 <view class="container">
-  <view class="card hero" bindtap="goAI">
-    <view class="eyebrow">沂蒙精神 · 智能平台</view>
-    <view class="title">传承沂蒙精神</view>
-    <view class="subtitle" style="color:#f7e9ed">让红色文化看得见、听得到、问得懂</view>
-    <view class="hero-action">和 AI 一起探索 ›</view>
+  <!-- 主视觉：平台定位（IA V1.0 §2 首页首区；AI 入口弱化为末位服务入口） -->
+  <view class="card hero">
+    <view class="eyebrow">沂蒙精神数字传承平台</view>
+    <view class="title">一座永不落幕的红色精神数字展馆</view>
+    <view class="subtitle" style="color:#f7e9ed">保护 · 研究 · 传播 · 传承</view>
   </view>
 
-  <view class="search" bindtap="goSearch">搜索人物、故事、历史、地点</view>
+  <view class="search" bindtap="goSearch">检索人物、故事、史料、历史</view>
 
-  <view class="section-title">探索沂蒙</view>
+  <view class="section-title">走进沂蒙</view>
   <view class="grid">
-    <view class="card entry" bindtap="goAI"><view class="entry-icon">AI</view><view>智能问答</view></view>
-    <view class="card entry" bindtap="goKnowledge"><view class="entry-icon">知</view><view>人物与故事</view></view>
+    <view class="card entry" bindtap="goArchive"><view class="entry-icon">档</view><view>珍贵史料</view></view>
+    <view class="card entry" bindtap="goMemory"><view class="entry-icon">史</view><view>历史记忆</view></view>
+    <view class="card entry" bindtap="goStories"><view class="entry-icon">承</view><view>新时代传承</view></view>
     <view class="card entry" bindtap="goMuseum"><view class="entry-icon">馆</view><view>数字展馆</view></view>
-    <view class="card entry"><view class="entry-icon">展</view><view>专题内容</view></view>
   </view>
 
   <view class="section-title">精选内容 <text class="more">更多 ›</text></view>
@@ -21,5 +21,20 @@
     <view class="content-tag">{{item.type}}</view>
     <view class="content-title">{{item.title}}</view>
     <view class="content-arrow">›</view>
+  </view>
+
+  <!-- AI 智能助手：服务入口（弱化为列表末位，IA V1.0 §2） -->
+  <view class="ai-entry" bindtap="goAI">
+    <view class="ai-entry-icon">AI</view>
+    <view class="ai-entry-body">
+      <view class="ai-entry-title">智能服务</view>
+      <view class="ai-entry-sub">以史料为据回答问题 · 溯源可查</view>
+    </view>
+    <view class="content-arrow">›</view>
+  </view>
+
+  <view class="official-footer">
+    <view>沂蒙精神数字传承平台</view>
+    <view class="official-footer-sub">主管单位：沂蒙精神数字传承平台建设工作组</view>
   </view>
 </view>

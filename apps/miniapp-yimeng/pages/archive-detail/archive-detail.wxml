@@ -1,0 +1,79 @@
+<view class="container">
+  <view wx:if="{{loading}}" class="state">正在调取档案…</view>
+
+  <view wx:elif="{{error}}" class="state">
+    <view>档案不存在或调阅失败</view>
+    <view class="retry-btn" bindtap="retry">重新调阅</view>
+  </view>
+
+  <block wx:else>
+    <!-- 数字档案卡：著录区 -->
+    <view class="catalog-card">
+      <view class="cc-type">{{archive.typeLabel}}史料</view>
+      <view class="cc-title">{{archive.title}}</view>
+      <view class="cc-rows">
+        <view class="cc-row"><text class="cc-label">形成年代</text><text class="cc-value">{{archive.era}}</text></view>
+        <view class="cc-row"><text class="cc-label">来源等级</text><text class="grade-badge grade-badge--{{archive.grade}}">{{archive.gradeLabel}}</text></view>
+        <view class="cc-row"><text class="cc-label">收藏藏所</text><text class="cc-value">{{archive.custody}}</text></view>
+        <view class="cc-row"><text class="cc-label">著录编号</text><text class="cc-value cc-code">{{archive.citationId}}</text></view>
+        <view class="cc-row"><text class="cc-label">原件状态</text><text class="cc-value">{{archive.physical === 'original' ? '原件' : '复制品'}}</text></view>
+        <view class="cc-row"><text class="cc-label">审核状态</text><text class="cc-value">{{statusNote}}</text></view>
+      </view>
+    </view>
+
+    <!-- 史料正文 -->
+    <view class="section">
+      <view class="section-title">史料说明</view>
+      <view class="body-text">{{archive.summary}}</view>
+      <view wx:if="{{archive.transcript}}" class="transcript">
+        <view class="transcript-label">文字稿</view>
+        <view class="body-text">{{archive.transcript}}</view>
+      </view>
+    </view>
+
+    <!-- 来源依据 -->
+    <view class="section" wx:if="{{sources.length}}">
+      <view class="section-title">来源依据</view>
+      <view wx:for="{{sources}}" wx:key="id" class="source-row">
+        <text class="grade-badge grade-badge--{{item.grade}}">{{item.gradeLabel}}</text>
+        <view class="source-body">
+          <view class="source-name">{{item.name}}</view>
+          <view class="source-locator">{{item.locator}}</view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 轻量关系网络 -->
+    <view class="section" wx:if="{{persons.length || events.length || relatedArchives.length}}">
+      <view class="section-title">这份史料还关联</view>
+
+      <view wx:if="{{persons.length}}" class="rel-group">
+        <view class="rel-label">关联人物</view>
+        <view wx:for="{{persons}}" wx:key="id" class="person-chip" data-id="{{item.id}}" bindtap="openPerson">
+          <view class="person-name">{{item.title}}</view>
+          <view class="person-identity">{{item.identity}}</view>
+        </view>
+      </view>
+
+      <view wx:if="{{events.length}}" class="rel-group">
+        <view class="rel-label">关联事件</view>
+        <view wx:for="{{events}}" wx:key="id" class="event-row" bindtap="goMemory">
+          <text class="event-era">{{item.era}}</text>
+          <text class="event-title">{{item.title}}</text>
+          <text class="event-arrow">›</text>
+        </view>
+      </view>
+
+      <view wx:if="{{relatedArchives.length}}" class="rel-group">
+        <view class="rel-label">相关史料</view>
+        <view wx:for="{{relatedArchives}}" wx:key="id" class="related-row" data-id="{{item.id}}" bindtap="openArchive">
+          <text class="related-type">{{item.typeLabel}}</text>
+          <text class="related-title">{{item.title}}</text>
+          <text class="event-arrow">›</text>
+        </view>
+      </view>
+    </view>
+
+    <view class="seed-note">本档案为工程种子数据（{{statusNote}}），正式内容以官方审核发布为准</view>
+  </block>
+</view>
