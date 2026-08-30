@@ -17,12 +17,12 @@
   "window": {
     "navigationBarTitleText": "沂蒙小戏小剧",
     "navigationBarTextStyle": "white",
-    "navigationBarBackgroundColor": "#7A1F1F",
-    "backgroundColor": "#F7F5F2"
+    "navigationBarBackgroundColor": "#8B1E24",
+    "backgroundColor": "#F7F3EA"
   },
   "tabBar": {
     "color": "#777777",
-    "selectedColor": "#7A1F1F",
+    "selectedColor": "#8B1E24",
     "backgroundColor": "#FFFFFF",
     "list": [
       { "pagePath": "pages/index/index", "text": "首页" },

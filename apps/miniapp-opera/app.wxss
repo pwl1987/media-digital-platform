@@ -1,4 +1,8 @@
-page { background: #F7F5F2; color: #241F1D; font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif; }
+@import '../../packages/design-system/tokens-opera.wxss';
+
+/* 基础主题按 OPERA_UI_VISUAL_BASELINE_V0.1 token 化；旧页面遗留色值待后续批次收口 */
+page { background: var(--ym-paper, #F7F3EA); color: var(--ym-ink, #1F1F1F); font-family: "PingFang SC", "HarmonyOS Sans SC", "MiSans", -apple-system, sans-serif; }
+.serif { font-family: "Noto Serif SC", "Songti SC", "STSong", "SimSun", serif; }
 .container { padding: 32rpx; box-sizing: border-box; padding-bottom: 50rpx; }
 .card { background: #FFFFFF; border-radius: 20rpx; padding: 28rpx; box-shadow: 0 8rpx 24rpx rgba(0,0,0,.04); }
 .title { font-size: 40rpx; font-weight: 700; }
