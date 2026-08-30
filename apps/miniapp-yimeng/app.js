@@ -1,6 +1,6 @@
 App({
   globalData: {
     apiMode: 'mock',
-    appName: '沂蒙精神智能平台'
+    appName: '沂蒙精神数字传承平台'
   }
 });

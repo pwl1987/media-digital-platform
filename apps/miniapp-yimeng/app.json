@@ -1,28 +1,33 @@
 {
   "pages": [
     "pages/index/index",
+    "pages/museum/museum",
+    "pages/archive/archive",
+    "pages/archive-detail/archive-detail",
+    "pages/memory/memory",
+    "pages/stories/stories",
+    "pages/person-detail/person-detail",
     "pages/knowledge/knowledge",
     "pages/ai/ai",
-    "pages/museum/museum",
     "pages/profile/profile",
     "pages/search/search",
     "pages/detail/detail"
   ],
   "window": {
-    "navigationBarTitleText": "沂蒙精神智能平台",
+    "navigationBarTitleText": "沂蒙精神数字传承平台",
     "navigationBarTextStyle": "white",
-    "navigationBarBackgroundColor": "#9E1B32",
-    "backgroundColor": "#F7F7F5"
+    "navigationBarBackgroundColor": "#6E1418",
+    "backgroundColor": "#F2ECDF"
   },
   "tabBar": {
     "color": "#777777",
-    "selectedColor": "#9E1B32",
+    "selectedColor": "#6E1418",
     "backgroundColor": "#FFFFFF",
     "list": [
       { "pagePath": "pages/index/index", "text": "首页" },
-      { "pagePath": "pages/knowledge/knowledge", "text": "知识" },
-      { "pagePath": "pages/ai/ai", "text": "AI问答" },
       { "pagePath": "pages/museum/museum", "text": "展馆" },
+      { "pagePath": "pages/archive/archive", "text": "史料" },
+      { "pagePath": "pages/ai/ai", "text": "智能服务" },
       { "pagePath": "pages/profile/profile", "text": "我的" }
     ]
   },

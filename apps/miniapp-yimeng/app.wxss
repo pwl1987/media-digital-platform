@@ -1,4 +1,7 @@
-page { background: #F7F7F5; color: #222; font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif; }
+@import '../../packages/design-system/tokens.wxss';
+
+/* 基础主题按 YIMENG_UI_VISUAL_BASELINE_V0.2 token 化；旧页面遗留类待后续改版收口 */
+page { background: var(--ymh-paper, #F2ECDF); color: var(--ymh-ink, #1F1F1F); font-family: "PingFang SC", "HarmonyOS Sans SC", "MiSans", -apple-system, sans-serif; }
 .container { padding: 32rpx; box-sizing: border-box; padding-bottom: 56rpx; }
 .card { background:#fff; border-radius:20rpx; padding:28rpx; box-shadow:0 8rpx 24rpx rgba(0,0,0,.04); box-sizing:border-box; }
 .title { font-size:40rpx; font-weight:700; line-height:1.25; }
@@ -24,3 +27,12 @@ page { background: #F7F7F5; color: #222; font-family: -apple-system, BlinkMacSys
 .muted { color:#888; }
 .menu-row { display:flex; justify-content:space-between; align-items:center; margin-top:14rpx; font-size:27rpx; }
 .version { text-align:center; font-size:22rpx; margin-top:30rpx; }
+
+/* 首页：智能服务入口（弱化为末位，IA V1.0 §2）与官方页脚（V0.2 §5 OfficialFooter） */
+.ai-entry { margin-top:36rpx; background:var(--ymh-surface,#fff); border:1rpx solid var(--ymh-paper-deep,#E9E0CC); border-radius:12rpx; box-shadow:var(--ymh-shadow-rest); padding:26rpx; display:flex; align-items:center; gap:20rpx; }
+.ai-entry-icon { width:64rpx; height:64rpx; border-radius:8rpx; background:var(--ymh-slate-700,#43525F); color:#fff; font-size:24rpx; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+.ai-entry-body { flex:1; min-width:0; }
+.ai-entry-title { font-size:29rpx; font-weight:650; color:var(--ymh-ink,#1F1F1F); }
+.ai-entry-sub { margin-top:4rpx; font-size:23rpx; color:var(--ymh-slate-600,#5B6B7A); }
+.official-footer { margin-top:48rpx; text-align:center; font-size:22rpx; color:var(--ymh-text-3,#9B9B9B); line-height:1.7; }
+.official-footer-sub { font-size:20rpx; }
