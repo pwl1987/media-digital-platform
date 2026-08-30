@@ -1,0 +1,20 @@
+/* 影像馆：视频墙 2 列（MediaCard 必备字段齐备，基线 §6.4/§10） */
+.page { min-height: 100vh; background: var(--ym-paper); padding: 34rpx 28rpx 60rpx; }
+.header { padding: 12rpx 4rpx 24rpx; }
+.eyebrow { font-size: 22rpx; letter-spacing: 3rpx; color: var(--ym-gold-700); font-weight: 700; }
+.title { font-size: 46rpx; font-weight: 800; margin-top: 8rpx; color: var(--ym-ink); }
+
+.cats { white-space: nowrap; padding-bottom: 20rpx; }
+.cat { display: inline-block; margin-right: 14rpx; padding: 12rpx 24rpx; border: 1rpx solid var(--ym-line); border-radius: 4rpx; color: var(--ym-text-2); font-size: 24rpx; background: var(--ym-surface); }
+.cat--on { background: var(--ym-red-700); color: #fff; border-color: var(--ym-red-700); }
+
+.wall { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20rpx; }
+.media-card { background: var(--ym-surface); border-radius: 12rpx; box-shadow: var(--ym-shadow-rest); overflow: hidden; }
+.cover { height: 200rpx; background: linear-gradient(150deg, var(--ym-red-900), var(--ym-red-700)); position: relative; }
+.cat-tag { position: absolute; top: 14rpx; left: 14rpx; font-size: 20rpx; color: #fff; background: rgba(31,31,31,0.35); border-radius: 4rpx; padding: 4rpx 10rpx; }
+.duration { position: absolute; right: 14rpx; bottom: 14rpx; font-size: 20rpx; color: #fff; background: rgba(31,31,31,0.55); border-radius: 4rpx; padding: 4rpx 10rpx; font-variant-numeric: tabular-nums; }
+.title { padding: 16rpx 18rpx 4rpx; font-size: 26rpx; font-weight: 650; color: var(--ym-ink); line-height: 1.4; }
+.meta { padding: 0 18rpx 16rpx; margin-top: 6rpx; font-size: 22rpx; color: var(--ym-text-3); }
+
+.state { text-align: center; padding-top: 120rpx; color: var(--ym-text-2); font-size: 26rpx; }
+.retry-btn { margin: 24rpx auto 0; width: 200rpx; padding: 14rpx 0; border: 1rpx solid var(--ym-red-700); border-radius: 8rpx; color: var(--ym-red-700); font-size: 26rpx; }

@@ -1,0 +1,34 @@
+<view class="page">
+  <view class="header">
+    <view class="eyebrow">官方影像档案</view>
+    <view class="title serif">小戏小剧影像馆</view>
+  </view>
+
+  <scroll-view scroll-x class="cats" show-scrollbar="false">
+    <view
+      wx:for="{{categories}}"
+      wx:key="*this"
+      class="cat {{active === item ? 'cat--on' : ''}}"
+      data-cat="{{item}}"
+      bindtap="selectCategory"
+    >{{item}}</view>
+  </scroll-view>
+
+  <view wx:if="{{loading}}" class="state">正在调取影像…</view>
+  <view wx:elif="{{error}}" class="state">
+    <view>影像加载失败</view>
+    <view class="retry-btn" bindtap="retry">重新加载</view>
+  </view>
+  <view wx:elif="{{!items.length}}" class="state">该分类暂无影像</view>
+
+  <view wx:else class="wall">
+    <view wx:for="{{items}}" wx:key="id" class="media-card" data-id="{{item.id}}" bindtap="openVideo">
+      <view class="cover">
+        <view class="cat-tag">{{item.category}}</view>
+        <view class="duration">{{item.durationLabel}}</view>
+      </view>
+      <view class="title">{{item.title}}</view>
+      <view class="meta">{{item.sourceName}} · {{item.resolution}}</view>
+    </view>
+  </view>
+</view>

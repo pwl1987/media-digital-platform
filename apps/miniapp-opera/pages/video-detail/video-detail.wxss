@@ -1,0 +1,26 @@
+/* 视频详情：播放面 + 著录信息（红金宣纸 token 化） */
+.page { min-height: 100vh; background: var(--ym-paper); padding: 0 0 60rpx; }
+
+.player { height: 420rpx; background: linear-gradient(160deg, var(--ym-red-900), var(--ym-red-700)); display: flex; flex-direction: column; align-items: center; justify-content: center; color: rgba(255,255,255,0.92); }
+.player-title { font-size: 44rpx; letter-spacing: 4rpx; }
+.player-note { margin-top: 16rpx; font-size: 24rpx; opacity: 0.85; }
+
+.title { padding: 28rpx 30rpx 0; font-size: 36rpx; font-weight: 700; color: var(--ym-ink); line-height: 1.4; }
+.meta-row { padding: 16rpx 30rpx 0; display: flex; align-items: center; gap: 16rpx; }
+.meta-tag { font-size: 22rpx; color: var(--ym-gold-700); background: var(--ym-gold-100); border-radius: 4rpx; padding: 6rpx 14rpx; }
+.meta { font-size: 24rpx; color: var(--ym-text-3); font-variant-numeric: tabular-nums; }
+
+.section { margin-top: 44rpx; padding: 0 30rpx; }
+.section-title { font-size: 32rpx; font-weight: 700; color: var(--ym-ink); padding-left: 16rpx; border-left: 6rpx solid var(--ym-red-700); margin-bottom: 20rpx; font-family: "Noto Serif SC", "Songti SC", serif; }
+
+.video-row { display: flex; gap: 18rpx; background: var(--ym-surface); border-radius: 12rpx; box-shadow: var(--ym-shadow-rest); padding: 18rpx; margin-bottom: 16rpx; align-items: center; }
+.mini-cover { width: 200rpx; height: 118rpx; border-radius: 8rpx; background: linear-gradient(150deg, var(--ym-red-900), var(--ym-red-700)); position: relative; flex-shrink: 0; }
+.mini-duration { position: absolute; right: 12rpx; bottom: 12rpx; font-size: 20rpx; color: #fff; background: rgba(31,31,31,0.55); border-radius: 4rpx; padding: 4rpx 10rpx; font-variant-numeric: tabular-nums; }
+.video-text { flex: 1; min-width: 0; }
+.video-title { font-size: 27rpx; font-weight: 650; color: var(--ym-ink); line-height: 1.4; }
+.video-meta { margin-top: 8rpx; font-size: 22rpx; color: var(--ym-text-3); }
+
+.official-footer { margin-top: 40rpx; text-align: center; font-size: 22rpx; color: var(--ym-text-3); }
+
+.state { text-align: center; padding-top: 180rpx; color: var(--ym-text-2); font-size: 26rpx; }
+.retry-btn { margin: 24rpx auto 0; width: 200rpx; padding: 14rpx 0; border: 1rpx solid var(--ym-red-700); border-radius: 8rpx; color: var(--ym-red-700); font-size: 26rpx; }

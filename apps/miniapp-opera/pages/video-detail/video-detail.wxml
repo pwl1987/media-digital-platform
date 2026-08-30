@@ -1,0 +1,34 @@
+<view class="page">
+  <view wx:if="{{loading}}" class="state">正在加载影像…</view>
+  <view wx:elif="{{error || !video}}" class="state">
+    <view>影像不存在或加载失败</view>
+    <view class="retry-btn" bindtap="retry">重新加载</view>
+  </view>
+
+  <block wx:else>
+    <!-- 播放面：媒资接入前为封面占位（Gate E：无播放地址态有明确提示） -->
+    <view class="player">
+      <view class="player-title serif">{{video.title}}</view>
+      <view class="player-note">官方影像 · 媒资接入后支持在线播放</view>
+    </view>
+
+    <view class="title">{{video.title}}</view>
+    <view class="meta-row">
+      <text class="meta-tag">{{video.category}}</text>
+      <text class="meta">{{video.sourceName}} · {{video.resolution}} · 时长 {{video.durationLabel}}</text>
+    </view>
+
+    <view class="section">
+      <view class="section-title">继续观看</view>
+      <view wx:for="{{others}}" wx:key="id" class="video-row" data-id="{{item.id}}" bindtap="openVideo">
+        <view class="mini-cover"><view class="mini-duration">{{item.durationLabel}}</view></view>
+        <view class="video-text">
+          <view class="video-title">{{item.title}}</view>
+          <view class="video-meta">{{item.category}} · {{item.sourceName}}</view>
+        </view>
+      </view>
+    </view>
+
+    <view class="official-footer">沂蒙小戏小剧官方数字传播平台</view>
+  </block>
+</view>
