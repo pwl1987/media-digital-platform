@@ -1,0 +1,49 @@
+/* 沂蒙精神数字传承平台 · 设计 Token（小程序端）
+   来源：docs/ux/YIMENG_UI_VISUAL_BASELINE_V0.2.md §2（数字纪念馆风）
+   说明：tokens.json 数据源与多端生成工具在 Phase 0.8-B 落地，当前以本文件为准；
+   页面禁止硬编码色值，一律引用 var(--ymh-*)。 */
+
+page {
+  /* 深红（主色，仪式性强调） */
+  --ymh-red-900: #47100F;
+  --ymh-red-800: #6E1418;
+  --ymh-red-500: #8C2A31;
+
+  /* 旧纸（页面底） */
+  --ymh-paper: #F2ECDF;
+  --ymh-paper-deep: #E9E0CC;
+
+  /* 档案蓝灰（著录信息、研究性 UI） */
+  --ymh-slate-700: #43525F;
+  --ymh-slate-600: #5B6B7A;
+  --ymh-slate-300: #A7B3BE;
+  --ymh-slate-100: #E3E8EC;
+
+  /* 石材灰（分割线、底纹、时间轴线） */
+  --ymh-stone: #8A8578;
+
+  /* 墨色文字 */
+  --ymh-ink: #1F1F1F;
+  --ymh-text: #3D3D3D;
+  --ymh-text-2: #6F6F6F;
+  --ymh-text-3: #9B9B9B;
+
+  /* 金色（仅勋章/荣誉） */
+  --ymh-gold-500: #C9A227;
+  --ymh-gold-bg: #F7EFD8;
+
+  /* 表面与阴影 */
+  --ymh-surface: #FFFFFF;
+  --ymh-shadow-rest: 0 2rpx 12rpx rgba(31, 31, 31, 0.06);
+  --ymh-shadow-float: 0 8rpx 24rpx rgba(31, 31, 31, 0.10);
+
+  /* 语义映射（等级徽章：UI 只显示中文标签，不显示字母） */
+  --ymh-grade-a-bg: #6E1418;
+  --ymh-grade-a-fg: #F2ECDF;
+  --ymh-grade-b-bg: #5B6B7A;
+  --ymh-grade-b-fg: #FFFFFF;
+  --ymh-grade-c-bg: #9B9B9B;
+  --ymh-grade-c-fg: #FFFFFF;
+  --ymh-grade-d-bg: #E3E8EC;
+  --ymh-grade-d-fg: #6F6F6F;
+}
