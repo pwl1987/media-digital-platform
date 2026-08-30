@@ -1,5 +1,8 @@
 # 沂蒙精神智能平台 UI/UX 视觉基线 V0.1
 
+> ⚠️ **已被 V0.2 取代**（产品重定位为"沂蒙精神数字传承平台"，视觉方向转数字纪念馆风）：
+> 以 `YIMENG_UI_VISUAL_BASELINE_V0.2.md` 为准。本文件仅作历史基线保留。
+
 > 状态：**Design Freeze V0.1**。与
 > `OPERA_UI_VISUAL_BASELINE_V0.1.md` 共享 token 基座与组件**语义**
 > （`packages/design-system` 边界），但视觉气质独立——两个小程序体验独立是产品基线原则。
