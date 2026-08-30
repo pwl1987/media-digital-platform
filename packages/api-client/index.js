@@ -20,6 +20,7 @@ const endpoints = {
   yimengTimeline: '/api/v1/yimeng/timeline',
   yimengArchives: '/api/v1/yimeng/archives',
   yimengArchiveDetail: (id) => `/api/v1/yimeng/archives/${encodeURIComponent(id)}`,
+  yimengStories: '/api/v1/yimeng/stories',
   aiChat: '/api/v1/yimeng/ai/chat'
 };
 
@@ -49,6 +50,7 @@ function createClient(transport) {
     getTimeline: () => get(endpoints.yimengTimeline),
     getArchives: (query) => get(endpoints.yimengArchives, query),
     getArchive: (id) => get(endpoints.yimengArchiveDetail(id)),
+    getStories: (query) => get(endpoints.yimengStories, query),
     chat: (message, sessionId, context) => post(endpoints.aiChat, {
       message,
       session_id: sessionId,

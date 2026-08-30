@@ -45,6 +45,7 @@ function createMockTransport() {
       if (method === 'GET' && path === '/api/v1/yimeng/archives') return ok(paginate(filterArchives(options.query), options.query));
       if (method === 'GET' && path.startsWith('/api/v1/yimeng/archives/')) return ok(findById(heritage.archives, path.split('/').pop()));
       if (method === 'GET' && path === '/api/v1/yimeng/people') return ok(paginate(heritage.people, options.query));
+      if (method === 'GET' && path === '/api/v1/yimeng/stories') return ok(paginate(heritage.stories, options.query));
       if (method === 'POST' && path === '/api/v1/yimeng/ai/chat') return ok(heritage.aiChat(options.body && options.body.message));
       // ---- Shared / Opera ----
       if (method === 'GET' && path === '/api/v1/news') {
