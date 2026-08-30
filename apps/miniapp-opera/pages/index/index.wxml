@@ -1,51 +1,97 @@
 <view class="container">
-  <view class="card hero">
-    <view class="eyebrow">沂蒙小戏小剧 · 数字宣传平台</view>
-    <view class="title">好戏上演，精彩沂蒙</view>
-    <view class="subtitle" style="color:#F2E4E0">聚焦优秀小戏小剧作品、演出动态与舞台影像，让更多人看见沂蒙文艺。</view>
-    <view class="hero-action" bindtap="goEvents">查看近期展演 ›</view>
+  <!-- 主视觉：官方品牌 + 平台定位（首页 §7） -->
+  <view class="hero">
+    <view class="hero-eyebrow">官方数字传播平台</view>
+    <view class="hero-title serif">沂蒙小戏小剧</view>
+    <view class="hero-sub">资讯带流量 · 剧目做沉淀 · 影像增强传播 · 展演制造热点</view>
   </view>
 
-  <view class="search-entry" bindtap="goWorks">搜索剧目、演员、剧团、活动 <text>⌕</text></view>
+  <view wx:if="{{loading}}" class="state">正在加载官方平台…</view>
+  <view wx:elif="{{error}}" class="state">
+    <view>内容加载失败</view>
+    <view class="retry-btn" bindtap="retry">重新加载</view>
+  </view>
 
-  <view class="section-title">精彩推荐</view>
-  <view class="promo-grid">
-    <view class="promo-card promo-primary" bindtap="goWorks">
-      <view class="promo-kicker">精品剧目</view>
-      <view class="promo-title">精选好戏</view>
-      <view class="promo-desc">认识优秀作品与创作团队</view>
+  <block wx:else>
+    <!-- 最新动态（权重 ≥60%：头条大卡 + 新闻列表） -->
+    <view class="section">
+      <view class="section-head"><view class="section-bar"></view><view class="section-title">最新动态</view><view class="more" bindtap="goNews">更多 ›</view></view>
+      <view wx:if="{{headline}}" class="headline" data-id="{{headline.id}}" bindtap="openNews">
+        <view class="headline-cover">
+          <view class="headline-badge">官方发布</view>
+        </view>
+        <view class="headline-body">
+          <view class="headline-title">{{headline.title}}</view>
+          <view class="headline-summary">{{headline.summary}}</view>
+          <view class="source-meta">来源：{{headline.sourceName}} · {{headline.date}}</view>
+        </view>
+        <view class="headline-gold-line"></view>
+      </view>
+      <view wx:for="{{newsList}}" wx:key="id" class="news-row" data-id="{{item.id}}" bindtap="openNews">
+        <view class="news-text">
+          <view class="news-title">{{item.title}}</view>
+          <view class="source-meta">来源：{{item.sourceName}} · {{item.date}}</view>
+        </view>
+        <view wx:if="{{item.sourceLevelLabel !== '官方发布'}}" class="badge-plain">{{item.sourceLevelLabel}}</view>
+      </view>
     </view>
-    <view class="promo-card promo-secondary" bindtap="goEvents">
-      <view class="promo-kicker">展演资讯</view>
-      <view class="promo-title">近期演出</view>
-      <view class="promo-desc">掌握时间、地点与活动动态</view>
-    </view>
-  </view>
 
-  <view class="section-title">精品剧目 <text class="more" bindtap="goWorks">更多 ›</text></view>
-  <view wx:for="{{works}}" wx:key="id" class="card content-card" data-id="{{item.id}}" bindtap="openWork">
-    <view class="poster-mini">舞台<br/>影像</view>
-    <view class="content-main">
-      <view class="content-tag">{{item.tag}}</view>
-      <view class="content-title">{{item.title}}</view>
-      <view class="content-meta">{{item.organization.title}} · {{item.artists[0].title}}</view>
+    <!-- 精品剧目（横滑海报卡） -->
+    <view class="section">
+      <view class="section-head"><view class="section-bar"></view><view class="section-title">精品剧目</view><view class="more" bindtap="goWorks">更多 ›</view></view>
+      <scroll-view scroll-x class="h-scroll">
+        <view wx:for="{{works}}" wx:key="id" class="work-card" data-id="{{item.id}}" bindtap="openWork">
+          <view class="work-poster"><view class="work-poster-title serif">{{item.title}}</view></view>
+          <view class="work-tag">{{item.tag}}</view>
+          <view class="work-title">《{{item.title}}》</view>
+          <view class="work-org">{{item.organization.title}}</view>
+        </view>
+      </scroll-view>
     </view>
-    <view class="content-arrow">›</view>
-  </view>
 
-  <view class="section-title">近期展演 <text class="more" bindtap="goEvents">全部 ›</text></view>
-  <view wx:for="{{events}}" wx:key="id" class="card event-card" data-id="{{item.id}}" bindtap="openEvent">
-    <view class="event-date">{{item.monthDay}}</view>
-    <view class="event-main">
-      <view class="content-tag">{{item.statusLabel}}</view>
-      <view class="content-title">{{item.title}}</view>
-      <view class="content-meta">{{item.place}} · {{item.timeLabel}}</view>
+    <!-- 精彩影像（视频墙 2 列） -->
+    <view class="section">
+      <view class="section-head"><view class="section-bar"></view><view class="section-title">精彩影像</view><view class="more" bindtap="goVideos">更多 ›</view></view>
+      <view class="video-wall">
+        <view wx:for="{{videos}}" wx:key="id" class="media-card" data-id="{{item.id}}" bindtap="openVideo">
+          <view class="media-cover">
+            <view class="media-cat">{{item.category}}</view>
+            <view class="media-duration">{{item.durationLabel}}</view>
+          </view>
+          <view class="media-title">{{item.title}}</view>
+          <view class="source-meta">{{item.sourceName}} · {{item.resolution}}</view>
+        </view>
+      </view>
     </view>
-  </view>
 
-  <view class="section-title">关于小戏小剧</view>
-  <view class="card culture-intro">
-    <view class="culture-title">记录舞台 · 传播精彩 · 留住记忆</view>
-    <view class="subtitle">以作品、演员、剧团和演出为线索，持续汇聚沂蒙小戏小剧文化内容。</view>
-  </view>
+    <!-- 展演活动 -->
+    <view class="section">
+      <view class="section-head"><view class="section-bar"></view><view class="section-title">展演活动</view><view class="more" bindtap="goEvents">更多 ›</view></view>
+      <view wx:for="{{events}}" wx:key="id" class="event-row" data-id="{{item.id}}" bindtap="openEvent">
+        <view class="event-status event-status--{{item.lifecycleStatus}}">{{item.lifecycleStatus === 'upcoming' ? '预告' : item.lifecycleStatus === 'ongoing' ? '进行中' : '已结束'}}</view>
+        <view class="event-text">
+          <view class="event-title">{{item.title}}</view>
+          <view class="source-meta">{{item.startAt}} · {{item.place}}</view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 文化专题 -->
+    <view class="section">
+      <view class="section-head"><view class="section-bar"></view><view class="section-title">文化专题</view></view>
+      <scroll-view scroll-x class="h-scroll">
+        <view wx:for="{{topics}}" wx:key="id" class="topic-banner" data-category="{{item.category}}" bindtap="openTopic">
+          <view class="topic-title serif">{{item.title}}</view>
+          <view class="topic-sub">{{item.sub}}</view>
+          <view class="topic-enter">进入专题 ›</view>
+        </view>
+      </scroll-view>
+    </view>
+
+    <!-- 官方页脚 -->
+    <view class="official-footer">
+      <view>沂蒙小戏小剧官方数字传播平台</view>
+      <view class="official-footer-sub">主管单位：沂蒙小戏小剧官方平台建设工作组</view>
+    </view>
+  </block>
 </view>
