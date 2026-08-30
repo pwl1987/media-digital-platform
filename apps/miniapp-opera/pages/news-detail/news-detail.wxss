@@ -1,1 +1,40 @@
-.page{min-height:100vh;background:#fbf8f5;padding:36rpx 30rpx 60rpx;color:#2b2421}.official-badge{display:inline-block;background:#f1e2dd;color:#8d3d34;border-radius:8rpx;padding:8rpx 14rpx;font-size:24rpx;font-weight:600}.title{font-size:44rpx;line-height:1.35;font-weight:800;margin:22rpx 0 14rpx}.meta{font-size:24rpx;color:#9a8f89;border-bottom:1px solid #e9ded8;padding-bottom:24rpx}.body{font-size:32rpx;line-height:1.9;margin-top:34rpx;white-space:pre-wrap}.summary{font-size:28rpx;line-height:1.8;color:#706660;margin-top:20rpx;padding:20rpx;background:#f3eeea;border-radius:14rpx}.section{margin-top:46rpx}.section-title{font-size:30rpx;font-weight:800;margin-bottom:16rpx}.relation{display:flex;justify-content:space-between;align-items:center;padding:24rpx 0;border-bottom:1px solid #eee5df;font-size:29rpx}.relation-type{font-size:22rpx;color:#9b4d43;margin-right:14rpx}.share{margin-top:42rpx;border-radius:999rpx;background:#7a1f1f;color:#fff}.state{text-align:center;color:#8f8580;padding-top:180rpx}.state-title{font-size:30rpx;margin-bottom:20rpx}
+/* 新闻详情：传播核心页（红金宣纸 token 化，基线 §8） */
+.page { min-height: 100vh; background: var(--ym-paper); padding: 36rpx 30rpx 60rpx; }
+
+.official-badge { display: inline-block; border-radius: 4rpx; padding: 8rpx 16rpx; font-size: 24rpx; font-weight: 600; }
+.official-badge--red { background: var(--ym-red-700); color: #fff; }
+.official-badge--plain { background: var(--ym-surface); color: var(--ym-text-2); border: 1rpx solid var(--ym-line); }
+
+.title { font-size: 44rpx; line-height: 1.35; font-weight: 700; margin: 24rpx 0 16rpx; color: var(--ym-ink); }
+
+.quote { background: var(--ym-red-100); border-left: 6rpx solid var(--ym-red-700); border-radius: 8rpx; padding: 24rpx; font-size: 28rpx; line-height: 1.7; color: var(--ym-text); }
+
+.source-line { margin-top: 20rpx; font-size: 24rpx; color: var(--ym-text-3); border-bottom: 1rpx solid var(--ym-line); padding-bottom: 24rpx; font-variant-numeric: tabular-nums; }
+
+.body { margin-top: 32rpx; }
+.paragraph { font-size: 30rpx; line-height: 1.85; color: var(--ym-text); margin-bottom: 24rpx; text-align: justify; }
+
+.section { margin-top: 48rpx; }
+.section-title { font-size: 32rpx; font-weight: 700; color: var(--ym-ink); padding-left: 16rpx; border-left: 6rpx solid var(--ym-red-700); margin-bottom: 20rpx; font-family: "Noto Serif SC", "Songti SC", serif; }
+
+.h-scroll { white-space: nowrap; }
+.work-chip { display: inline-block; width: 240rpx; margin-right: 20rpx; vertical-align: top; }
+.work-chip-poster { height: 300rpx; border-radius: 12rpx; background: linear-gradient(160deg, var(--ym-paper), var(--ym-gold-100)); display: flex; align-items: center; justify-content: center; font-size: 40rpx; color: var(--ym-red-700); }
+.work-chip-tag { display: inline-block; margin-top: 12rpx; font-size: 22rpx; color: var(--ym-gold-700); background: var(--ym-gold-100); border-radius: 4rpx; padding: 4rpx 12rpx; }
+.work-chip-title { margin-top: 8rpx; font-size: 26rpx; font-weight: 650; color: var(--ym-ink); }
+
+.video-row { display: flex; gap: 18rpx; background: var(--ym-surface); border-radius: 12rpx; box-shadow: var(--ym-shadow-rest); padding: 18rpx; margin-bottom: 16rpx; align-items: center; }
+.video-cover { width: 220rpx; height: 130rpx; border-radius: 8rpx; background: linear-gradient(150deg, var(--ym-red-900), var(--ym-red-700)); position: relative; flex-shrink: 0; }
+.video-duration { position: absolute; right: 12rpx; bottom: 12rpx; font-size: 20rpx; color: #fff; background: rgba(31,31,31,0.55); border-radius: 4rpx; padding: 4rpx 10rpx; font-variant-numeric: tabular-nums; }
+.video-text { flex: 1; min-width: 0; }
+.video-title { font-size: 27rpx; font-weight: 650; color: var(--ym-ink); line-height: 1.4; }
+.video-meta { margin-top: 8rpx; font-size: 22rpx; color: var(--ym-text-3); }
+
+.more-row { padding: 22rpx 0; border-bottom: 1rpx solid var(--ym-line); }
+.more-title { font-size: 28rpx; font-weight: 600; color: var(--ym-ink); line-height: 1.45; }
+.more-meta { margin-top: 8rpx; font-size: 22rpx; color: var(--ym-text-3); }
+
+.official-footer { margin-top: 56rpx; text-align: center; font-size: 22rpx; color: var(--ym-text-3); }
+
+.state { text-align: center; color: var(--ym-text-2); padding-top: 180rpx; font-size: 26rpx; }
+.retry-btn { margin: 24rpx auto 0; width: 200rpx; padding: 14rpx 0; border: 1rpx solid var(--ym-red-700); border-radius: 8rpx; color: var(--ym-red-700); font-size: 26rpx; }

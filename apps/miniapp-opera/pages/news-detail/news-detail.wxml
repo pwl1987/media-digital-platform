@@ -1,21 +1,63 @@
 <view class="page">
   <view wx:if="{{loading}}" class="state">正在加载资讯…</view>
   <view wx:elif="{{error}}" class="state">
-    <view class="state-title">资讯加载失败</view>
-    <button size="mini" bindtap="retry">重试</button>
+    <view>资讯不存在或加载失败</view>
+    <view class="retry-btn" bindtap="retry">重新加载</view>
   </view>
+
   <block wx:else>
-    <view class="official-badge">官方资讯</view>
-    <view class="title">{{news.title}}</view>
-    <view class="meta">{{news.sourceName}} · {{news.date}}</view>
-    <view class="body">{{news.body || news.summary}}</view>
-    <view wx:if="{{news.summary}}" class="summary">{{news.summary}}</view>
-    <view wx:if="{{news.relations.length}}" class="section">
-      <view class="section-title">相关内容</view>
-      <view wx:for="{{news.relations}}" wx:key="target.id" class="relation" data-id="{{item.target.id}}" data-type="{{item.target.type}}" bindtap="openRelation">
-        <view><text class="relation-type">{{item.type}}</text>{{item.target.title}}</view><text>›</text>
+    <!-- 官方发布徽章 -->
+    <view class="official-badge {{news.sourceLevelLabel === '官方发布' ? 'official-badge--red' : 'official-badge--plain'}}">{{news.sourceLevelLabel}}</view>
+    <view class="title serif">{{news.title}}</view>
+
+    <!-- 摘要引言块 -->
+    <view class="quote">{{news.summary}}</view>
+
+    <!-- 来源信息行 -->
+    <view class="source-line">来源：{{news.sourceName}} · {{news.date}}</view>
+
+    <!-- 正文 -->
+    <view class="body">
+      <view wx:for="{{paragraphs}}" wx:key="index" class="paragraph">{{item}}</view>
+    </view>
+
+    <!-- 传播闭环 -->
+    <view wx:if="{{relatedWorks.length}}" class="section">
+      <view class="section-title">相关剧目</view>
+      <scroll-view scroll-x class="h-scroll">
+        <view wx:for="{{relatedWorks}}" wx:key="id" class="work-chip" data-id="{{item.id}}" bindtap="openWork">
+          <view class="work-chip-poster serif">{{item.title}}</view>
+          <view class="work-chip-tag">{{item.tag}}</view>
+          <view class="work-chip-title">《{{item.title}}》</view>
+        </view>
+      </scroll-view>
+    </view>
+
+    <view wx:if="{{relatedVideos.length}}" class="section">
+      <view class="section-title">精彩视频</view>
+      <view class="video-list">
+        <view wx:for="{{relatedVideos}}" wx:key="id" class="video-row" data-id="{{item.id}}" bindtap="openVideo">
+          <view class="video-cover">
+            <view class="video-duration">{{item.durationLabel}}</view>
+          </view>
+          <view class="video-text">
+            <view class="video-title">{{item.title}}</view>
+            <view class="video-meta">{{item.category}} · {{item.sourceName}} · {{item.resolution}}</view>
+          </view>
+        </view>
       </view>
     </view>
-    <button open-type="share" class="share">分享这篇资讯</button>
+
+    <view wx:if="{{moreNews.length}}" class="section">
+      <view class="section-title">推荐阅读</view>
+      <view wx:for="{{moreNews}}" wx:key="id" class="more-row" data-id="{{item.id}}" bindtap="openNews">
+        <view class="more-title">{{item.title}}</view>
+        <view class="more-meta">{{item.date}} · {{item.sourceName}}</view>
+      </view>
+    </view>
+
+    <view class="official-footer">
+      <view>沂蒙小戏小剧官方数字传播平台</view>
+    </view>
   </block>
 </view>

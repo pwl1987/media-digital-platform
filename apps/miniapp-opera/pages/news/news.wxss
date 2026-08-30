@@ -1,1 +1,32 @@
-.page{min-height:100vh;background:#fbf8f5;padding:34rpx 28rpx 60rpx;color:#2b2421}.header{padding:12rpx 4rpx 28rpx}.eyebrow{font-size:20rpx;letter-spacing:3rpx;color:#9b4d43;font-weight:700}.title{font-size:48rpx;font-weight:800;margin-top:8rpx}.subtitle{font-size:24rpx;color:#938883;margin-top:8rpx}.filters{white-space:nowrap;margin:0 -28rpx;padding:0 28rpx 20rpx}.filter{display:inline-block;margin-right:14rpx;padding:12rpx 22rpx;border:1px solid #e5d8d2;border-radius:999rpx;color:#7e716b;font-size:24rpx;background:#fff}.filter.active{background:#7a1f1f;color:#fff;border-color:#7a1f1f}.list{margin-top:6rpx}.item{background:#fff;border-radius:18rpx;padding:26rpx 24rpx;margin-bottom:18rpx;border:1px solid #eee2dc}.badge{display:inline-block;font-size:21rpx;color:#8f3a32;background:#f7ebe7;border-radius:7rpx;padding:6rpx 10rpx}.item-title{font-size:32rpx;font-weight:800;line-height:1.45;margin-top:12rpx}.summary{font-size:25rpx;line-height:1.7;color:#766b65;margin-top:10rpx}.meta{font-size:21rpx;color:#a29994;margin-top:16rpx}.empty{text-align:center;padding-top:180rpx;color:#9b918d;font-size:26rpx}
+/* 文化新闻门户：红金宣纸 token 化（OPERA_UI_VISUAL_BASELINE_V0.1） */
+.page { min-height: 100vh; background: var(--ym-paper); padding: 34rpx 28rpx 60rpx; }
+.header { padding: 12rpx 4rpx 28rpx; }
+.eyebrow { font-size: 22rpx; letter-spacing: 3rpx; color: var(--ym-gold-700); font-weight: 700; }
+.title { font-size: 48rpx; font-weight: 800; margin-top: 8rpx; color: var(--ym-ink); }
+
+.filters { white-space: nowrap; padding-bottom: 20rpx; }
+.filter { display: inline-block; margin-right: 14rpx; padding: 12rpx 22rpx; border: 1rpx solid var(--ym-line); border-radius: 4rpx; color: var(--ym-text-2); font-size: 24rpx; background: var(--ym-surface); }
+.filter.active { background: var(--ym-red-700); color: #fff; border-color: var(--ym-red-700); }
+
+/* 头条大图 */
+.headline { margin-top: 8rpx; background: var(--ym-surface); border-radius: 12rpx; box-shadow: var(--ym-shadow-rest); overflow: hidden; }
+.headline-cover { height: 340rpx; background: linear-gradient(140deg, var(--ym-red-900), var(--ym-red-500)); position: relative; }
+.headline-badge { position: absolute; top: 20rpx; left: 20rpx; background: var(--ym-red-700); color: #fff; font-size: 22rpx; padding: 6rpx 16rpx; border-radius: 4rpx; }
+.headline-cat { position: absolute; right: 20rpx; top: 20rpx; color: rgba(255,255,255,0.92); font-size: 22rpx; border: 1rpx solid rgba(255,255,255,0.5); padding: 4rpx 12rpx; border-radius: 4rpx; }
+.headline-body { padding: 28rpx; }
+.headline-title { font-size: 38rpx; font-weight: 700; line-height: 1.35; color: var(--ym-ink); font-family: "Noto Serif SC", "Songti SC", serif; }
+.headline-summary { margin-top: 14rpx; font-size: 26rpx; color: var(--ym-text-2); line-height: 1.6; }
+.gold-line { height: 4rpx; background: linear-gradient(90deg, var(--ym-gold-500), var(--ym-gold-300)); }
+
+.source-meta { margin-top: 12rpx; font-size: 22rpx; color: var(--ym-text-3); font-variant-numeric: tabular-nums; }
+
+/* 新闻列表卡：左文右图（封面接入媒资前以官方徽章占位） */
+.news-card { margin-top: 20rpx; background: var(--ym-surface); border-radius: 12rpx; box-shadow: var(--ym-shadow-rest); padding: 26rpx; display: flex; gap: 20rpx; }
+.news-text { flex: 1; min-width: 0; }
+.news-title { font-size: 30rpx; font-weight: 650; color: var(--ym-ink); line-height: 1.45; }
+.news-summary { margin-top: 8rpx; font-size: 24rpx; color: var(--ym-text-2); line-height: 1.55; display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden; }
+.news-thumb { width: 180rpx; height: 130rpx; border-radius: 8rpx; background: linear-gradient(150deg, var(--ym-red-100), var(--ym-gold-100)); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.thumb-badge { font-size: 22rpx; color: var(--ym-red-700); border: 1rpx solid var(--ym-red-500); border-radius: 4rpx; padding: 6rpx 12rpx; }
+
+.state { text-align: center; padding-top: 120rpx; color: var(--ym-text-2); font-size: 26rpx; }
+.retry-btn { margin: 24rpx auto 0; width: 200rpx; padding: 14rpx 0; border: 1rpx solid var(--ym-red-700); border-radius: 8rpx; color: var(--ym-red-700); font-size: 26rpx; }

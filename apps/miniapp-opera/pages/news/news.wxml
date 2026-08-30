@@ -1,19 +1,47 @@
 <view class="page">
+  <!-- 文化新闻门户头 -->
   <view class="header">
-    <view class="eyebrow">OFFICIAL NEWS</view>
-    <view class="title">资讯</view>
-    <view class="subtitle">权威发布 · 展演动态 · 剧目消息</view>
+    <view class="eyebrow">官方资讯 · 权威发布</view>
+    <view class="title serif">小戏小剧动态</view>
   </view>
+
   <scroll-view scroll-x class="filters" show-scrollbar="false">
     <view wx:for="{{filters}}" wx:key="*this" class="filter {{active === item ? 'active' : ''}}" data-filter="{{item}}" bindtap="selectFilter">{{item}}</view>
   </scroll-view>
-  <view wx:if="{{!news.length}}" class="empty">暂无相关资讯</view>
-  <view wx:else class="list">
-    <view wx:for="{{news}}" wx:key="id" class="item" data-id="{{item.id}}" bindtap="openNews">
-      <view class="badge">{{item.category}}</view>
-      <view class="item-title">{{item.title}}</view>
-      <view class="summary">{{item.summary}}</view>
-      <view class="meta">{{item.sourceName || '官方平台'}} · {{item.date}}</view>
-    </view>
+
+  <view wx:if="{{loading}}" class="state">正在加载资讯…</view>
+  <view wx:elif="{{error}}" class="state">
+    <view>资讯加载失败</view>
+    <view class="retry-btn" bindtap="retry">重新加载</view>
   </view>
+
+  <block wx:else>
+    <!-- 头条大图 -->
+    <view wx:if="{{headline}}" class="headline" data-id="{{headline.id}}" bindtap="openNews">
+      <view class="headline-cover">
+        <view class="headline-badge">{{headline.sourceLevelLabel}}</view>
+        <view class="headline-cat">{{headline.category}}</view>
+      </view>
+      <view class="headline-body">
+        <view class="headline-title">{{headline.title}}</view>
+        <view class="headline-summary">{{headline.summary}}</view>
+        <view class="source-meta">来源：{{headline.sourceName}} · {{headline.date}}</view>
+      </view>
+      <view class="gold-line"></view>
+    </view>
+
+    <!-- 新闻列表 -->
+    <view wx:for="{{items}}" wx:key="id" class="news-card" data-id="{{item.id}}" bindtap="openNews">
+      <view class="news-text">
+        <view class="news-title">{{item.title}}</view>
+        <view class="news-summary">{{item.summary}}</view>
+        <view class="source-meta">{{item.category}} · 来源：{{item.sourceName}} · {{item.date}}</view>
+      </view>
+      <view class="news-thumb">
+        <view class="thumb-badge">{{item.sourceLevelLabel}}</view>
+      </view>
+    </view>
+
+    <view wx:if="{{!items.length && !headline}}" class="state">暂无相关资讯</view>
+  </block>
 </view>
