@@ -1,9 +1,47 @@
-.detail-row { display:flex; justify-content:space-between; padding:22rpx 0; border-bottom:1rpx solid #eee; font-size:28rpx; }
-.detail-row:last-child { border-bottom:0; }
-.relation-card { margin-bottom:20rpx; }
-.relation-title { font-size:30rpx; font-weight:650; }
-.work-list .work-card { margin-top:20rpx; }
-.work-tag { display:inline-block; padding:8rpx 14rpx; border-radius:999rpx; background:#F3E7E4; color:#7A1F1F; font-size:22rpx; }
-.work-title { margin-top:18rpx; font-size:32rpx; font-weight:700; }
-.work-summary { margin-top:12rpx; color:#666; font-size:26rpx; line-height:1.6; }
-.work-meta { margin-top:16rpx; color:#999; font-size:24rpx; }
+/* 剧目档案：文化档案页（非商品页，基线 §9） */
+.page { min-height: 100vh; background: var(--ym-paper); padding-bottom: 60rpx; }
+
+.poster { height: 460rpx; background: linear-gradient(160deg, var(--ym-red-900), var(--ym-red-700)); display: flex; flex-direction: column; align-items: center; justify-content: center; }
+.poster-title { color: rgba(255,255,255,0.95); font-size: 56rpx; letter-spacing: 4rpx; }
+.poster-tag { margin-top: 18rpx; color: var(--ym-gold-300); font-size: 24rpx; border: 1rpx solid var(--ym-gold-300); border-radius: 4rpx; padding: 6rpx 18rpx; }
+
+.archive-head { background: var(--ym-surface); margin: -40rpx 30rpx 0; position: relative; border-radius: 12rpx; box-shadow: var(--ym-shadow-float); padding: 32rpx; }
+.archive-title { font-size: 42rpx; font-weight: 700; color: var(--ym-ink); }
+.archive-meta { margin-top: 12rpx; font-size: 26rpx; color: var(--ym-text-2); }
+.link { color: var(--ym-red-700); }
+.honors { margin-top: 18rpx; display: flex; flex-wrap: wrap; gap: 12rpx; }
+.honor { font-size: 22rpx; color: var(--ym-gold-700); background: var(--ym-gold-100); border: 1rpx solid var(--ym-gold-300); border-radius: 4rpx; padding: 6rpx 16rpx; }
+
+.section { margin-top: 44rpx; padding: 0 30rpx; }
+.section-title { font-size: 32rpx; font-weight: 700; color: var(--ym-ink); padding-left: 16rpx; border-left: 6rpx solid var(--ym-red-700); margin-bottom: 20rpx; font-family: "Noto Serif SC", "Songti SC", serif; }
+.body-text { font-size: 28rpx; line-height: 1.8; color: var(--ym-text); }
+
+.video-row { display: flex; gap: 18rpx; background: var(--ym-surface); border-radius: 12rpx; box-shadow: var(--ym-shadow-rest); padding: 18rpx; margin-bottom: 16rpx; align-items: center; }
+.video-cover { width: 220rpx; height: 130rpx; border-radius: 8rpx; background: linear-gradient(150deg, var(--ym-red-900), var(--ym-red-700)); position: relative; flex-shrink: 0; }
+.video-duration { position: absolute; right: 12rpx; bottom: 12rpx; font-size: 20rpx; color: #fff; background: rgba(31,31,31,0.55); border-radius: 4rpx; padding: 4rpx 10rpx; font-variant-numeric: tabular-nums; }
+.video-text { flex: 1; min-width: 0; }
+.video-title { font-size: 27rpx; font-weight: 650; color: var(--ym-ink); line-height: 1.4; }
+.video-meta { margin-top: 8rpx; font-size: 22rpx; color: var(--ym-text-3); }
+
+.person-row { display: flex; align-items: center; gap: 20rpx; background: var(--ym-surface); border-radius: 12rpx; box-shadow: var(--ym-shadow-rest); padding: 22rpx; margin-bottom: 16rpx; }
+.person-avatar { width: 84rpx; height: 84rpx; border-radius: 8rpx; background: var(--ym-red-100); color: var(--ym-red-700); font-size: 34rpx; display: flex; align-items: center; justify-content: center; font-family: "Songti SC", serif; }
+.person-text { flex: 1; }
+.person-name { font-size: 28rpx; font-weight: 650; color: var(--ym-ink); }
+.person-role { margin-top: 4rpx; font-size: 22rpx; color: var(--ym-text-3); }
+.arrow { color: var(--ym-text-3); font-size: 32rpx; }
+
+/* 演出记录：时间线 */
+.perf-row { display: flex; gap: 20rpx; padding: 20rpx 0; border-bottom: 1rpx solid var(--ym-line); }
+.perf-dot { width: 12rpx; height: 12rpx; border-radius: 50%; background: var(--ym-red-700); margin-top: 12rpx; flex-shrink: 0; }
+.perf-title { font-size: 28rpx; font-weight: 600; color: var(--ym-ink); }
+.perf-meta { margin-top: 8rpx; font-size: 22rpx; color: var(--ym-text-3); font-variant-numeric: tabular-nums; }
+
+.news-row { padding: 22rpx 0; border-bottom: 1rpx solid var(--ym-line); }
+.news-title { font-size: 28rpx; font-weight: 600; color: var(--ym-ink); line-height: 1.45; }
+.news-meta { margin-top: 8rpx; font-size: 22rpx; color: var(--ym-text-3); }
+
+.official-footer { margin-top: 56rpx; text-align: center; font-size: 22rpx; color: var(--ym-text-3); line-height: 1.7; }
+.official-footer-sub { font-size: 20rpx; }
+
+.state { text-align: center; padding-top: 180rpx; color: var(--ym-text-2); font-size: 26rpx; }
+.retry-btn { margin: 24rpx auto 0; width: 200rpx; padding: 14rpx 0; border: 1rpx solid var(--ym-red-700); border-radius: 8rpx; color: var(--ym-red-700); font-size: 26rpx; }

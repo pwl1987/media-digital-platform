@@ -1,23 +1,77 @@
-<view class="container" wx:if="{{work}}">
-  <view class="card hero">
-    <view class="work-tag">{{work.tag}}</view>
-    <view class="title">{{work.title}}</view>
-    <view class="subtitle">{{work.summary}}</view>
+<view class="page">
+  <view wx:if="{{loading}}" class="state">正在调取剧目档案…</view>
+  <view wx:elif="{{error || !work}}" class="state">
+    <view>剧目档案不存在</view>
+    <view class="retry-btn" bindtap="retry">重新调取</view>
   </view>
 
-  <view class="section-title">作品信息</view>
-  <view class="card">
-    <view class="detail-row"><text>剧团</text><text bindtap="openOrganization" data-id="{{work.organization.id}}">{{work.organization.title}} ›</text></view>
-    <view class="detail-row"><text>代表演员</text><text bindtap="openArtist" data-id="{{work.artists[0].id}}">{{work.artists[0].title}} ›</text></view>
-  </view>
+  <block wx:else>
+    <!-- 剧目海报（媒资接入前占位） -->
+    <view class="poster">
+      <view class="poster-title serif">《{{work.title}}》</view>
+      <view class="poster-tag">{{work.tag}}</view>
+    </view>
 
-  <view class="section-title">演出记录</view>
-  <view wx:for="{{work.performances}}" wx:key="id" class="card relation-card" bindtap="openEvent" data-id="{{item.eventId}}">
-    <view class="relation-title">{{item.title}}</view>
-    <view class="work-meta">{{item.date}} · {{item.place}}</view>
-  </view>
+    <!-- 剧目档案头 -->
+    <view class="archive-head">
+      <view class="archive-title serif">《{{work.title}}》</view>
+      <view class="archive-meta">{{work.tag}} · <text bindtap="openOrganization" class="link">{{work.organization.title}}</text></view>
+      <view class="archive-meta" wx:if="{{work.artists.length}}">主演：{{work.artists[0].title}}</view>
+      <view wx:if="{{work.honors && work.honors.length}}" class="honors">
+        <text wx:for="{{work.honors}}" wx:key="*this" class="honor">{{item}}</text>
+      </view>
+    </view>
 
-  <view class="section-title">相关内容</view>
-  <view class="card muted">相关视频、图集与专题将在 Media / Content API 接入后显示。</view>
+    <view class="section">
+      <view class="section-title">剧情简介</view>
+      <view class="body-text">{{work.summary}}</view>
+    </view>
+
+    <view wx:if="{{videos.length}}" class="section">
+      <view class="section-title">精彩片段</view>
+      <view wx:for="{{videos}}" wx:key="id" class="video-row" data-id="{{item.id}}" bindtap="openVideo">
+        <view class="video-cover"><view class="video-duration">{{item.durationLabel}}</view></view>
+        <view class="video-text">
+          <view class="video-title">{{item.title}}</view>
+          <view class="video-meta">{{item.category}} · {{item.sourceName}} · {{item.resolution}}</view>
+        </view>
+      </view>
+    </view>
+
+    <view wx:if="{{work.artists.length}}" class="section">
+      <view class="section-title">主创团队</view>
+      <view wx:for="{{work.artists}}" wx:key="id" class="person-row" data-id="{{item.id}}" bindtap="openArtist">
+        <view class="person-avatar">{{item.glyph}}</view>
+        <view class="person-text">
+          <view class="person-name">{{item.title}}</view>
+          <view class="person-role">{{item.role || '主演'}}</view>
+        </view>
+        <text class="arrow">›</text>
+      </view>
+    </view>
+
+    <view wx:if="{{performances.length}}" class="section">
+      <view class="section-title">演出记录</view>
+      <view wx:for="{{performances}}" wx:key="id" class="perf-row" data-id="{{item.eventId}}" bindtap="openEvent">
+        <view class="perf-dot"></view>
+        <view class="perf-text">
+          <view class="perf-title">{{item.title}}</view>
+          <view class="perf-meta">{{item.startAt}} · {{item.place}}</view>
+        </view>
+      </view>
+    </view>
+
+    <view wx:if="{{relatedNews.length}}" class="section">
+      <view class="section-title">相关新闻</view>
+      <view wx:for="{{relatedNews}}" wx:key="id" class="news-row" data-id="{{item.id}}" bindtap="openNews">
+        <view class="news-title">{{item.title}}</view>
+        <view class="news-meta">{{item.date}} · {{item.sourceName}}</view>
+      </view>
+    </view>
+
+    <view class="official-footer">
+      <view>沂蒙小戏小剧官方数字传播平台</view>
+      <view class="official-footer-sub">剧目资料以官方审核发布为准</view>
+    </view>
+  </block>
 </view>
-<view wx:else class="container"><view class="card muted">内容不存在或已下架</view></view>
