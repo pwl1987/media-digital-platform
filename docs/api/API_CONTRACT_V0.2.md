@@ -12,6 +12,11 @@
 4. AI chat 的 `sources[]` 增加 `grade`（A–D 来源等级）；回答生成标识统计由前端从 `grade` 分布推导，不新增字段。
 5. `/yimeng/stories` 语义明确：返回 `HeritageStory[]`（现实延续：新时代实践/基层故事/教育案例）。
 
+## 规划（未纳入 V0.2）
+
+- `GET /api/v1/yimeng/featured`（**Y1.4 规划**）：首页"今日推荐"运营位数据，
+  返回 `{ archives, people, stories, media }` 各取精选——推荐由服务端/中台给出，前端不得自行拼装。
+
 ## 0. Contract Scope
 
 本 Contract 服务于公众体验层，包括：
