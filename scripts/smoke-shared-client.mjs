@@ -12,6 +12,20 @@ if (news.error || !news.data?.items?.length) throw new Error('News endpoint smok
 const work = await client.getWork('work-001');
 if (work.error || work.data?.id !== 'work-001') throw new Error('Work detail smoke check failed');
 
+// ---- Opera Promotion（契约 V0.2 §6，OPERA UI Phase 1）----
+
+const artists = await client.getArtists();
+if (artists.error || !artists.data?.items?.length) throw new Error('Artists endpoint smoke check failed');
+
+const performances = await client.getPerformances({ workId: 'work-001' });
+if (performances.error || !performances.data?.items?.length) throw new Error('Performances endpoint smoke check failed');
+
+const newsDetail = await client.getNewsDetail('news-001');
+if (newsDetail.error || !newsDetail.data?.body || !newsDetail.data?.relatedWorkIds?.length) throw new Error('News propagation fields smoke check failed');
+
+const operaVideos = await client.getVideos({ pageSize: 50 });
+if (operaVideos.error || !operaVideos.data.items.every((v) => v.durationSeconds && v.sourceName && v.resolution)) throw new Error('MediaCard fields smoke check failed');
+
 const search = await client.search('红嫂');
 if (search.error || !search.data?.items?.length) throw new Error('Search smoke check failed');
 
