@@ -124,6 +124,8 @@ page / page_size / cursor
 
 `era`（年代）、`sourceReferences[]`（来源引用，含 `grade`）、`custody`（藏所）、
 `citationId`（可引用标识）、`physical`（原件/复制品）、`transcript`（文字稿）、
+`contentStatus`（内容治理状态：draft/reviewing/verified/published/archived，见
+`docs/content/HERITAGE_CONTENT_GOVERNANCE_V0.1.md`）、
 `references[] / citedBy[]`（引用关系，Y2 交付）。
 
 ### 5.3 AI chat 响应

@@ -54,4 +54,10 @@ if (storyMediaRefs < 10) throw new Error(`Story->Media density check failed: ${s
 const archiveSourceRefs = heritage.archives.reduce((n, a) => n + (a.sourceReferences || []).length, 0);
 if (archiveSourceRefs < 20) throw new Error(`Archive->SourceReference density check failed: ${archiveSourceRefs} < 20`);
 
+// ---- 内容治理状态守卫（HERITAGE_CONTENT_GOVERNANCE_V0.1：种子一律 draft）----
+
+const governed = [...heritage.archives, ...heritage.people, ...heritage.stories, ...heritage.media, ...heritage.timeline, ...heritage.origin];
+const notDraft = governed.filter((item) => item.contentStatus !== 'draft');
+if (notDraft.length) throw new Error(`Content governance check failed: ${notDraft.length} seed items are not draft`);
+
 console.log('Shared client smoke check passed.');

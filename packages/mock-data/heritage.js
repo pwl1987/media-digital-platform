@@ -486,4 +486,9 @@ function aiChat(question) {
   };
 }
 
+// 内容治理状态：种子数据一律 'draft'（HERITAGE_CONTENT_GOVERNANCE_V0.1）
+// 本数据集是工程测试种子（Mock Seed），不是官方史料库；正式内容须经审核与核验后由中台/知识层供给。
+const HERITAGE_ENTITIES = [archives, people, stories, media, timeline, origin];
+HERITAGE_ENTITIES.forEach((list) => list.forEach((item) => { item.contentStatus = 'draft'; }));
+
 module.exports = { archives, people, stories, media, timeline, origin, gradeLabels: GRADE_LABELS, aiChat };
