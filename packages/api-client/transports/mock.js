@@ -1,4 +1,7 @@
 const opera = require('../../mock-data/opera');
+const heritage = require('../../mock-data/heritage');
+
+const ERA_ORDER = ['1910s', '1920s', '1930s', '1940s', '1950s', '1960s-70s', '1980s-90s', '2000s', '2010s', 'new-era'];
 
 function ok(data) {
   return Promise.resolve({ data, meta: { request_id: `mock-${Date.now()}` }, error: null });
@@ -8,10 +11,42 @@ function findById(items, id) {
   return items.find((item) => item.id === id) || null;
 }
 
+function paginate(items, query = {}) {
+  const page = Number(query.page || 1);
+  const pageSize = Number(query.pageSize || query.page_size || 20);
+  const start = (page - 1) * pageSize;
+  return { items: items.slice(start, start + pageSize), page, pageSize, total: items.length, hasMore: start + pageSize < items.length };
+}
+
+function filterArchives(query = {}) {
+  let items = heritage.archives;
+  if (query.archiveType) items = items.filter((item) => item.archiveType === query.archiveType);
+  if (query.era) items = items.filter((item) => item.era === query.era);
+  if (query.personId) items = items.filter((item) => (item.relatedPersonIds || []).includes(query.personId));
+  if (query.q) {
+    const q = String(query.q).trim().toLowerCase();
+    items = items.filter((item) => `${item.title} ${item.summary || ''}`.toLowerCase().includes(q));
+  }
+  return items;
+}
+
 function createMockTransport() {
   return {
     request(path, options = {}) {
       const method = options.method || 'GET';
+      // ---- Yimeng Heritage（API_CONTRACT_V0.2 §5）----
+      if (method === 'GET' && path === '/api/v1/yimeng/origin') return ok({ items: heritage.origin });
+      if (method === 'GET' && path === '/api/v1/yimeng/timeline') {
+        const eras = [...new Set(heritage.timeline.map((e) => e.era))]
+          .sort((a, b) => ERA_ORDER.indexOf(a) - ERA_ORDER.indexOf(b))
+          .map((era) => ({ era, events: heritage.timeline.filter((e) => e.era === era) }));
+        return ok({ eras, total: heritage.timeline.length });
+      }
+      if (method === 'GET' && path === '/api/v1/yimeng/archives') return ok(paginate(filterArchives(options.query), options.query));
+      if (method === 'GET' && path.startsWith('/api/v1/yimeng/archives/')) return ok(findById(heritage.archives, path.split('/').pop()));
+      if (method === 'GET' && path === '/api/v1/yimeng/people') return ok(paginate(heritage.people, options.query));
+      if (method === 'POST' && path === '/api/v1/yimeng/ai/chat') return ok(heritage.aiChat(options.body && options.body.message));
+      // ---- Shared / Opera ----
       if (method === 'GET' && path === '/api/v1/news') {
         const { category, page = 1, pageSize = 20 } = options.query || {};
         const items = category ? opera.news.filter((item) => item.category === category) : opera.news;
