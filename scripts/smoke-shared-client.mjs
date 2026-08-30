@@ -37,6 +37,9 @@ if (origin.error || origin.data?.items?.length < 4) throw new Error('Heritage or
 const people = await client.getPeople({ pageSize: 50 });
 if (people.error || people.data?.items?.length < 10) throw new Error('Heritage people smoke check failed');
 
+const stories = await client.getStories({ pageSize: 50 });
+if (stories.error || stories.data?.items?.length < 10) throw new Error('Heritage stories smoke check failed');
+
 const chat = await client.chat('现在沂蒙精神有哪些实践？');
 if (chat.error || !chat.data?.sources?.length || !chat.data.sources.every((s) => grades.has(s.grade))) throw new Error('AI chat sources grade smoke check failed');
 
