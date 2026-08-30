@@ -29,6 +29,7 @@ export interface SourceReference {
 
 export interface HeritageResourceBase extends BaseContent {
   grade: HeritageSourceGrade;            // 权威分级（AI 徽章显示用）
+  contentStatus: HeritageContentStatus;  // 内容治理状态（draft/reviewing/verified/published/archived）
   sourceReferences?: SourceReference[];  // 著录来源
   era?: HeritageEra;                     // 年代分期
   topicIds?: string[];
@@ -44,6 +45,7 @@ export interface HeritageResourceBase extends BaseContent {
 | `status`（沿用 BaseContent） | 发布状态，走中台治理 |
 | `sourceLevel`（沿用 BaseContent） | 跨平台内容信任层级（official/media/historical…） |
 | `grade`（新增） | 沂蒙知识层权威分级 A–D，AI 回答与著录区徽章的数据源 |
+| `contentStatus`（评审新增） | 内容治理状态（事实核验/编辑审核），Mock 种子一律 `draft`；三轴分离见 `docs/content/HERITAGE_CONTENT_GOVERNANCE_V0.1.md` |
 
 ## 2. 子对象
 

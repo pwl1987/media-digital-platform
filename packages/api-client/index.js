@@ -16,6 +16,10 @@ const endpoints = {
   liveDetail: (id) => `/api/v1/opera/live/${encodeURIComponent(id)}`,
   people: '/api/v1/yimeng/people',
   knowledge: '/api/v1/yimeng/knowledge',
+  yimengOrigin: '/api/v1/yimeng/origin',
+  yimengTimeline: '/api/v1/yimeng/timeline',
+  yimengArchives: '/api/v1/yimeng/archives',
+  yimengArchiveDetail: (id) => `/api/v1/yimeng/archives/${encodeURIComponent(id)}`,
   aiChat: '/api/v1/yimeng/ai/chat'
 };
 
@@ -41,6 +45,10 @@ function createClient(transport) {
     getLive: (id) => get(endpoints.liveDetail(id)),
     getPeople: (query) => get(endpoints.people, query),
     getKnowledge: (query) => get(endpoints.knowledge, query),
+    getOrigin: () => get(endpoints.yimengOrigin),
+    getTimeline: () => get(endpoints.yimengTimeline),
+    getArchives: (query) => get(endpoints.yimengArchives, query),
+    getArchive: (id) => get(endpoints.yimengArchiveDetail(id)),
     chat: (message, sessionId, context) => post(endpoints.aiChat, {
       message,
       session_id: sessionId,

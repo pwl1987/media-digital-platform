@@ -52,6 +52,9 @@ export interface Knowledge extends BaseContent { type: 'Knowledge'; evidenceIds?
 
 export type HeritageSourceGrade = 'A' | 'B' | 'C' | 'D';
 // A=官方档案  B=权威出版物  C=权威媒体  D=一般资料
+// 三轴分离：grade=来源等级；contentStatus=内容治理状态（核验/审核，HERITAGE_CONTENT_GOVERNANCE_V0.1）；
+// status=渠道发布状态（沿用 BaseContent）。Mock 种子数据 contentStatus 一律 'draft'。
+export type HeritageContentStatus = 'draft' | 'reviewing' | 'verified' | 'published' | 'archived';
 export type ArchiveType = 'document' | 'image' | 'press' | 'file' | 'oral-history' | 'video' | 'audio';
 export type HeritageEra = '1910s' | '1920s' | '1930s' | '1940s' | '1950s' | '1960s-70s' | '1980s-90s' | '2000s' | '2010s' | 'new-era';
 export type StoryType = 'new-era-practice' | 'grassroots' | 'education-case' | 'culture';
@@ -66,6 +69,7 @@ export interface SourceReference {
 
 export interface HeritageResourceBase extends BaseContent {
   grade: HeritageSourceGrade;
+  contentStatus: HeritageContentStatus;
   sourceReferences?: SourceReference[];
   era?: HeritageEra;
   topicIds?: string[];
@@ -110,6 +114,7 @@ export interface TimelineEvent extends BaseContent {
   summary?: string;
   personIds?: string[];
   resourceIds?: string[];
+  contentStatus?: HeritageContentStatus;
 }
 
 export type HeritageResource = ArchiveItem | HeritageStory | HeritagePerson | TimelineEvent;
