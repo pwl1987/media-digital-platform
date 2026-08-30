@@ -5,10 +5,11 @@
 ## 仓库定位
 
 面向沂蒙文化数字传播的体验层（Experience Plane）：官方文化传播平台的多端实现——
-微信小程序（`miniapp-yimeng` 沂蒙精神、`miniapp-opera` 小戏小剧）、H5（`h5-opera`）、
-PC Web（`web-opera`、`web-yimeng`）与移动 App 壳（`mobile-app`），以及共享包。
-当前阶段：**v0.1 集成基线**，产品主线为小戏小剧官方传播平台
-（资讯带流量 → 剧目做沉淀 → 视频增强传播 → 展演制造热点 → 专题建立品牌）。
+微信小程序（`miniapp-yimeng` 沂蒙精神数字传承平台、`miniapp-opera` 小戏小剧官方平台）、
+H5（`h5-opera`）、PC Web（`web-opera`、`web-yimeng`）与移动 App 壳（`mobile-app`），以及共享包。
+当前阶段：**v0.1 集成基线**，小戏小剧产品主线见
+`docs/product/OPERA_OFFICIAL_PROMOTION_PRD_V0.2.md`；沂蒙精神定位以
+`docs/product/YIMENG_HERITAGE_PRD_V1.0.md` 为准（数字传承平台，AI 为能力模块，冻结前该方向暂停编码）。
 
 本仓库只负责体验层。业务控制、模型训练、生产 LLM Runtime、媒体处理 Runtime
 均属于兄弟仓库（`news-media-system`、`media-digital-architecture`、
