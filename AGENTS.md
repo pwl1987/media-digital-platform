@@ -17,9 +17,10 @@ H5（`h5-opera`）、PC Web（`web-opera`、`web-yimeng`）与移动 App 壳（`
 
 ## 必读文档（唯一事实来源）
 
-- `docs/api/API_CONTRACT_V0.1.md` —— API 契约。修改 `packages/api-client`、transport 或任何数据代码前必读。
+- `docs/api/API_CONTRACT_V0.2.md` —— API 契约（当前权威；V0.1 为历史版本）。修改 `packages/api-client`、transport 或任何数据代码前必读。
 - `docs/product/PRODUCT_BASELINE_V0.1.md` —— 产品范围与各端功能闭环。
 - `docs/domain/CONTENT_DOMAIN_V0.1.md` —— 领域模型（News / Work / Person / Organization / Event / MediaAsset / Topic 等）。
+- `docs/architecture/HERITAGE_PLATFORM_BASELINE_V0.1.md`、`docs/domain/HERITAGE_DOMAIN_MODEL_V0.2.md` —— 沂蒙侧架构与领域模型权威（HeritageResource 体系）。
 - `docs/engineering/SHARED_LAYER_IMPLEMENTATION_V0.1.md` —— 共享层实现基线。
 - `docs/product/OPERA_CONTENT_PROPAGATION_V0.1.md`、`OPERA_MEDIA_AND_TOPIC_V0.1.md` —— 小戏小剧内容传播与媒体/专题设计。
 
@@ -59,7 +60,7 @@ H5（`h5-opera`）、PC Web（`web-opera`、`web-yimeng`）与移动 App 壳（`
 
 - 检查 architecture / engineering 文档，确认方案与基线一致。
 - 检查已有 package，优先复用；不重复创建类型或接口。
-- 新增端点先对齐 `API_CONTRACT_V0.1.md`，契约是权威。
+- 新增端点先对齐 `API_CONTRACT_V0.2.md`，契约是权威。
 
 提交前：
 

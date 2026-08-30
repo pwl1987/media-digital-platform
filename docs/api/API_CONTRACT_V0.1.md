@@ -1,5 +1,7 @@
 # API Contract V0.1
 
+> ⚠️ **已被 V0.2 取代**（新增沂蒙史料/时间轴/源流端点与来源等级）：以 `API_CONTRACT_V0.2.md` 为准。本文件仅作历史版本保留。
+
 > 前端先行、契约先行。具体实现接入 `news-media-system` 与 Yimeng Intelligence。
 
 ## 0. Contract Scope
