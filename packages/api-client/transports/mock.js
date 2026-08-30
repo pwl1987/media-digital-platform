@@ -30,6 +30,11 @@ function filterArchives(query = {}) {
   return items;
 }
 
+function listByField(items, query = {}, field) {
+  const value = query[field];
+  return value ? items.filter((item) => item[field] === value) : items;
+}
+
 function createMockTransport() {
   return {
     request(path, options = {}) {
@@ -54,13 +59,23 @@ function createMockTransport() {
         return ok({ items: items.slice(start, start + Number(pageSize)), page: Number(page), pageSize: Number(pageSize), total: items.length, hasMore: start + Number(pageSize) < items.length });
       }
       if (method === 'GET' && path.startsWith('/api/v1/news/')) return ok(findById(opera.news, path.split('/').pop()));
-      if (method === 'GET' && path === '/api/v1/opera/news') return ok({ items: opera.news, page: 1, pageSize: opera.news.length, total: opera.news.length, hasMore: false });
+      if (method === 'GET' && path === '/api/v1/opera/news') return ok(paginate(listByField(opera.news, options.query, 'category'), options.query));
       if (method === 'GET' && path.startsWith('/api/v1/opera/news/')) return ok(findById(opera.news, path.split('/').pop()));
-      if (method === 'GET' && path === '/api/v1/opera/works') return ok({ items: opera.works, page: 1, pageSize: opera.works.length, total: opera.works.length, hasMore: false });
+      if (method === 'GET' && path === '/api/v1/opera/works') return ok(paginate(listByField(opera.works, options.query, 'tag'), options.query));
       if (method === 'GET' && path.startsWith('/api/v1/opera/works/')) return ok(findById(opera.works, path.split('/').pop()));
-      if (method === 'GET' && path === '/api/v1/opera/events') return ok({ items: opera.events, page: 1, pageSize: opera.events.length, total: opera.events.length, hasMore: false });
+      if (method === 'GET' && path === '/api/v1/opera/artists') return ok(paginate(opera.artists, options.query));
+      if (method === 'GET' && path.startsWith('/api/v1/opera/artists/')) return ok(findById(opera.artists, path.split('/').pop()));
+      if (method === 'GET' && path === '/api/v1/opera/organizations') return ok(paginate(opera.organizations, options.query));
+      if (method === 'GET' && path.startsWith('/api/v1/opera/organizations/')) return ok(findById(opera.organizations, path.split('/').pop()));
+      if (method === 'GET' && path === '/api/v1/opera/performances') {
+        let items = opera.performances;
+        if (options.query?.workId) items = items.filter((p) => p.workId === options.query.workId);
+        if (options.query?.eventId) items = items.filter((p) => p.eventId === options.query.eventId);
+        return ok(paginate(items, options.query));
+      }
+      if (method === 'GET' && path === '/api/v1/opera/events') return ok(paginate(listByField(opera.events, options.query, 'lifecycleStatus'), options.query));
       if (method === 'GET' && path.startsWith('/api/v1/opera/events/')) return ok(findById(opera.events, path.split('/').pop()));
-      if (method === 'GET' && path === '/api/v1/opera/videos') return ok({ items: opera.videos, page: 1, pageSize: opera.videos.length, total: opera.videos.length, hasMore: false });
+      if (method === 'GET' && path === '/api/v1/opera/videos') return ok(paginate(listByField(opera.videos, options.query, 'category'), options.query));
       if (method === 'GET' && path.startsWith('/api/v1/opera/videos/')) return ok(findById(opera.videos, path.split('/').pop()));
       if (method === 'GET' && path === '/api/v1/search') {
         const q = String(options.query?.q || '').trim().toLowerCase();
