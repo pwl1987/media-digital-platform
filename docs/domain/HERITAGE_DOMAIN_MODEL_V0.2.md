@@ -93,6 +93,10 @@ export interface HeritagePerson extends Person {
 }
 ```
 
+> 扩展预留（评审新增，暂不实现）：`personType: 'HISTORICAL' | 'CONTEMPORARY' |
+> 'INHERITOR' | 'RESEARCHER'`——区分历史人物、当代人物、传承人（宣讲员/青年代表）与研究者；
+> 接入现代人物时启用。
+
 ### 2.4 TimelineEvent（时间轴事件）
 
 ```ts
@@ -111,6 +115,8 @@ export interface TimelineEvent extends BaseContent {
 
 - `MediaAsset`：沿用；**双色调规则不新增字段**——历史单色/当代彩色由 `era` 或发布年代推导，属视觉层规则（视觉基线 V0.2 §3）。
 - `Evidence`：扩展 `grade: HeritageSourceGrade` 与 `refId?: string; refType?: ContentType`（指向 HeritageResource）。
+  **冻结原则：Evidence 是 AI 输出的最小可信单元**——AI 的每条回答都必须能拆解为
+  "回答 → 证据 → 来源 → 回链"的可信链路。
 - `Knowledge`：沿用，作为精神源流词条载体（`evidenceIds` 挂证据）。
 
 ### 2.6 HeritagePlace（评审新增，**Y1.1 extension 预留，暂不实现**）
