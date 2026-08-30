@@ -41,6 +41,10 @@
 │   └─ 资料检索（自然语言找史料；导览/学习助手预留）
 │
 └─ 我的（收藏 / 浏览历史）
+
+【规划扩展位（非 V1，IA 预留）】
+├─ 研究中心     专家观点 / 研究成果 / 论文资料 / 专题研究
+└─ 教育中心     青少年学习 / 红色教育 / 在线课程 / 研学路线
 ```
 
 ## 2. 首页结构（自上而下）
@@ -94,8 +98,13 @@
 | `pages/detail/detail` | 统一内容详情 | 过渡期通用详情 | Content | 保留（逐步被专题详情替代） |
 | `pages/profile/profile` | 我的 | 收藏 / 浏览历史 | User | 保留 |
 | `pages/knowledge/knowledge` | （旧知识页） | — | — | 退役，由 origin/memory 承接 |
+| `pages/research/research` | 研究中心 | 专家观点 / 研究成果 / 论文资料 / 专题研究 | ResearchOutput | **规划**（非 V1） |
+| `pages/education/education` | 教育中心 | 青少年学习 / 红色教育 / 在线课程 / 研学路线 | Course / Route | **规划**（非 V1） |
 
 ## 5. 关键页面规范
+
+职责总区分（冻结）：**展馆 = 展示空间**（回答"我如何了解"，沉浸叙事，深色长页）；
+**史料 = 数据资产**（回答"我如何查找真实资料"，档案工作台，浅色著录风格）。两类页面不得混用视觉范式。
 
 ### 5.1 数字展馆（museum）
 
@@ -150,5 +159,7 @@ AI 闭环：任意内容详情 → 带上下文进入 AI 问答 → 溯源回答
 | `pages/search` / `pages/detail` / `pages/profile` | 保留；search 扩史料域 |
 | `utils/mock.js` | 同步按 ArchiveItem/Person/Era 补充 mock（走 `packages/mock-data` 收口方向） |
 | `app.json` | 标题改"沂蒙精神数字传承平台"；Tab 按 §3 调整；新增页面注册 |
+
+实施前置（Phase Y1）：先落地 `domain-types`（HeritageResource 体系）与契约 V0.2，再进页面编码。
 
 实施顺序：app.json/IA 调整 → 首页改版 → 史料库两页 → 人物两页 → 历史记忆 → 展馆 → 智能服务重定位。
