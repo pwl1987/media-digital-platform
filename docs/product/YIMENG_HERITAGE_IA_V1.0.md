@@ -163,3 +163,16 @@ AI 闭环：任意内容详情 → 带上下文进入 AI 问答 → 溯源回答
 实施前置（Phase Y1）：先落地 `domain-types`（HeritageResource 体系）与契约 V0.2，再进页面编码。
 
 实施顺序：app.json/IA 调整 → 首页改版 → 史料库两页 → 人物两页 → 历史记忆 → 展馆 → 智能服务重定位。
+
+## 8. Y2 增补登记（数字档案馆 MVP 落地记录）
+
+| 页面/配置 | 状态 | 说明 |
+| --- | --- | --- |
+| `pages/archive/archive` 史料馆 | Y2 交付 | 浅色档案工作台：检索 + 七类分类 + ArchiveCard |
+| `pages/archive-detail/archive-detail` 史料详情 | Y2 交付 | 数字档案卡：著录表格 + 来源依据 + 轻量关系网络 |
+| `pages/memory/memory` 历史记忆 | Y2 交付 | 年代锚点时间轴，节点展开聚合人物/史料 |
+| `pages/stories/stories` 新时代传承 | **Y2 增补** | §1 首页"新时代传承"分区落地页：四类 StoryType 筛选的故事列表 |
+| `pages/person-detail/person-detail` 人物档案 | Y2 交付（简版） | 事迹 + 相关史料 + 荣誉；完整版含影像待 Y2 后续 |
+| `app.json` | 已按 §3 调整 | Tab：首页/展馆/史料/智能服务/我的；标题更名"沂蒙精神数字传承平台"；`knowledge` 退出 Tab（页面保留待 origin 承接） |
+
+首页（index）主视觉与入口已按 §2 调整；展馆三厅与智能服务重定位留待 Y2 后续批次。
