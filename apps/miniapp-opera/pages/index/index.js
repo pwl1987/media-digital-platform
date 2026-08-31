@@ -193,11 +193,11 @@ Page({
     wx.stopPullDownRefresh();
   },
 
-  goNews() { wx.switchTab({ url: '/pages/news/news' }); },
-  goWorks() { wx.switchTab({ url: '/pages/works/works' }); },
-  goVideos() { wx.switchTab({ url: '/pages/videos/videos' }); },
-  goEvents() { wx.navigateTo({ url: '/pages/events/events' }); },
-  goLive() { wx.navigateTo({ url: '/pages/live/live' }); },
+  goNews() { this.haptic(); wx.switchTab({ url: '/pages/news/news' }); },
+  goWorks() { this.haptic(); wx.switchTab({ url: '/pages/works/works' }); },
+  goVideos() { this.haptic(); wx.switchTab({ url: '/pages/videos/videos' }); },
+  goEvents() { this.haptic(); wx.navigateTo({ url: '/pages/events/events' }); },
+  goLive() { this.haptic(); wx.navigateTo({ url: '/pages/live/live' }); },
   openTile(e) {
     const { target } = e.currentTarget.dataset;
     if (target === 'works') this.goWorks();
@@ -224,5 +224,12 @@ Page({
 
   onShareAppMessage() {
     return { title: '沂蒙小戏小剧 · 官方数字传播平台', path: '/pages/index/index' };
+  },
+
+  // 轻量触觉反馈（设备支持时）
+  haptic() {
+    if (wx.vibrateShort) {
+      try { wx.vibrateShort({ type: 'light' }); } catch (e) {}
+    }
   }
 });

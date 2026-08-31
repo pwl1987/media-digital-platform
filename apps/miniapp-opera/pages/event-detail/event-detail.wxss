@@ -1,0 +1,54 @@
+/* 活动详情：头卡 + 信息 + 时间线 + 报名（红金宣纸 token） */
+.container { min-height: 100vh; background: var(--ym-paper); padding: 0 0 200rpx; }
+
+/* 头卡 */
+.event-hero { position: relative; padding: 60rpx 32rpx 36rpx; background: linear-gradient(150deg, var(--ym-red-900), var(--ym-red-700)); color: #FFFFFF; }
+.hero-flag { display: inline-block; padding: 4rpx 14rpx; border-radius: 4rpx; font-size: 20rpx; }
+.hero-flag--upcoming { background: rgba(255,255,255,0.18); }
+.hero-flag--ongoing { background: var(--ym-red-700); border: 1rpx solid #FFFFFF; }
+.hero-flag--ended { background: rgba(31,31,31,0.5); }
+.hero-title { margin-top: 14rpx; font-size: 38rpx; font-weight: 700; line-height: 1.35; font-family: "Noto Serif SC", "Songti SC", serif; }
+.hero-tags { margin-top: 16rpx; display: flex; flex-wrap: wrap; gap: 10rpx; }
+.hero-tag { font-size: 20rpx; color: #FFFFFF; background: rgba(255,255,255,0.15); border-radius: 4rpx; padding: 4rpx 12rpx; }
+
+/* 关键信息卡 */
+.info-card { margin: -28rpx 28rpx 0; position: relative; background: var(--ym-surface); border-radius: 12rpx; box-shadow: var(--ym-shadow-float); padding: 26rpx 28rpx; }
+.info-row { display: flex; align-items: center; padding: 12rpx 0; border-bottom: 1rpx solid var(--ym-paper); }
+.info-row:last-child { border-bottom: 0; }
+.info-label { flex-shrink: 0; width: 80rpx; font-size: 24rpx; color: var(--ym-text-3); }
+.info-value { flex: 1; font-size: 26rpx; color: var(--ym-text); font-variant-numeric: tabular-nums; }
+.sign-bar { flex: 1; height: 12rpx; border-radius: 6rpx; background: var(--ym-paper-deep, #E9E0CC); overflow: hidden; margin-right: 14rpx; }
+.sign-bar-fill { height: 100%; background: linear-gradient(90deg, var(--ym-gold-500), var(--ym-red-700)); border-radius: 6rpx; }
+.sign-num { font-size: 22rpx; color: var(--ym-red-700); font-weight: 650; font-variant-numeric: tabular-nums; flex-shrink: 0; }
+
+.section { padding: 0 28rpx; margin-top: 32rpx; }
+.section-title { font-size: 30rpx; font-weight: 700; color: var(--ym-ink); padding-left: 16rpx; border-left: 6rpx solid var(--ym-red-800); font-family: "Noto Serif SC", "Songti SC", serif; }
+.desc { margin-top: 18rpx; font-size: 28rpx; color: var(--ym-text); line-height: 1.8; }
+
+/* 演出场次时间线 */
+.timeline { margin-top: 18rpx; padding-left: 14rpx; border-left: 2rpx solid var(--ym-stone, #8A8578); }
+.tl-item { display: flex; align-items: stretch; padding: 12rpx 0 12rpx 16rpx; position: relative; }
+.tl-dot { width: 18rpx; height: 18rpx; border-radius: 50%; background: var(--ym-red-700); margin-right: 16rpx; margin-top: 14rpx; flex-shrink: 0; box-shadow: 0 0 0 4rpx var(--ym-red-50); }
+.tl-card { flex: 1; background: var(--ym-surface); border-radius: 8rpx; padding: 18rpx 20rpx; box-shadow: var(--ym-shadow-rest); }
+.tl-card-title { font-size: 28rpx; font-weight: 650; color: var(--ym-ink); }
+.tl-card-meta { margin-top: 6rpx; font-size: 22rpx; color: var(--ym-text-3); font-variant-numeric: tabular-nums; }
+
+/* 关联剧目 */
+.works { margin-top: 18rpx; }
+.work-card { display: flex; align-items: center; gap: 20rpx; padding: 20rpx 0; border-bottom: 1rpx solid var(--ym-paper); }
+.work-card:last-child { border-bottom: 0; }
+.work-poster { width: 120rpx; height: 156rpx; border-radius: 8rpx; background: linear-gradient(160deg, var(--ym-paper), var(--ym-gold-100)); color: var(--ym-red-700); font-size: 30rpx; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-family: "Noto Serif SC", "Songti SC", serif; }
+.work-body { flex: 1; min-width: 0; }
+.work-title { font-size: 29rpx; font-weight: 650; color: var(--ym-ink); }
+.work-meta { margin-top: 8rpx; font-size: 22rpx; color: var(--ym-text-3); }
+
+/* 底部操作条 */
+.action-bar { position: fixed; left: 0; right: 0; bottom: 0; display: flex; gap: 16rpx; padding: 18rpx 28rpx calc(18rpx + env(safe-area-inset-bottom)); background: var(--ym-surface); box-shadow: 0 -4rpx 16rpx rgba(31,31,31,0.08); }
+.action-btn { flex: 1; text-align: center; padding: 22rpx 0; border-radius: 10rpx; border: 1rpx solid var(--ym-line); color: var(--ym-text-2); font-size: 28rpx; background: var(--ym-surface); }
+.action-btn--active { color: var(--ym-red-700); border-color: var(--ym-red-100); background: var(--ym-red-50); }
+
+.state { padding: 200rpx 0 0; text-align: center; }
+.state-emoji { font-size: 88rpx; }
+.state-title { margin-top: 20rpx; font-size: 32rpx; color: var(--ym-ink); font-weight: 650; }
+.state-sub { margin-top: 12rpx; font-size: 24rpx; color: var(--ym-text-3); }
+.retry-btn { margin: 32rpx auto 0; width: 220rpx; padding: 16rpx 0; border: 1rpx solid var(--ym-red-700); border-radius: 8rpx; color: var(--ym-red-700); font-size: 26rpx; }

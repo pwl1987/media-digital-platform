@@ -28,7 +28,10 @@ Page({
     activeCategory: '全部活动',
     days: [],
     activeDay: '',
-    events: []
+    events: [],
+    favoriteIds: [],
+    sharing: '',
+    signingUp: ''
   },
 
   onLoad() {
@@ -96,15 +99,49 @@ Page({
   },
 
   onFavorite(e) {
-    wx.showToast({ title: '已收藏（演示）', icon: 'none' });
+    const { id } = e.currentTarget.dataset;
+    const cur = (this.favorites = this.favorites || new Set());
+    const added = !cur.has(id);
+    added ? cur.add(id) : cur.delete(id);
+    this.setData({ favoriteIds: [...cur] });
+    wx.vibrateShort && wx.vibrateShort({ type: 'light' });
+    wx.showToast({
+      title: added ? '已加入收藏' : '已取消收藏',
+      icon: added ? 'success' : 'none',
+      duration: 1400
+    });
   },
 
-  onShareCard() {
-    wx.showToast({ title: '分享链接已生成（演示）', icon: 'none' });
+  onShareCard(e) {
+    const { id } = e.currentTarget.dataset;
+    const item = (this.allEvents || []).find((x) => x.id === id);
+    if (!item) return;
+    this.setData({ sharing: id });
+    // 模拟生成分享卡片（真实场景应由后端返回临时签名图），UI 上以 loading 反馈
+    setTimeout(() => {
+      this.setData({ sharing: '' });
+      wx.vibrateShort && wx.vibrateShort({ type: 'light' });
+      wx.showToast({ title: '分享卡已生成（演示）', icon: 'success', duration: 1500 });
+    }, 600);
   },
 
-  onSignUp(e) {
-    wx.showToast({ title: '报名成功（演示）', icon: 'success' });
+  async onSignUp(e) {
+    const { id } = e.currentTarget.dataset;
+    if (this.signingUp) return;
+    this.signingUp = id;
+    this.setData({ signingUp: id });
+    wx.vibrateShort && wx.vibrateShort({ type: 'light' });
+    // 模拟网络请求
+    await new Promise((r) => setTimeout(r, 700));
+    const item = (this.allEvents || []).find((x) => x.id === id);
+    if (item) {
+      item.signedUp = Math.min(item.capacity, (item.signedUp || 0) + 1);
+      this.setData({ events: this.filterEvents(), signingUp: '' });
+      wx.showToast({ title: '报名成功（演示）', icon: 'success', duration: 1500 });
+    } else {
+      this.setData({ signingUp: '' });
+      wx.showToast({ title: '操作失败，请重试', icon: 'none' });
+    }
   },
 
   openEvent(e) {

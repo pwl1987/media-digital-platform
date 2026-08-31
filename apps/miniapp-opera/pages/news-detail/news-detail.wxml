@@ -1,7 +1,9 @@
 <view class="page">
-  <view wx:if="{{loading}}" class="state">正在加载资讯…</view>
+  <view wx:if="{{loading}}" class="state"><view class="state-emoji">⏳</view>正在加载资讯…</view>
   <view wx:elif="{{error}}" class="state">
-    <view>资讯不存在或加载失败</view>
+    <view class="state-emoji">📡</view>
+    <view class="state-title">资讯加载失败</view>
+    <view class="state-sub">下拉刷新或点重试</view>
     <view class="retry-btn" bindtap="retry">重新加载</view>
   </view>
 

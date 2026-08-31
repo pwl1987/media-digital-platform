@@ -1,10 +1,11 @@
 <view class="container">
-  <!-- 用户头卡（未登录态） -->
+  <!-- 未登录态引导：演示骨架，登录体系按路线暂缓 -->
   <view class="user-card">
     <view class="avatar serif">观</view>
     <view class="user-info">
       <view class="user-name">沂蒙文化爱好者</view>
       <view class="user-sub">山东 · 临沂</view>
+      <view class="user-tip">登录后可同步收藏、观看历史与活动报名</view>
     </view>
   </view>
 

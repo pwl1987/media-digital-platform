@@ -118,5 +118,19 @@
 .official-footer { margin-top: 56rpx; text-align: center; font-size: 22rpx; color: var(--ym-text-3); line-height: 1.7; }
 .official-footer-sub { font-size: 20rpx; }
 
-.state { padding-top: 180rpx; text-align: center; color: var(--ym-text-2); font-size: 26rpx; }
-.retry-btn { margin: 24rpx auto 0; width: 200rpx; padding: 14rpx 0; border: 1rpx solid var(--ym-red-700); border-radius: 8rpx; color: var(--ym-red-700); font-size: 26rpx; }
+.state { padding-top: 120rpx; text-align: center; color: var(--ym-text-2); font-size: 26rpx; }
+.state-emoji { font-size: 88rpx; line-height: 1; }
+.state-title { margin-top: 20rpx; font-size: 32rpx; color: var(--ym-ink); font-weight: 650; }
+.state-sub { margin-top: 12rpx; font-size: 24rpx; color: var(--ym-text-3); padding: 0 80rpx; line-height: 1.6; }
+.retry-btn { margin: 32rpx auto 0; width: 220rpx; padding: 16rpx 0; border: 1rpx solid var(--ym-red-700); border-radius: 8rpx; color: var(--ym-red-700); font-size: 26rpx; }
+
+/* 骨架屏 */
+@keyframes sk-pulse { 0%, 100% { opacity: 0.6; } 50% { opacity: 1; } }
+.sk-banner { width: 100%; height: 560rpx; background: linear-gradient(180deg, var(--ym-red-100), var(--ym-paper)); animation: sk-pulse 1.4s ease-in-out infinite; }
+.sk-tiles { margin: -36rpx 28rpx 0; display: grid; grid-template-columns: repeat(2, 1fr); gap: 16rpx; }
+.sk-tile { height: 100rpx; border-radius: 12rpx; background: var(--ym-paper-deep, #E9E0CC); animation: sk-pulse 1.4s ease-in-out infinite; }
+.sk-headline { margin: 36rpx 28rpx 0; padding: 28rpx; background: var(--ym-surface); border-radius: 12rpx; box-shadow: var(--ym-shadow-rest); }
+.sk-cover { height: 220rpx; border-radius: 8rpx; background: var(--ym-paper-deep, #E9E0CC); animation: sk-pulse 1.4s ease-in-out infinite; }
+.sk-line { height: 22rpx; border-radius: 4rpx; background: var(--ym-paper-deep, #E9E0CC); margin-top: 18rpx; animation: sk-pulse 1.4s ease-in-out infinite; }
+.sk-line--title { height: 30rpx; }
+.sk-line--short { width: 60%; }

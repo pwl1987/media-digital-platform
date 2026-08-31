@@ -1,8 +1,40 @@
 <view class="container" wx:if="{{organization}}">
-  <view class="card hero">
-    <view class="title">{{organization.title}}</view>
-    <view class="subtitle">{{organization.summary}}</view>
+  <!-- 剧团头卡 -->
+  <view class="org-hero">
+    <view class="org-glyph">{{glyph}}</view>
   </view>
-  <view class="section-title">团队档案</view>
-  <view class="card">代表剧目、主要演员、演出记录与相关影像由统一内容平台持续补充。</view>
+  <view class="org-name-bar">
+    <text class="org-name">{{organization.title}}</text>
+  </view>
+  <view class="org-meta">官方剧团 · 资料持续补充中</view>
+
+  <!-- 简介 -->
+  <view class="section">
+    <view class="section-title">剧团简介</view>
+    <view class="bio">{{organization.summary || '正式内容接入后展示。'}}</view>
+  </view>
+
+  <!-- 院团作品 -->
+  <view class="section">
+    <view class="section-title">代表剧目</view>
+    <view wx:if="{{worksLoading}}" class="skeleton-block"></view>
+    <view wx:elif="{{works.length}}" class="works">
+      <view wx:for="{{works}}" wx:key="id" class="work-row" data-id="{{item.id}}" bindtap="openWork">
+        <view class="work-title">《{{item.title}}》</view>
+        <view class="work-meta">{{item.tag}} · {{item.artists[0].title || '剧团演员'}}</view>
+      </view>
+    </view>
+    <view wx:else class="empty">代表剧目将在剧目 API 接入后展示</view>
+  </view>
+
+  <view class="actions">
+    <view class="action-btn" bindtap="onShare">分享剧团</view>
+    <view class="action-btn action-btn--primary" bindtap="onFollow">+ 关注剧团</view>
+  </view>
+</view>
+
+<view wx:else class="state">
+  <view class="state-emoji">🏛</view>
+  <view class="state-title">剧团档案未找到</view>
+  <view class="retry-btn" bindtap="retry">重新加载</view>
 </view>

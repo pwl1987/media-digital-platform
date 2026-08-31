@@ -1,16 +1,80 @@
 <view class="container" wx:if="{{event}}">
-  <view class="card hero">
-    <view class="work-tag">展演活动</view>
-    <view class="title">{{event.title}}</view>
-    <view class="subtitle">{{event.startAt}} · {{event.place}}</view>
+  <!-- 头卡：深红渐变 + 状态徽章 + 时间/地址 + 报名进度 -->
+  <view class="event-hero">
+    <view class="hero-flag hero-flag--{{event.lifecycleStatus}}">{{event.lifecycleStatus === 'ongoing' ? '进行中' : event.lifecycleStatus === 'ended' ? '已结束' : '预告'}}</view>
+    <view class="hero-title">{{event.title}}</view>
+    <view wx:if="{{event.tags && event.tags.length}}" class="hero-tags">
+      <text wx:for="{{event.tags}}" wx:for-item="tag" wx:key="*this" class="hero-tag">{{tag}}</text>
+    </view>
   </view>
 
-  <view class="section-title">演出场次</view>
-  <view wx:for="{{eventPerformances}}" wx:key="id" class="card relation-card">
-    <view class="relation-title">{{item.title}}</view>
-    <view class="work-meta">{{item.startAt}} · {{item.place}}</view>
+  <!-- 关键信息卡 -->
+  <view class="info-card">
+    <view class="info-row">
+      <view class="info-label">时间</view>
+      <view class="info-value">{{timeLabel}}</view>
+    </view>
+    <view class="info-row">
+      <view class="info-label">地址</view>
+      <view class="info-value">{{event.place}}</view>
+    </view>
+    <view class="info-row">
+      <view class="info-label">性质</view>
+      <view class="info-value">{{event.free ? '免费' : '售票'}} · {{event.category}}</view>
+    </view>
+    <view class="info-row">
+      <view class="info-label">报名</view>
+      <view class="sign-bar">
+        <view class="sign-bar-fill" style="width: {{signUpPercent}}%"></view>
+      </view>
+      <view class="sign-num">{{event.signedUp}}/{{event.capacity}}人</view>
+    </view>
   </view>
 
-  <view class="section-title">活动信息</view>
-  <view class="card">节目单、主办承办、现场图片、直播与活动回顾将在真实 Content / Media API 接入后展示。</view>
+  <!-- 简介 -->
+  <view class="section">
+    <view class="section-title">活动介绍</view>
+    <view class="desc">{{event.desc || '正式内容接入后展示。'}}</view>
+  </view>
+
+  <!-- 演出场次（时间线：左侧色块 + 卡片） -->
+  <view class="section" wx:if="{{performances.length}}">
+    <view class="section-title">演出场次</view>
+    <view class="timeline">
+      <view wx:for="{{performances}}" wx:key="id" class="tl-item">
+        <view class="tl-dot"></view>
+        <view class="tl-card">
+          <view class="tl-card-title">{{item.title}}</view>
+          <view class="tl-card-meta">{{item.startAt}} · {{item.place}}</view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 关联剧目（走 API） -->
+  <view class="section" wx:if="{{relatedWorks.length}}">
+    <view class="section-title">参演剧目</view>
+    <view class="works">
+      <view wx:for="{{relatedWorks}}" wx:key="id" class="work-card" data-id="{{item.id}}" bindtap="openWork">
+        <view class="work-poster serif">{{item.title}}</view>
+        <view class="work-body">
+          <view class="work-title">《{{item.title}}》</view>
+          <view class="work-meta">{{item.tag}} · {{item.organization.title}}</view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 底部操作 -->
+  <view class="action-bar">
+    <view class="action-btn" bindtap="onShare">分享</view>
+    <view class="action-btn {{signed ? 'action-btn--active' : ''}}" bindtap="onSign">{{signed ? '✓ 已报名' : '立即报名'}}</view>
+  </view>
+</view>
+
+<view wx:else class="state">
+  <view class="state-emoji">🎫</view>
+  <view class="state-title">活动未找到</view>
+  <view class="state-sub">可能已下架</view>
+  <view class="retry-btn" bindtap="retry">重新加载</view>
 </view>

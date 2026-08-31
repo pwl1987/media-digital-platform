@@ -1,10 +1,50 @@
-.hero { background: linear-gradient(140deg,#741B1B,#AB473A); color:#fff; min-height:260rpx; }
-.state-card { margin-top:24rpx; }
-.state-title { font-size:32rpx; font-weight:700; }
-.state-text { margin-top:12rpx; color:#666; font-size:26rpx; line-height:1.7; }
-.player-card { margin-top:24rpx; background:#111; border-radius:20rpx; overflow:hidden; }
-.player { width:100%; height:420rpx; display:block; }
-.player-note { padding:18rpx 22rpx; color:#bbb; background:#1a1a1a; font-size:23rpx; line-height:1.5; }
-.detail-row { display:flex; justify-content:space-between; gap:18rpx; padding:20rpx 0; border-bottom:1px solid #f0ecea; font-size:26rpx; }
-.detail-row:last-child { border-bottom:0; }
-.detail-row text:last-child { color:#7A1F1F; text-align:right; }
+/* 直播详情：直播中 / 预告倒计时 / 回放 三态（红金宣纸 token） */
+.container { min-height: 100vh; background: var(--ym-paper); padding: 0 0 60rpx; }
+
+/* 头卡（按状态变色） */
+.hero { padding: 60rpx 32rpx 36rpx; color: #FFFFFF; }
+.hero--live { background: linear-gradient(150deg, var(--ym-red-900), var(--ym-red-700)); }
+.hero--scheduled { background: linear-gradient(150deg, #2A2A2A, #4A4A4A); }
+.hero--ended { background: linear-gradient(150deg, #8C6E14, #C9A227); }
+
+.hero-flag { display: inline-flex; align-items: center; gap: 12rpx; font-size: 24rpx; padding: 6rpx 16rpx; border-radius: 4rpx; background: rgba(255,255,255,0.2); }
+.hero-dot { width: 12rpx; height: 12rpx; border-radius: 50%; background: #FFFFFF; animation: blink 1s ease-in-out infinite; }
+@keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.35; } }
+.hero-title { margin-top: 18rpx; font-size: 40rpx; font-weight: 700; line-height: 1.35; font-family: "Noto Serif SC", "Songti SC", serif; }
+.hero-sub { margin-top: 12rpx; font-size: 26rpx; opacity: 0.9; }
+.hero-meta { margin-top: 18rpx; font-size: 24rpx; opacity: 0.85; font-variant-numeric: tabular-nums; }
+
+/* 直播中：播放区 + 弹幕 */
+.player { margin: 28rpx 28rpx 0; background: #111; border-radius: 16rpx; overflow: hidden; }
+.player-stage { height: 360rpx; background: linear-gradient(180deg, #1a1a1a, #000); display: flex; flex-direction: column; align-items: center; justify-content: center; color: #FFFFFF; }
+.player-dot { width: 14rpx; height: 14rpx; border-radius: 50%; background: #FFFFFF; margin-bottom: 14rpx; animation: blink 1s ease-in-out infinite; }
+.player-text { font-size: 32rpx; font-weight: 700; }
+.player-sub { margin-top: 12rpx; font-size: 22rpx; opacity: 0.7; }
+.chat { background: #1a1a1a; padding: 16rpx 24rpx; }
+.chat-title { font-size: 24rpx; color: #999; margin-bottom: 12rpx; }
+.chat-row { display: flex; gap: 12rpx; padding: 8rpx 0; font-size: 24rpx; color: #F2ECDF; }
+.chat-user { flex-shrink: 0; color: var(--ym-gold-300); font-weight: 600; }
+
+/* 预告：倒计时卡 */
+.countdown-card { margin: 28rpx 28rpx 0; background: var(--ym-surface); border-radius: 12rpx; box-shadow: var(--ym-shadow-rest); padding: 60rpx 32rpx 36rpx; text-align: center; }
+.cd-emoji { font-size: 72rpx; line-height: 1; }
+.cd-title { margin-top: 20rpx; font-size: 28rpx; color: var(--ym-text-2); }
+.cd-time { margin-top: 14rpx; font-size: 44rpx; font-weight: 700; color: var(--ym-red-700); font-variant-numeric: tabular-nums; font-family: "Noto Serif SC", "Songti SC", serif; }
+.cd-sub { margin-top: 14rpx; font-size: 22rpx; color: var(--ym-text-3); }
+.cd-actions { margin-top: 32rpx; display: flex; gap: 16rpx; }
+.action-btn { flex: 1; text-align: center; padding: 20rpx 0; border-radius: 8rpx; border: 1rpx solid var(--ym-line); color: var(--ym-text-2); font-size: 28rpx; background: var(--ym-surface); }
+.action-btn--primary { background: var(--ym-red-700); border-color: var(--ym-red-700); color: #FFFFFF; font-weight: 650; }
+
+/* 回放：精彩瞬间 */
+.review { margin: 28rpx 28rpx 0; }
+.review-title { font-size: 30rpx; font-weight: 700; color: var(--ym-ink); }
+.review-sub { margin-top: 8rpx; font-size: 24rpx; color: var(--ym-text-3); }
+.review-thumbs { margin-top: 24rpx; display: grid; grid-template-columns: repeat(2, 1fr); gap: 16rpx; }
+.review-thumb { aspect-ratio: 16/9; border-radius: 10rpx; background: linear-gradient(150deg, var(--ym-red-900), var(--ym-red-500)); padding: 18rpx; color: #FFFFFF; display: flex; flex-direction: column; justify-content: space-between; }
+.review-thumb-time { font-size: 20rpx; opacity: 0.85; font-variant-numeric: tabular-nums; }
+.review-thumb-title { font-size: 26rpx; font-weight: 600; line-height: 1.4; }
+
+.state { padding: 200rpx 0 0; text-align: center; }
+.state-emoji { font-size: 88rpx; }
+.state-title { margin-top: 20rpx; font-size: 32rpx; color: var(--ym-ink); font-weight: 650; }
+.retry-btn { margin: 32rpx auto 0; width: 220rpx; padding: 16rpx 0; border: 1rpx solid var(--ym-red-700); border-radius: 8rpx; color: var(--ym-red-700); font-size: 26rpx; }

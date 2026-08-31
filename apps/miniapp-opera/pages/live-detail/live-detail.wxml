@@ -1,30 +1,58 @@
 <view class="container" wx:if="{{item}}">
-  <view class="card hero">
-    <view class="work-tag">{{statusLabel}}</view>
-    <view class="title">{{item.title}}</view>
-    <view class="subtitle">{{item.startAt}} · {{item.place}}</view>
+  <!-- 头卡：深色（直播中为红，回放为金，预告为深灰） -->
+  <view class="hero hero--{{item.status}}">
+    <view class="hero-flag">
+      <view class="hero-dot" wx:if="{{item.status === 'live'}}"></view>
+      <text>{{statusLabel}}</text>
+    </view>
+    <view class="hero-title">{{item.title}}</view>
+    <view class="hero-sub">{{item.subtitle || ''}}</view>
+    <view class="hero-meta">{{item.startAt}} · {{item.place}}</view>
   </view>
 
-  <view wx:if="{{item.status === 'live'}}" class="player-card">
-    <video class="player" controls autoplay poster="">
-    </video>
-    <view class="player-note">直播进行中，真实播放地址由 Live API 提供。</view>
+  <!-- 直播区（live 时为播放器+聊天占位，scheduled 为倒计时，ended 为回顾区） -->
+  <view wx:if="{{item.status === 'live'}}" class="player">
+    <view class="player-stage">
+      <view class="player-dot"></view>
+      <text class="player-text">直播进行中</text>
+      <text class="player-sub">真实播放地址由 Live API 提供；本演示为占位画面</text>
+    </view>
+    <view class="chat">
+      <view class="chat-title">互动弹幕（演示）</view>
+      <view class="chat-row"><text class="chat-user">张老师</text><text>这段沂蒙小调唱得太美了</text></view>
+      <view class="chat-row"><text class="chat-user">王老师</text><text>家乡的味道</text></view>
+      <view class="chat-row"><text class="chat-user">剧迷小李</text><text>前方高能，下一段是《红嫂情》选段</text></view>
+    </view>
   </view>
 
-  <view wx:if="{{item.status === 'scheduled'}}" class="card state-card">
-    <view class="state-title">直播预告</view>
-    <view class="state-text">直播尚未开始。到达直播时间后，此页面将切换为直播状态。</view>
+  <view wx:elif="{{item.status === 'scheduled'}}" class="countdown-card">
+    <view class="cd-emoji">⏱</view>
+    <view class="cd-title">距离直播开始</view>
+    <view class="cd-time">{{countdown}}</view>
+    <view class="cd-sub">开播前 10 分钟会发提醒</view>
+    <view class="cd-actions">
+      <view class="action-btn" bindtap="onNotify">到时提醒</view>
+      <view class="action-btn action-btn--primary" bindtap="onShare">分享直播</view>
+    </view>
   </view>
 
-  <view wx:if="{{item.status === 'ended'}}" class="card state-card">
-    <view class="state-title">直播已结束</view>
-    <view class="state-text">可以从活动详情查看演出回顾、精彩视频与图集。</view>
+  <view wx:else class="review">
+    <view class="review-title">直播回放</view>
+    <view class="review-sub">精彩瞬间 · 录播由 Live API 接入后提供</view>
+    <view class="review-thumbs">
+      <view wx:for="{{thumbs}}" wx:key="key" class="review-thumb" data-key="{{item.key}}">
+        <view class="review-thumb-time">{{item.time}}</view>
+        <view class="review-thumb-title">{{item.title}}</view>
+      </view>
+    </view>
+    <view class="cd-actions">
+      <view class="action-btn action-btn--primary" bindtap="onShare">分享回放</view>
+    </view>
   </view>
+</view>
 
-  <view class="section-title">直播信息</view>
-  <view class="card">
-    <view class="detail-row"><text>时间</text><text>{{item.startAt}}</text></view>
-    <view class="detail-row"><text>地点</text><text>{{item.place}}</text></view>
-    <view class="detail-row"><text>状态</text><text>{{statusLabel}}</text></view>
-  </view>
+<view wx:else class="state">
+  <view class="state-emoji">📺</view>
+  <view class="state-title">直播未找到</view>
+  <view class="retry-btn" bindtap="retry">重新加载</view>
 </view>

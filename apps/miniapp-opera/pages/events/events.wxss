@@ -55,6 +55,11 @@
 .event-actions { margin-top: 20rpx; display: flex; gap: 16rpx; }
 .action-btn { flex: 1; text-align: center; padding: 16rpx 0; border-radius: 8rpx; border: 1rpx solid var(--ym-line); color: var(--ym-text-2); font-size: 26rpx; background: var(--ym-surface); }
 .action-btn--primary { flex: 1.4; background: var(--ym-red-700); border-color: var(--ym-red-700); color: #FFFFFF; font-weight: 650; }
+.action-btn--active { background: var(--ym-red-50); color: var(--ym-red-700); border-color: var(--ym-red-100); }
+.action-btn--loading { opacity: 0.55; }
 
 .state { text-align: center; padding-top: 120rpx; color: var(--ym-text-2); font-size: 26rpx; }
+.state-emoji { font-size: 88rpx; line-height: 1; }
+.state-title { margin-top: 20rpx; font-size: 30rpx; color: var(--ym-ink); font-weight: 650; }
+.state-sub { margin-top: 12rpx; font-size: 24rpx; color: var(--ym-text-3); }
 .retry-btn { margin: 24rpx auto 0; width: 200rpx; padding: 14rpx 0; border: 1rpx solid var(--ym-red-700); border-radius: 8rpx; color: var(--ym-red-700); font-size: 26rpx; }

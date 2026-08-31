@@ -39,12 +39,18 @@
     >{{item}}</view>
   </scroll-view>
 
-  <view wx:if="{{loading}}" class="state">正在调取展演日历…</view>
+  <view wx:if="{{loading}}" class="state"><view class="state-emoji">⏳</view>正在调取展演日历…</view>
   <view wx:elif="{{error}}" class="state">
-    <view>活动加载失败</view>
+    <view class="state-emoji">📡</view>
+    <view class="state-title">活动加载失败</view>
+    <view class="state-sub">下拉刷新或点重试</view>
     <view class="retry-btn" bindtap="retry">重新加载</view>
   </view>
-  <view wx:elif="{{!events.length}}" class="state">该条件下暂无活动</view>
+  <view wx:elif="{{!events.length}}" class="state">
+    <view class="state-emoji">🌿</view>
+    <view class="state-title">该条件下暂无活动</view>
+    <view class="state-sub">换个日期或分类试试</view>
+  </view>
 
   <view wx:else class="event-list">
     <view wx:for="{{events}}" wx:key="id" class="event-card">
@@ -72,9 +78,9 @@
         </view>
       </view>
       <view class="event-actions">
-        <view class="action-btn" catchtap="onFavorite">收藏</view>
-        <view class="action-btn" catchtap="onShareCard">分享</view>
-        <view class="action-btn action-btn--primary" catchtap="onSignUp">立即报名</view>
+        <view class="action-btn {{favoriteIds.indexOf(item.id) > -1 ? 'action-btn--active' : ''}}" bindtap="onFavorite" data-id="{{item.id}}">{{favoriteIds.indexOf(item.id) > -1 ? '✓ 已收藏' : '收藏'}}</view>
+        <view class="action-btn {{sharing === item.id ? 'action-btn--loading' : ''}}" bindtap="onShareCard" data-id="{{item.id}}">{{sharing === item.id ? '生成中…' : '分享'}}</view>
+        <view class="action-btn action-btn--primary {{signingUp === item.id ? 'action-btn--loading' : ''}}" bindtap="onSignUp" data-id="{{item.id}}">{{signingUp === item.id ? '报名中…' : '立即报名'}}</view>
       </view>
     </view>
   </view>

@@ -1,7 +1,21 @@
 <view class="container">
-  <view wx:if="{{loading}}" class="state">正在加载官方平台…</view>
+  <view wx:if="{{loading}}" class="page">
+    <!-- 骨架屏：轮播/瓦片/头条/榜单占位 -->
+    <view class="sk-banner"></view>
+    <view class="sk-tiles">
+      <view class="sk-tile" wx:for="{{[0,1,2,3]}}" wx:key="*this"></view>
+    </view>
+    <view class="sk-headline">
+      <view class="sk-cover"></view>
+      <view class="sk-line sk-line--title"></view>
+      <view class="sk-line"></view>
+      <view class="sk-line sk-line--short"></view>
+    </view>
+  </view>
   <view wx:elif="{{error}}" class="state">
-    <view>内容加载失败</view>
+    <view class="state-emoji">📡</view>
+    <view class="state-title">网络好像走丢了</view>
+    <view class="state-sub">检查网络后点重试，或下拉刷新再试一次</view>
     <view class="retry-btn" bindtap="retry">重新加载</view>
   </view>
 

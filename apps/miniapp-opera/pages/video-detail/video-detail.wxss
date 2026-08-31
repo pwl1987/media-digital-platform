@@ -31,3 +31,7 @@
 
 .state { text-align: center; padding-top: 180rpx; color: var(--ym-text-2); font-size: 26rpx; }
 .retry-btn { margin: 24rpx auto 0; width: 200rpx; padding: 14rpx 0; border: 1rpx solid var(--ym-red-700); border-radius: 8rpx; color: var(--ym-red-700); font-size: 26rpx; }
+
+.state-emoji { font-size: 88rpx; line-height: 1; }
+.state-title { margin-top: 20rpx; font-size: 32rpx; color: var(--ym-ink); font-weight: 650; }
+.state-sub { margin-top: 12rpx; font-size: 24rpx; color: var(--ym-text-3); padding: 0 80rpx; }

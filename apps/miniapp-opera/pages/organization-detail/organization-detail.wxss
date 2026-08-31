@@ -1,0 +1,30 @@
+/* 剧团档案：红色头卡 + 简介 + 代表剧目（红金宣纸 token） */
+.container { min-height: 100vh; background: var(--ym-paper); padding: 0 0 60rpx; }
+.org-hero { height: 220rpx; background: linear-gradient(150deg, var(--ym-red-900), var(--ym-red-700)); display: flex; align-items: center; justify-content: center; }
+.org-glyph { font-size: 96rpx; color: rgba(255,255,255,0.85); font-family: "Songti SC", "STSong", serif; }
+.org-name-bar { background: var(--ym-red-800); padding: 22rpx 32rpx; }
+.org-name { font-size: 36rpx; font-weight: 700; color: #F2ECDF; }
+.org-meta { padding: 16rpx 32rpx; font-size: 24rpx; color: var(--ym-text-3); }
+
+.section { padding: 0 32rpx; margin-top: 28rpx; }
+.section-title { font-size: 30rpx; font-weight: 700; color: var(--ym-ink); padding-left: 16rpx; border-left: 6rpx solid var(--ym-red-800); font-family: "Noto Serif SC", "Songti SC", serif; }
+.bio { margin-top: 18rpx; font-size: 28rpx; color: var(--ym-text); line-height: 1.85; }
+
+.works { margin-top: 18rpx; }
+.work-row { padding: 24rpx 0; border-bottom: 1rpx solid var(--ym-paper); }
+.work-row:last-child { border-bottom: 0; }
+.work-title { font-size: 30rpx; font-weight: 650; color: var(--ym-ink); }
+.work-meta { margin-top: 6rpx; font-size: 22rpx; color: var(--ym-text-3); }
+
+.empty { margin-top: 18rpx; padding: 30rpx; background: var(--ym-surface); border-radius: 8rpx; font-size: 24rpx; color: var(--ym-text-3); text-align: center; }
+.skeleton-block { margin-top: 18rpx; height: 60rpx; border-radius: 8rpx; background: var(--ym-paper-deep, #E9E0CC); animation: sk-pulse 1.4s ease-in-out infinite; }
+@keyframes sk-pulse { 0%, 100% { opacity: 0.6; } 50% { opacity: 1; } }
+
+.actions { margin: 32rpx 28rpx 0; display: flex; gap: 16rpx; }
+.action-btn { flex: 1; text-align: center; padding: 20rpx 0; border-radius: 8rpx; border: 1rpx solid var(--ym-line); color: var(--ym-text-2); font-size: 28rpx; background: var(--ym-surface); }
+.action-btn--primary { flex: 1.4; background: var(--ym-red-700); border-color: var(--ym-red-700); color: #FFFFFF; font-weight: 650; }
+
+.state { padding: 200rpx 0 0; text-align: center; }
+.state-emoji { font-size: 88rpx; }
+.state-title { margin-top: 20rpx; font-size: 30rpx; color: var(--ym-ink); font-weight: 650; }
+.retry-btn { margin: 32rpx auto 0; width: 220rpx; padding: 16rpx 0; border: 1rpx solid var(--ym-red-700); border-radius: 8rpx; color: var(--ym-red-700); font-size: 26rpx; }
