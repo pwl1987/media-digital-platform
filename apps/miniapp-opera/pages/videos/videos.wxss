@@ -1,13 +1,25 @@
-/* 影像馆：视频墙 2 列（MediaCard 必备字段齐备，基线 §6.4/§10） */
-.page { min-height: 100vh; background: var(--ym-paper); padding: 34rpx 28rpx 60rpx; }
-.header { padding: 12rpx 4rpx 24rpx; }
+/* 影像馆：视听页（红金宣纸 + 顶部通栏三形态） */
+.container { min-height: 100vh; background: var(--ym-paper); padding: 34rpx 28rpx 60rpx; box-sizing: border-box; }
+.page-head { padding: 4rpx 4rpx 8rpx; }
 .eyebrow { font-size: 22rpx; letter-spacing: 3rpx; color: var(--ym-gold-700); font-weight: 700; }
 .title { font-size: 46rpx; font-weight: 800; margin-top: 8rpx; color: var(--ym-ink); }
 
-.cats { white-space: nowrap; padding-bottom: 20rpx; }
+/* 顶部通栏三形态（红=剧目 / 蓝=直播 / 金=听小剧） */
+.vt-strip { white-space: nowrap; margin-top: 20rpx; }
+.vt-card { display: inline-flex; flex-direction: column; justify-content: center; width: 220rpx; height: 130rpx; margin-right: 18rpx; border-radius: 12rpx; padding: 0 24rpx; color: #FFFFFF; flex-shrink: 0; box-shadow: var(--ym-shadow-rest); }
+.vt-card--works { background: linear-gradient(140deg, var(--ym-red-900), var(--ym-red-700)); }
+.vt-card--live { background: linear-gradient(140deg, #2A4055, #48657A); }
+.vt-card--audio { background: linear-gradient(140deg, #8C6E14, #C9A227); }
+.vt-card--on { box-shadow: var(--ym-shadow-float); transform: scale(1.02); }
+.vt-label { font-size: 30rpx; font-weight: 700; }
+.vt-sub { margin-top: 4rpx; font-size: 20rpx; opacity: 0.85; }
+
+/* 分类筛选 */
+.cats { white-space: nowrap; margin-top: 24rpx; padding-bottom: 8rpx; }
 .cat { display: inline-block; margin-right: 14rpx; padding: 12rpx 24rpx; border: 1rpx solid var(--ym-line); border-radius: 4rpx; color: var(--ym-text-2); font-size: 24rpx; background: var(--ym-surface); }
 .cat--on { background: var(--ym-red-700); color: #fff; border-color: var(--ym-red-700); }
 
+/* 视频墙 */
 .wall { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20rpx; }
 .media-card { background: var(--ym-surface); border-radius: 12rpx; box-shadow: var(--ym-shadow-rest); overflow: hidden; }
 .cover { height: 200rpx; background: linear-gradient(150deg, var(--ym-red-900), var(--ym-red-700)); position: relative; overflow: hidden; }
@@ -15,7 +27,9 @@
 .cat-tag { position: absolute; top: 14rpx; left: 14rpx; font-size: 20rpx; color: #fff; background: rgba(31,31,31,0.35); border-radius: 4rpx; padding: 4rpx 10rpx; }
 .duration { position: absolute; right: 14rpx; bottom: 14rpx; font-size: 20rpx; color: #fff; background: rgba(31,31,31,0.55); border-radius: 4rpx; padding: 4rpx 10rpx; font-variant-numeric: tabular-nums; }
 .title { padding: 16rpx 18rpx 4rpx; font-size: 26rpx; font-weight: 650; color: var(--ym-ink); line-height: 1.4; }
-.meta { padding: 0 18rpx 16rpx; margin-top: 6rpx; font-size: 22rpx; color: var(--ym-text-3); }
+.tags { padding: 8rpx 18rpx 0; display: flex; flex-wrap: wrap; gap: 8rpx; }
+.tag { font-size: 20rpx; color: var(--ym-red-700); background: var(--ym-red-50); border-radius: 4rpx; padding: 2rpx 10rpx; }
+.meta { padding: 0 18rpx 16rpx; margin-top: 4rpx; font-size: 22rpx; color: var(--ym-text-3); }
 
 .state { text-align: center; padding-top: 120rpx; color: var(--ym-text-2); font-size: 26rpx; }
 .retry-btn { margin: 24rpx auto 0; width: 200rpx; padding: 14rpx 0; border: 1rpx solid var(--ym-red-700); border-radius: 8rpx; color: var(--ym-red-700); font-size: 26rpx; }

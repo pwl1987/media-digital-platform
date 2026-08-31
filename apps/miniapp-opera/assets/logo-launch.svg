@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 180" width="180" height="180">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#A82F1E"/>
+      <stop offset="55%" stop-color="#CB3925"/>
+      <stop offset="100%" stop-color="#D2734A"/>
+    </linearGradient>
+    <radialGradient id="hl" cx="32%" cy="28%" r="55%">
+      <stop offset="0%" stop-color="#FFE0C8" stop-opacity="0.45"/>
+      <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <!-- 圆底 -->
+  <circle cx="90" cy="90" r="86" fill="url(#g)"/>
+  <circle cx="90" cy="90" r="86" fill="url(#hl)"/>
+  <!-- 戏曲花旦剪影 -->
+  <g fill="#F8E6C8" opacity="0.92">
+    <!-- 头冠 -->
+    <path d="M58 56 Q90 32 122 56 Q120 70 90 70 Q60 70 58 56 Z"/>
+    <!-- 帽顶珠饰 -->
+    <circle cx="70" cy="50" r="4"/>
+    <circle cx="90" cy="44" r="5"/>
+    <circle cx="110" cy="50" r="4"/>
+    <!-- 脸型 -->
+    <ellipse cx="90" cy="84" rx="20" ry="24"/>
+    <!-- 眼影（花旦桃花） -->
+    <ellipse cx="80" cy="82" rx="3" ry="2" fill="#A82F1E"/>
+    <ellipse cx="100" cy="82" rx="3" ry="2" fill="#A82F1E"/>
+    <!-- 唇 -->
+    <path d="M82 96 Q90 100 98 96" stroke="#A82F1E" stroke-width="2" fill="none" stroke-linecap="round"/>
+    <!-- 飘带/水袖 -->
+    <path d="M58 110 Q42 130 50 152 Q66 140 72 122 Q66 116 58 110 Z"/>
+    <path d="M122 110 Q138 130 130 152 Q114 140 108 122 Q114 116 122 110 Z"/>
+    <!-- 戏服领口 -->
+    <path d="M70 122 Q90 138 110 122 L106 150 L74 150 Z" fill="#BC7E42"/>
+    <path d="M90 138 L86 156 L94 156 Z" fill="#8B1E24"/>
+  </g>
+  <!-- 底色描边提升辨识度 -->
+  <circle cx="90" cy="90" r="85" fill="none" stroke="#8B1E24" stroke-width="2" opacity="0.35"/>
+</svg>
