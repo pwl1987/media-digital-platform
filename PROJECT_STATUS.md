@@ -2,7 +2,7 @@
 
 > 仓库状态一页纸。每次阶段推进/合入 main 后更新。管理规则见文末。
 
-- 更新日期：2026-08-31
+- 更新日期：2026-08-31（Gate U 模拟器验收完成）
 - 稳定基线（main）：`faf2638`（v0.1 集成 + Y0/Y1 全部冻结成果：定位/视觉/领域模型/契约 V0.2/内容治理/种子数据）
 - 已打 Tag：`v0.1.0-integration`
 
@@ -10,7 +10,7 @@
 
 | 分支 | 领先 main | 内容 | 状态 |
 | --- | --- | --- | --- |
-| `feature/opera` | 11 commits | OPERA UI Phase 1：五页 + Media UX + 死路由修复 + 数据密度达标 | **Gate U 体验验收中**（真机/领导视角）→ 通过后合 main + tag |
+| `feature/opera` | 13 commits | OPERA UI Phase 1：五页 + Media UX + 死路由修复 + 数据密度达标 + WXSS 跨根修复 | **Gate U 模拟器验收通过**（六页全渲染，截图 E:codegate-u-screenshots；遗留：列表卡点击链路人工补验、分享菜单提示待查）→ 待人工复核后合 main + tag |
 | `feature/yimeng` | 8 commits | Y2 数字档案馆 MVP：四屏 + 检索工作台 + 引用回链 | **Gate Y 档案体验验收中** → 通过后合 main + tag |
 
 验收数据密度下限（Gate U，2026-08-31 补齐）：新闻 ≥8 ✅ / 剧目 ≥6 ✅ / 视频 ≥8 ✅ / 活动 ≥4 ✅ / 专题 ≥3 ✅（静态专题位）。
