@@ -48,3 +48,28 @@
 .state-emoji { font-size: 88rpx; }
 .state-title { margin-top: 20rpx; font-size: 32rpx; color: var(--ym-ink); font-weight: 650; }
 .retry-btn { margin: 32rpx auto 0; width: 220rpx; padding: 16rpx 0; border: 1rpx solid var(--ym-red-700); border-radius: 8rpx; color: var(--ym-red-700); font-size: 26rpx; }
+
+/* 加载骨架（避免白屏） */
+.sk-page { min-height: 100vh; background: var(--ym-paper); padding-bottom: 220rpx; }
+.sk-hero { height: 220rpx; background: linear-gradient(180deg, var(--ym-paper-deep, #E9E0CC), var(--ym-paper)); animation: sk-pulse 1.4s ease-in-out infinite; }
+.sk-card { margin: 30rpx; }
+.sk-line { height: 22rpx; border-radius: 4rpx; background: var(--ym-paper-deep, #E9E0CC); margin-top: 18rpx; animation: sk-pulse 1.4s ease-in-out infinite; }
+.sk-line--lg { height: 30rpx; width: 60%; }
+@keyframes sk-pulse { 0%, 100% { opacity: 0.6; } 50% { opacity: 1; } }
+
+/* 节目单 / 主办承办 */
+.section { margin: 32rpx 28rpx 0; }
+.section-title { font-size: 30rpx; font-weight: 700; color: var(--ym-ink); padding-left: 16rpx; border-left: 6rpx solid var(--ym-red-700); font-family: "Noto Serif SC", "Songti SC", serif; }
+.prog-row { display: flex; gap: 18rpx; padding: 22rpx 0; border-bottom: 1rpx dashed var(--ym-line); }
+.prog-row:last-child { border-bottom: 0; }
+.prog-time { flex-shrink: 0; width: 100rpx; font-size: 28rpx; font-weight: 700; color: var(--ym-red-700); font-variant-numeric: tabular-nums; padding-top: 2rpx; }
+.prog-title { font-size: 28rpx; font-weight: 650; color: var(--ym-ink); }
+.prog-artists { margin-top: 4rpx; font-size: 22rpx; color: var(--ym-text-3); }
+.org-row { display: flex; align-items: center; gap: 16rpx; padding: 12rpx 0; }
+.org-label { flex-shrink: 0; width: 64rpx; font-size: 22rpx; color: var(--ym-text-3); }
+.org-value { font-size: 26rpx; color: var(--ym-text); }
+
+/* 底部操作条（固定） */
+.action-bar { position: fixed; left: 0; right: 0; bottom: 0; display: flex; gap: 16rpx; padding: 18rpx 28rpx calc(18rpx + env(safe-area-inset-bottom)); background: var(--ym-surface); box-shadow: 0 -4rpx 16rpx rgba(31,31,31,0.08); }
+.action-btn { flex: 1; text-align: center; padding: 20rpx 0; border-radius: 10rpx; border: 1rpx solid var(--ym-line); color: var(--ym-text-2); font-size: 28rpx; background: var(--ym-surface); }
+.action-btn--primary { background: var(--ym-red-700); border-color: var(--ym-red-700); color: #FFFFFF; font-weight: 650; }

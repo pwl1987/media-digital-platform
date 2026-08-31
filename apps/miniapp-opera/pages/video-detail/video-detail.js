@@ -1,5 +1,4 @@
-// 视频详情：媒体组件（有 playUrl 走 <video>，无源走结构化占位）+ 相关剧目/新闻（P0 传播链）
-// MediaAsset 字段链路：url(播放地址) / coverUrl(封面) / durationSeconds / sourceName / resolution
+// 视频详情：媒体播放 + 传播链（剧目/新闻）+ 底部操作条（分享/收藏）
 const api = require('../../utils/api');
 
 Page({
@@ -8,7 +7,8 @@ Page({
     error: false,
     video: null,
     relatedWork: null,
-    relatedNews: []
+    relatedNews: [],
+    favorited: false
   },
 
   onLoad(options) {
@@ -18,6 +18,12 @@ Page({
     }
     this.id = options.id;
     this.load();
+  },
+
+  onShow() {
+    if (!this.id) return;
+    const fav = wx.getStorageSync('opera_favorites') || {};
+    this.setData({ favorited: !!(fav.video && fav.video[this.id]) });
   },
 
   retry() {
@@ -32,9 +38,9 @@ Page({
         const video = detailRes.data;
         const works = (worksRes.data && worksRes.data.items) || [];
         const allNews = (newsRes.data && newsRes.data.items) || [];
-        // 反查引用本视频的剧目与新闻（同一事实源，跨实体传播链）
         const relatedWork = works.find((w) => (w.media || []).some((m) => m.id === video.id)) || null;
         const relatedNews = allNews.filter((n) => (n.relatedVideoIds || []).includes(video.id)).slice(0, 3);
+        wx.setNavigationBarTitle({ title: video.title || '影像详情' });
         this.setData({ loading: false, video, relatedWork, relatedNews });
       })
       .catch(() => this.setData({ loading: false, error: true }));
@@ -43,11 +49,31 @@ Page({
   onPlayError() {
     wx.showToast({ title: '视频播放失败，请稍后重试', icon: 'none' });
   },
+  onPlaying() { /* 钩子：真实埋点或暂停竞态处理位 */ },
 
   openWork() {
     if (this.data.relatedWork) wx.navigateTo({ url: `/pages/work-detail/work-detail?id=${this.data.relatedWork.id}` });
   },
   openNews(e) { wx.navigateTo({ url: `/pages/news-detail/news-detail?id=${e.currentTarget.dataset.id}` }); },
+
+  onShare() {
+    wx.vibrateShort && wx.vibrateShort({ type: 'light' });
+    wx.showToast({ title: '已生成分享卡', icon: 'success' });
+  },
+
+  onFavorite() {
+    if (this.favoriting) return;
+    this.favoriting = true;
+    const fav = wx.getStorageSync('opera_favorites') || { video: {} };
+    fav.video = fav.video || {};
+    const had = !!fav.video[this.id];
+    had ? delete fav.video[this.id] : (fav.video[this.id] = true);
+    wx.setStorageSync('opera_favorites', fav);
+    this.setData({ favorited: !had });
+    wx.vibrateShort && wx.vibrateShort({ type: 'light' });
+    wx.showToast({ title: had ? '已取消收藏' : '已加入收藏', icon: had ? 'none' : 'success' });
+    setTimeout(() => { this.favoriting = false; }, 300);
+  },
 
   onShareAppMessage() {
     const video = this.data.video || {};

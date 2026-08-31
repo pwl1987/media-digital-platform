@@ -1,6 +1,11 @@
 <view class="container" wx:if="{{item}}">
-  <!-- 头卡：深色（直播中为红，回放为金，预告为深灰） -->
-  <view class="hero hero--{{item.status}}">
+  <view wx:if="{{loading}}" class="sk-page">
+    <view class="sk-hero"></view>
+    <view class="sk-card"><view class="sk-line sk-line--lg"></view><view class="sk-line"></view></view>
+  </view>
+
+  <!-- 头卡：按状态变色 -->
+  <view wx:else class="hero hero--{{item.status}}">
     <view class="hero-flag">
       <view class="hero-dot" wx:if="{{item.status === 'live'}}"></view>
       <text>{{statusLabel}}</text>
@@ -10,8 +15,8 @@
     <view class="hero-meta">{{item.startAt}} · {{item.place}}</view>
   </view>
 
-  <!-- 直播区（live 时为播放器+聊天占位，scheduled 为倒计时，ended 为回顾区） -->
-  <view wx:if="{{item.status === 'live'}}" class="player">
+  <!-- 直播区 / 预告倒计时 / 回放 -->
+  <view wx:if="{{!loading && item.status === 'live'}}" class="player">
     <view class="player-stage">
       <view class="player-dot"></view>
       <text class="player-text">直播进行中</text>
@@ -25,7 +30,7 @@
     </view>
   </view>
 
-  <view wx:elif="{{item.status === 'scheduled'}}" class="countdown-card">
+  <view wx:elif="{{!loading && item.status === 'scheduled'}}" class="countdown-card">
     <view class="cd-emoji">⏱</view>
     <view class="cd-title">距离直播开始</view>
     <view class="cd-time">{{countdown}}</view>
@@ -36,7 +41,7 @@
     </view>
   </view>
 
-  <view wx:else class="review">
+  <view wx:elif="{{!loading && item.status === 'ended'}}" class="review">
     <view class="review-title">直播回放</view>
     <view class="review-sub">精彩瞬间 · 录播由 Live API 接入后提供</view>
     <view class="review-thumbs">
@@ -49,10 +54,36 @@
       <view class="action-btn action-btn--primary" bindtap="onShare">分享回放</view>
     </view>
   </view>
+
+  <!-- 节目单（live 与 scheduled 显示） -->
+  <view wx:if="{{!loading && item.status !== 'ended'}}" class="section">
+    <view class="section-title">节目单</view>
+    <view wx:for="{{program}}" wx:key="key" class="prog-row">
+      <view class="prog-time">{{item.time}}</view>
+      <view class="prog-body">
+        <view class="prog-title">{{item.title}}</view>
+        <view class="prog-artists">{{item.artists}}</view>
+      </view>
+    </view>
+  </view>
+
+  <view wx:if="{{!loading}}" class="section">
+    <view class="section-title">主办承办</view>
+    <view class="org-row"><text class="org-label">主办</text><text class="org-value">沂蒙小戏小剧官方平台建设工作组</text></view>
+    <view class="org-row"><text class="org-label">承办</text><text class="org-value">{{item.place}} · 临沂市文化馆</text></view>
+  </view>
 </view>
 
 <view wx:else class="state">
   <view class="state-emoji">📺</view>
   <view class="state-title">直播未找到</view>
   <view class="retry-btn" bindtap="retry">重新加载</view>
+</view>
+
+<!-- 底部操作条 -->
+<view wx:if="{{item && !loading}}" class="action-bar">
+  <view class="action-btn" bindtap="onShare">分享</view>
+  <view wx:if="{{item.status === 'scheduled'}}" class="action-btn action-btn--primary" bindtap="onNotify">到时提醒</view>
+  <view wx:elif="{{item.status === 'live'}}" class="action-btn action-btn--primary" bindtap="onJoin">进入直播</view>
+  <view wx:else class="action-btn action-btn--primary" bindtap="onShare">分享回放</view>
 </view>

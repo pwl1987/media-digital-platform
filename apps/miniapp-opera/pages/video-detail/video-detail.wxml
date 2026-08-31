@@ -1,12 +1,21 @@
 <view class="page">
-  <view wx:if="{{loading}}" class="state">正在加载影像…</view>
+  <view wx:if="{{loading}}" class="page-loading">
+    <view class="sk-player"></view>
+    <view class="sk-card">
+      <view class="sk-line sk-line--lg"></view>
+      <view class="sk-line"></view>
+    </view>
+  </view>
+
   <view wx:elif="{{error || !video}}" class="state">
-    <view>影像不存在或加载失败</view>
+    <view class="state-emoji">📡</view>
+    <view class="state-title">影像加载失败</view>
+    <view class="state-sub">下拉刷新或点重试</view>
     <view class="retry-btn" bindtap="retry">重新加载</view>
   </view>
 
   <block wx:else>
-    <!-- 媒体组件：有播放地址走 <video>；无源走结构化占位（Gate E：无播放地址态） -->
+    <!-- 媒体组件：有 playUrl 走 <video>；无源走结构化占位（Gate E） -->
     <video
       wx:if="{{video.url}}"
       class="player"
@@ -15,6 +24,7 @@
       controls
       object-fit="cover"
       binderror="onPlayError"
+      bindplay="onPlaying"
     />
     <view wx:else class="player player--placeholder">
       <view class="player-poster">
@@ -24,13 +34,17 @@
       <view class="player-note">官方影像 · 媒资接入后支持在线播放</view>
     </view>
 
+    <!-- 标题与著录行 -->
     <view class="title">{{video.title}}</view>
     <view class="meta-row">
       <text class="meta-tag">{{video.category}}</text>
       <text class="meta">{{video.sourceName}} · {{video.resolution}} · 时长 {{video.durationLabel}}</text>
     </view>
+    <view wx:if="{{video.tags && video.tags.length}}" class="tags-row">
+      <text wx:for="{{video.tags}}" wx:for-item="tag" wx:key="*this" class="tag">{{tag}}</text>
+    </view>
 
-    <!-- 传播链：影像 → 相关剧目 → 相关新闻 -->
+    <!-- 传播链：影像 → 相关剧目 -->
     <view wx:if="{{relatedWork}}" class="section">
       <view class="section-title">相关剧目</view>
       <view class="work-row" bindtap="openWork">
@@ -43,6 +57,7 @@
       </view>
     </view>
 
+    <!-- 传播链：影像 → 相关新闻 -->
     <view wx:if="{{relatedNews.length}}" class="section">
       <view class="section-title">相关新闻</view>
       <view wx:for="{{relatedNews}}" wx:key="id" class="news-row" data-id="{{item.id}}" bindtap="openNews">
@@ -53,4 +68,10 @@
 
     <view class="official-footer">沂蒙小戏小剧官方数字传播平台</view>
   </block>
+</view>
+
+<!-- 底部操作条（固定） -->
+<view wx:if="{{video}}" class="action-bar">
+  <view class="action-btn" bindtap="onShare">分享</view>
+  <view class="action-btn {{favorited ? 'action-btn--active' : ''}}" bindtap="onFavorite">{{favorited ? '★ 已收藏' : '☆ 收藏'}}</view>
 </view>

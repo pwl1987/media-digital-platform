@@ -1,44 +1,68 @@
-<view class="container" wx:if="{{artist}}">
-  <!-- 演员头卡：黑白人像 + 红色名条 + 金色荣誉 -->
-  <view class="portrait">
-    <view class="portrait-glyph">{{glyph}}</view>
-  </view>
-  <view class="name-bar">
-    <text class="name">{{artist.title}}</text>
-    <text class="role">{{artist.role}}</text>
-  </view>
-  <view class="org">{{artist.organization}}</view>
-  <view wx:if="{{artist.honors && artist.honors.length}}" class="honors">
-    <text wx:for="{{artist.honors}}" wx:key="*this" class="honor">{{item}}</text>
+<view class="container">
+  <view wx:if="{{loading}}" class="sk-page">
+    <view class="sk-portrait"></view>
+    <view class="sk-name-bar"></view>
+    <view class="sk-card"><view class="sk-line sk-line--lg"></view><view class="sk-line"></view></view>
   </view>
 
-  <!-- 简介 -->
-  <view class="section">
-    <view class="section-title">个人简介</view>
-    <view class="bio">{{artist.bio || '正式内容接入后展示。'}}</view>
-  </view>
+  <block wx:else wx:if="{{artist}}">
+    <!-- 演员头卡：黑白人像 + 红色名条 + 金色荣誉 -->
+    <view class="portrait">
+      <view class="portrait-glyph">{{glyph}}</view>
+    </view>
+    <view class="name-bar">
+      <text class="name">{{artist.title}}</text>
+      <text class="role">{{artist.role}}</text>
+    </view>
+    <view class="org">{{artist.organization}}</view>
+    <view wx:if="{{artist.honors && artist.honors.length}}" class="honors">
+      <text wx:for="{{artist.honors}}" wx:key="*this" class="honor">{{item}}</text>
+    </view>
 
-  <!-- 代表作品（走 API） -->
-  <view class="section">
-    <view class="section-title">代表作品</view>
-    <view wx:if="{{worksLoading}}" class="skeleton-block"></view>
-    <view wx:elif="{{works.length}}" class="works">
-      <view wx:for="{{works}}" wx:key="id" class="work-row" data-id="{{item.id}}" bindtap="openWork">
-        <view class="work-title">《{{item.title}}》</view>
-        <view class="work-meta">{{item.tag}} · {{item.organization.title}}</view>
+    <!-- 个人简介 -->
+    <view class="section">
+      <view class="section-title">个人简介</view>
+      <view class="bio">{{artist.bio || '正式内容接入后展示。'}}</view>
+    </view>
+
+    <!-- 代表作品（走 API） -->
+    <view class="section">
+      <view class="section-title">代表作品</view>
+      <view wx:if="{{worksLoading}}" class="skeleton-block"></view>
+      <view wx:elif="{{works.length}}" class="works">
+        <view wx:for="{{works}}" wx:key="id" class="work-row" data-id="{{item.id}}" bindtap="openWork">
+          <view class="work-title">《{{item.title}}》</view>
+          <view class="work-meta">{{item.tag}} · {{item.organization.title}}</view>
+        </view>
+      </view>
+      <view wx:else class="empty">代表作品将在剧目 API 接入后展示</view>
+    </view>
+
+    <!-- 主演影像（按作品标题反查影像） -->
+    <view class="section" wx:if="{{videos.length}}">
+      <view class="section-title">主演影像</view>
+      <view wx:for="{{videos}}" wx:key="id" class="video-row" data-id="{{item.id}}" bindtap="openVideo">
+        <view class="video-cover">
+          <view class="video-duration">{{item.durationLabel}}</view>
+        </view>
+        <view class="video-text">
+          <view class="video-title">{{item.title}}</view>
+          <view class="video-meta">{{item.category}} · {{item.sourceName}} · {{item.resolution}}</view>
+        </view>
       </view>
     </view>
-    <view wx:else class="empty">代表作品将在剧目 API 接入后展示</view>
-  </view>
+  </block>
 
-  <view class="actions">
-    <view class="action-btn" bindtap="onShare">分享</view>
-    <view class="action-btn action-btn--primary" bindtap="onFollow">+ 关注</view>
+  <view wx:elif="{{error}}" class="state">
+    <view class="state-emoji">📡</view>
+    <view class="state-title">演员档案未找到</view>
+    <view class="state-sub">下拉刷新或点重试</view>
+    <view class="retry-btn" bindtap="retry">重新加载</view>
   </view>
 </view>
 
-<view wx:else class="state">
-  <view class="state-emoji">🎭</view>
-  <view class="state-title">演员档案未找到</view>
-  <view class="retry-btn" bindtap="retry">重新加载</view>
+<!-- 底部操作条 -->
+<view wx:if="{{artist && !loading}}" class="action-bar">
+  <view class="action-btn" bindtap="onShare">分享</view>
+  <view class="action-btn action-btn--primary {{followed ? 'action-btn--active' : ''}}" bindtap="onFollow">{{followed ? '✓ 已关注' : '+ 关注'}}</view>
 </view>

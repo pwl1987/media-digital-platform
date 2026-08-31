@@ -1,5 +1,20 @@
 /* 新闻详情：传播核心页（红金宣纸 token 化，基线 §8） */
-.page { min-height: 100vh; background: var(--ym-paper); padding: 36rpx 30rpx 60rpx; }
+.page { min-height: 100vh; background: var(--ym-paper); padding: 36rpx 30rpx 220rpx; }
+
+/* 加载骨架（避免白屏） */
+.page-loading { min-height: 100vh; background: var(--ym-paper); padding: 36rpx 30rpx 220rpx; }
+.sk-badges { display: flex; gap: 12rpx; margin-bottom: 20rpx; }
+.sk-badge { width: 96rpx; height: 36rpx; border-radius: 4rpx; background: var(--ym-paper-deep, #E9E0CC); animation: sk-pulse 1.4s ease-in-out infinite; }
+.sk-line { height: 22rpx; border-radius: 4rpx; background: var(--ym-paper-deep, #E9E0CC); margin-top: 18rpx; animation: sk-pulse 1.4s ease-in-out infinite; }
+.sk-line--xl { height: 48rpx; width: 90%; }
+.sk-line--lg { height: 30rpx; width: 60%; }
+.sk-block { height: 200rpx; border-radius: 8rpx; background: var(--ym-paper-deep, #E9E0CC); margin-top: 24rpx; animation: sk-pulse 1.4s ease-in-out infinite; }
+@keyframes sk-pulse { 0%, 100% { opacity: 0.6; } 50% { opacity: 1; } }
+
+/* 底部操作条（固定，悬浮） */
+.action-bar { position: fixed; left: 0; right: 0; bottom: 0; display: flex; gap: 16rpx; padding: 18rpx 30rpx calc(18rpx + env(safe-area-inset-bottom)); background: var(--ym-surface); box-shadow: 0 -4rpx 16rpx rgba(31,31,31,0.08); }
+.action-btn { flex: 1; text-align: center; padding: 20rpx 0; border-radius: 10rpx; border: 1rpx solid var(--ym-line); color: var(--ym-text-2); font-size: 28rpx; background: var(--ym-surface); }
+.action-btn--active { color: var(--ym-red-700); border-color: var(--ym-red-100); background: var(--ym-red-50); }
 
 .official-badge { display: inline-block; border-radius: 4rpx; padding: 8rpx 16rpx; font-size: 24rpx; font-weight: 600; }
 .official-badge--red { background: var(--ym-red-700); color: #fff; }

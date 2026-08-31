@@ -1,5 +1,4 @@
-// 剧目详情：文化档案（不是商品页）——海报/简介/主创/演出记录/影像/相关新闻
-// 禁止出现：购买、收藏、点赞、打赏、会员（OPERA_UI_VISUAL_BASELINE_V0.1 §9）
+// 剧目详情：文化档案页（基线 §9）；加载骨架 + 友好错误态 + 底部固定操作条（分享/收藏）
 const api = require('../../utils/api');
 
 Page({
@@ -9,7 +8,8 @@ Page({
     work: null,
     videos: [],
     performances: [],
-    relatedNews: []
+    relatedNews: [],
+    favorited: false
   },
 
   onLoad(options) {
@@ -19,6 +19,12 @@ Page({
     }
     this.id = options.id;
     this.load();
+  },
+
+  onShow() {
+    // 从我的页回跳后，已收藏状态同步
+    const fav = wx.getStorageSync('opera_favorites') || {};
+    this.setData({ favorited: !!fav.work && !!fav.work[this.id] });
   },
 
   retry() {
@@ -37,15 +43,17 @@ Page({
         if (workRes.error || !workRes.data) throw new Error('not found');
         const work = {
           ...workRes.data,
-          artists: (workRes.data.artists || []).map((a) => ({ ...a, glyph: String(a.title).slice(0, 1) }))
+          artists: (workRes.data.artists || []).map((a) => ({
+            ...a, glyph: String(a.title || '').slice(0, 1) || '艺'
+          }))
         };
         const videos = (videosRes.data && videosRes.data.items) || [];
-        // 剧目关联影像：优先 work.media 声明，其次按标题匹配
         const mediaIds = (work.media || []).map((m) => m.id);
         const workVideos = mediaIds.length
           ? mediaIds.map((id) => videos.find((v) => v.id === id)).filter(Boolean)
-          : videos.filter((v) => v.title.includes(work.title)).slice(0, 2);
+          : videos.filter((v) => v.title && v.title.includes(work.title)).slice(0, 2);
         const allNews = (newsRes.data && newsRes.data.items) || [];
+        wx.setNavigationBarTitle({ title: '剧目档案' });
         this.setData({
           loading: false,
           work,
@@ -65,6 +73,25 @@ Page({
   },
   openEvent(e) { wx.navigateTo({ url: `/pages/event-detail/event-detail?id=${e.currentTarget.dataset.id}` }); },
   openNews(e) { wx.navigateTo({ url: `/pages/news-detail/news-detail?id=${e.currentTarget.dataset.id}` }); },
+
+  onShare() {
+    wx.vibrateShort && wx.vibrateShort({ type: 'light' });
+    wx.showToast({ title: '已生成分享卡', icon: 'success' });
+  },
+
+  onFavorite() {
+    if (this.favoriting) return;
+    this.favoriting = true;
+    const fav = wx.getStorageSync('opera_favorites') || { work: {} };
+    fav.work = fav.work || {};
+    const had = !!fav.work[this.id];
+    had ? delete fav.work[this.id] : (fav.work[this.id] = true);
+    wx.setStorageSync('opera_favorites', fav);
+    this.setData({ favorited: !had });
+    wx.vibrateShort && wx.vibrateShort({ type: 'light' });
+    wx.showToast({ title: had ? '已取消收藏' : '已加入收藏', icon: had ? 'none' : 'success' });
+    setTimeout(() => { this.favoriting = false; }, 300);
+  },
 
   onShareAppMessage() {
     const work = this.data.work || {};

@@ -1,36 +1,53 @@
 <view class="page">
-  <view wx:if="{{loading}}" class="state">正在调取剧目档案…</view>
+  <view wx:if="{{loading}}" class="page-loading">
+    <view class="sk-poster"></view>
+    <view class="sk-card">
+      <view class="sk-line sk-line--lg"></view>
+      <view class="sk-line sk-line--sm"></view>
+      <view class="sk-line"></view>
+    </view>
+  </view>
+
   <view wx:elif="{{error || !work}}" class="state">
-    <view>剧目档案不存在</view>
+    <view class="state-emoji">🎭</view>
+    <view class="state-title">剧目档案未找到</view>
+    <view class="state-sub">可能已下架，下拉刷新或点重试</view>
     <view class="retry-btn" bindtap="retry">重新调取</view>
   </view>
 
   <block wx:else>
-    <!-- 剧目海报（媒资接入前占位） -->
+    <!-- 海报（媒资接入前占位） -->
     <view class="poster">
       <view class="poster-title serif">《{{work.title}}》</view>
       <view class="poster-tag">{{work.tag}}</view>
     </view>
 
-    <!-- 剧目档案头 -->
+    <!-- 档案头：覆盖在海报上的悬浮卡 -->
     <view class="archive-head">
       <view class="archive-title serif">《{{work.title}}》</view>
-      <view class="archive-meta">{{work.tag}} · <text bindtap="openOrganization" class="link">{{work.organization.title}}</text></view>
+      <view class="archive-meta">
+        <text>{{work.tag}} · </text>
+        <text bindtap="openOrganization" class="link">{{work.organization.title}}</text>
+      </view>
       <view class="archive-meta" wx:if="{{work.artists.length}}">主演：{{work.artists[0].title}}</view>
       <view wx:if="{{work.honors && work.honors.length}}" class="honors">
         <text wx:for="{{work.honors}}" wx:key="*this" class="honor">{{item}}</text>
       </view>
     </view>
 
+    <!-- 剧情简介 -->
     <view class="section">
       <view class="section-title">剧情简介</view>
       <view class="body-text">{{work.summary}}</view>
     </view>
 
+    <!-- 精彩片段 -->
     <view wx:if="{{videos.length}}" class="section">
       <view class="section-title">精彩片段</view>
       <view wx:for="{{videos}}" wx:key="id" class="video-row" data-id="{{item.id}}" bindtap="openVideo">
-        <view class="video-cover"><view class="video-duration">{{item.durationLabel}}</view></view>
+        <view class="video-cover">
+          <view class="video-duration">{{item.durationLabel}}</view>
+        </view>
         <view class="video-text">
           <view class="video-title">{{item.title}}</view>
           <view class="video-meta">{{item.category}} · {{item.sourceName}} · {{item.resolution}}</view>
@@ -38,10 +55,11 @@
       </view>
     </view>
 
+    <!-- 主创团队 -->
     <view wx:if="{{work.artists.length}}" class="section">
       <view class="section-title">主创团队</view>
       <view wx:for="{{work.artists}}" wx:key="id" class="person-row" data-id="{{item.id}}" bindtap="openArtist">
-        <view class="person-avatar">{{item.glyph}}</view>
+        <view class="person-avatar">{{item.glyph || item.title[0]}}</view>
         <view class="person-text">
           <view class="person-name">{{item.title}}</view>
           <view class="person-role">{{item.role || '主演'}}</view>
@@ -50,17 +68,21 @@
       </view>
     </view>
 
+    <!-- 演出记录：时间线 -->
     <view wx:if="{{performances.length}}" class="section">
       <view class="section-title">演出记录</view>
-      <view wx:for="{{performances}}" wx:key="id" class="perf-row" data-id="{{item.eventId}}" bindtap="openEvent">
-        <view class="perf-dot"></view>
-        <view class="perf-text">
-          <view class="perf-title">{{item.title}}</view>
-          <view class="perf-meta">{{item.startAt}} · {{item.place}}</view>
+      <view class="timeline">
+        <view wx:for="{{performances}}" wx:key="id" class="perf-row" data-id="{{item.eventId}}" bindtap="openEvent">
+          <view class="perf-dot"></view>
+          <view class="perf-text">
+            <view class="perf-title">{{item.title}}</view>
+            <view class="perf-meta">{{item.startAt}} · {{item.place}}</view>
+          </view>
         </view>
       </view>
     </view>
 
+    <!-- 相关新闻 -->
     <view wx:if="{{relatedNews.length}}" class="section">
       <view class="section-title">相关新闻</view>
       <view wx:for="{{relatedNews}}" wx:key="id" class="news-row" data-id="{{item.id}}" bindtap="openNews">
@@ -69,9 +91,16 @@
       </view>
     </view>
 
+    <!-- 官方页脚 -->
     <view class="official-footer">
       <view>沂蒙小戏小剧官方数字传播平台</view>
       <view class="official-footer-sub">剧目资料以官方审核发布为准</view>
     </view>
   </block>
+</view>
+
+<!-- 底部操作条（固定，悬浮） -->
+<view wx:if="{{work}}" class="action-bar">
+  <view class="action-btn" bindtap="onShare">分享</view>
+  <view class="action-btn {{favorited ? 'action-btn--active' : ''}}" bindtap="onFavorite">{{favorited ? '★ 已收藏' : '☆ 收藏'}}</view>
 </view>

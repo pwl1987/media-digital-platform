@@ -1,5 +1,13 @@
 /* 活动详情：头卡 + 信息 + 时间线 + 报名（红金宣纸 token） */
-.container { min-height: 100vh; background: var(--ym-paper); padding: 0 0 200rpx; }
+.container { min-height: 100vh; background: var(--ym-paper); padding: 0 0 220rpx; }
+
+/* 加载骨架（避免白屏） */
+.sk-page { padding-bottom: 220rpx; }
+.sk-hero { height: 220rpx; background: linear-gradient(150deg, var(--ym-paper-deep, #E9E0CC), var(--ym-paper)); animation: sk-pulse 1.4s ease-in-out infinite; }
+.sk-card { margin: 16rpx 28rpx 0; background: var(--ym-surface); border-radius: 12rpx; box-shadow: var(--ym-shadow-rest); padding: 26rpx 28rpx; }
+.sk-line { height: 22rpx; border-radius: 4rpx; background: var(--ym-paper-deep, #E9E0CC); margin-top: 18rpx; animation: sk-pulse 1.4s ease-in-out infinite; }
+.sk-line--lg { height: 30rpx; width: 60%; }
+@keyframes sk-pulse { 0%, 100% { opacity: 0.6; } 50% { opacity: 1; } }
 
 /* 头卡 */
 .event-hero { position: relative; padding: 60rpx 32rpx 36rpx; background: linear-gradient(150deg, var(--ym-red-900), var(--ym-red-700)); color: #FFFFFF; }
@@ -33,6 +41,16 @@
 .tl-card-title { font-size: 28rpx; font-weight: 650; color: var(--ym-ink); }
 .tl-card-meta { margin-top: 6rpx; font-size: 22rpx; color: var(--ym-text-3); font-variant-numeric: tabular-nums; }
 
+/* 流程时间线 */
+.flow { margin-top: 18rpx; }
+.flow-item { display: flex; align-items: flex-start; gap: 18rpx; padding: 18rpx 0; border-bottom: 1rpx dashed var(--ym-line); }
+.flow-item:last-child { border-bottom: 0; }
+.flow-time { flex-shrink: 0; width: 100rpx; font-size: 28rpx; font-weight: 700; color: var(--ym-red-700); font-variant-numeric: tabular-nums; padding-top: 2rpx; }
+.flow-dot { width: 14rpx; height: 14rpx; border-radius: 50%; background: var(--ym-gold-500); margin-top: 14rpx; flex-shrink: 0; }
+.flow-body { flex: 1; }
+.flow-title { font-size: 28rpx; font-weight: 650; color: var(--ym-ink); }
+.flow-desc { margin-top: 4rpx; font-size: 22rpx; color: var(--ym-text-3); }
+
 /* 关联剧目 */
 .works { margin-top: 18rpx; }
 .work-card { display: flex; align-items: center; gap: 20rpx; padding: 20rpx 0; border-bottom: 1rpx solid var(--ym-paper); }
@@ -45,6 +63,7 @@
 /* 底部操作条 */
 .action-bar { position: fixed; left: 0; right: 0; bottom: 0; display: flex; gap: 16rpx; padding: 18rpx 28rpx calc(18rpx + env(safe-area-inset-bottom)); background: var(--ym-surface); box-shadow: 0 -4rpx 16rpx rgba(31,31,31,0.08); }
 .action-btn { flex: 1; text-align: center; padding: 22rpx 0; border-radius: 10rpx; border: 1rpx solid var(--ym-line); color: var(--ym-text-2); font-size: 28rpx; background: var(--ym-surface); }
+.action-btn--primary { background: var(--ym-red-700); border-color: var(--ym-red-700); color: #FFFFFF; font-weight: 650; }
 .action-btn--active { color: var(--ym-red-700); border-color: var(--ym-red-100); background: var(--ym-red-50); }
 
 .state { padding: 200rpx 0 0; text-align: center; }

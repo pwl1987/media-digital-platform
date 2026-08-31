@@ -1,5 +1,13 @@
 <view class="page">
-  <view wx:if="{{loading}}" class="state"><view class="state-emoji">⏳</view>正在加载资讯…</view>
+  <view wx:if="{{loading}}" class="page-loading">
+    <view class="sk-badges"><view class="sk-badge"></view></view>
+    <view class="sk-line sk-line--xl"></view>
+    <view class="sk-line sk-line--lg"></view>
+    <view class="sk-line"></view>
+    <view class="sk-block"></view>
+    <view class="sk-line"></view>
+    <view class="sk-line"></view>
+  </view>
   <view wx:elif="{{error}}" class="state">
     <view class="state-emoji">📡</view>
     <view class="state-title">资讯加载失败</view>
@@ -62,4 +70,10 @@
       <view>沂蒙小戏小剧官方数字传播平台</view>
     </view>
   </block>
+</view>
+
+<!-- 底部操作条（固定） -->
+<view wx:if="{{news}}" class="action-bar">
+  <view class="action-btn" bindtap="onShare">分享</view>
+  <view class="action-btn {{favorited ? 'action-btn--active' : ''}}" bindtap="onFavorite">{{favorited ? '★ 已收藏' : '☆ 收藏'}}</view>
 </view>

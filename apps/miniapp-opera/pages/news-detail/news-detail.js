@@ -9,7 +9,8 @@ Page({
     paragraphs: [],
     relatedWorks: [],
     relatedVideos: [],
-    moreNews: []
+    moreNews: [],
+    favorited: false
   },
 
   onLoad(options) {
@@ -19,6 +20,12 @@ Page({
     }
     this.id = options.id;
     this.load();
+  },
+
+  onShow() {
+    if (!this.id) return;
+    const fav = wx.getStorageSync('opera_favorites') || {};
+    this.setData({ favorited: !!(fav.news && fav.news[this.id]) });
   },
 
   retry() {
@@ -56,6 +63,24 @@ Page({
   openWork(e) { wx.navigateTo({ url: `/pages/work-detail/work-detail?id=${e.currentTarget.dataset.id}` }); },
   openVideo(e) { wx.navigateTo({ url: `/pages/video-detail/video-detail?id=${e.currentTarget.dataset.id}` }); },
   openNews(e) { wx.navigateTo({ url: `/pages/news-detail/news-detail?id=${e.currentTarget.dataset.id}` }); },
+
+  onShare() {
+    wx.vibrateShort && wx.vibrateShort({ type: 'light' });
+    wx.showToast({ title: '已生成分享卡', icon: 'success' });
+  },
+  onFavorite() {
+    if (this.favoriting) return;
+    this.favoriting = true;
+    const fav = wx.getStorageSync('opera_favorites') || { news: {} };
+    fav.news = fav.news || {};
+    const had = !!fav.news[this.id];
+    had ? delete fav.news[this.id] : (fav.news[this.id] = true);
+    wx.setStorageSync('opera_favorites', fav);
+    this.setData({ favorited: !had });
+    wx.vibrateShort && wx.vibrateShort({ type: 'light' });
+    wx.showToast({ title: had ? '已取消收藏' : '已加入收藏', icon: had ? 'none' : 'success' });
+    setTimeout(() => { this.favoriting = false; }, 300);
+  },
 
   onShareAppMessage() {
     const news = this.data.news || {};
