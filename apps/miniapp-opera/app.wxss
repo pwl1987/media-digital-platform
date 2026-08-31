@@ -1,4 +1,5 @@
-@import '../../packages/design-system/tokens-opera.wxss';
+@import 'styles/tokens-opera.wxss';
+/* token 唯一来源为 packages/design-system（经 scripts/sync-design-tokens.mjs 同步进项目，小程序不能跨根引用） */
 
 /* 基础主题按 OPERA_UI_VISUAL_BASELINE_V0.1 token 化；旧页面遗留色值待后续批次收口 */
 page { background: var(--ym-paper, #F7F3EA); color: var(--ym-ink, #1F1F1F); font-family: "PingFang SC", "HarmonyOS Sans SC", "MiSans", -apple-system, sans-serif; }
