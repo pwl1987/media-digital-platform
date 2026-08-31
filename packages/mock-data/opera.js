@@ -61,14 +61,21 @@ const news = [
   }
 ];
 
+// 数据密度按验收下限建设（Gate U：剧目 ≥6、活动 ≥4、新闻 ≥8、视频 ≥8、专题 ≥3）
 const works = [
   { id: 'work-001', type: 'Work', title: '沂蒙山小调', tag: '精品剧目', summary: '以沂蒙地域文化为背景的经典作品，唱响山水与人情的沂蒙记忆。', sourceLevel: 'official', organization: { id: 'org-001', title: '沂蒙艺术团' }, artists: [{ id: 'artist-001', title: '张老师', role: '主演' }], media: [{ id: 'video-001', type: 'MediaAsset', title: '舞台精彩片段' }], performanceIds: ['performance-001'], honors: ['市级群众文艺优秀作品'], status: 'published' },
-  { id: 'work-002', type: 'Work', title: '红嫂情', tag: '红色题材', summary: '以沂蒙红嫂故事为主题的小戏作品，再现军民鱼水情深的动人篇章。', sourceLevel: 'official', organization: { id: 'org-002', title: '临沂地方戏剧团' }, artists: [{ id: 'artist-002', title: '李老师', role: '主演' }], media: [{ id: 'video-002', type: 'MediaAsset', title: '演出实录' }], performanceIds: ['performance-002'], honors: ['红色题材创作扶持作品'], status: 'published' }
+  { id: 'work-002', type: 'Work', title: '红嫂情', tag: '红色题材', summary: '以沂蒙红嫂故事为主题的小戏作品，再现军民鱼水情深的动人篇章。', sourceLevel: 'official', organization: { id: 'org-002', title: '临沂地方戏剧团' }, artists: [{ id: 'artist-002', title: '李老师', role: '主演' }], media: [{ id: 'video-002', type: 'MediaAsset', title: '演出实录' }], performanceIds: ['performance-002'], honors: ['红色题材创作扶持作品'], status: 'published' },
+  { id: 'work-003', type: 'Work', title: '槐树庄的故事', tag: '现实题材', summary: '以乡村振兴中的村庄日常为切口，讲述新时代农民自己的故事。', sourceLevel: 'official', organization: { id: 'org-001', title: '沂蒙艺术团' }, artists: [{ id: 'artist-001', title: '张老师', role: '主演' }], media: [], performanceIds: ['performance-003'], honors: [], status: 'published' },
+  { id: 'work-004', type: 'Work', title: '山村夜话', tag: '小品类', summary: '用一间农家夜话的灯光，映出基层治理里的笑与暖。', sourceLevel: 'official', organization: { id: 'org-002', title: '临沂地方戏剧团' }, artists: [{ id: 'artist-002', title: '李老师', role: '主演' }], media: [], performanceIds: ['performance-004'], honors: [], status: 'published' },
+  { id: 'work-005', type: 'Work', title: '沂河两岸', tag: '传统戏曲', summary: '柳琴戏传统折子戏整理改编剧目，让老腔老调焕发新声。', sourceLevel: 'official', organization: { id: 'org-001', title: '沂蒙艺术团' }, artists: [{ id: 'artist-003', title: '王老师', role: '主演' }], media: [], performanceIds: ['performance-003'], honors: ['柳琴戏传承展演剧目'], status: 'published' },
+  { id: 'work-006', type: 'Work', title: '丰收时节', tag: '现实题材', summary: '以合作社丰收季为背景的轻喜剧，唱出庄稼人踏实的喜悦。', sourceLevel: 'official', organization: { id: 'org-002', title: '临沂地方戏剧团' }, artists: [{ id: 'artist-004', title: '刘老师', role: '主演' }], media: [], performanceIds: ['performance-004'], honors: [], status: 'published' }
 ];
 
 const artists = [
-  { id: 'artist-001', type: 'Person', title: '张老师', role: '主演', organization: '沂蒙艺术团', workIds: ['work-001'], status: 'published' },
-  { id: 'artist-002', type: 'Person', title: '李老师', role: '主演', organization: '临沂地方戏剧团', workIds: ['work-002'], status: 'published' }
+  { id: 'artist-001', type: 'Person', title: '张老师', role: '主演', organization: '沂蒙艺术团', workIds: ['work-001', 'work-003'], status: 'published' },
+  { id: 'artist-002', type: 'Person', title: '李老师', role: '主演', organization: '临沂地方戏剧团', workIds: ['work-002', 'work-004'], status: 'published' },
+  { id: 'artist-003', type: 'Person', title: '王老师', role: '主演', organization: '沂蒙艺术团', workIds: ['work-005'], status: 'published' },
+  { id: 'artist-004', type: 'Person', title: '刘老师', role: '主演', organization: '临沂地方戏剧团', workIds: ['work-006'], status: 'published' }
 ];
 
 const organizations = [
@@ -78,12 +85,16 @@ const organizations = [
 
 const events = [
   { id: 'event-001', type: 'Event', title: '2026沂蒙小戏小剧展演', lifecycleStatus: 'upcoming', startAt: '2026-09-05T19:30:00+08:00', place: '临沂文化艺术中心', workIds: ['work-001', 'work-002'], status: 'published' },
-  { id: 'event-002', type: 'Event', title: '红色题材精品专场', lifecycleStatus: 'upcoming', startAt: '2026-09-12T19:30:00+08:00', place: '临沂剧院', workIds: ['work-002'], status: 'published' }
+  { id: 'event-002', type: 'Event', title: '红色题材精品专场', lifecycleStatus: 'upcoming', startAt: '2026-09-12T19:30:00+08:00', place: '临沂剧院', workIds: ['work-002'], status: 'published' },
+  { id: 'event-003', type: 'Event', title: '文化惠民·小戏小剧进乡村专场', lifecycleStatus: 'ongoing', startAt: '2026-08-28T19:00:00+08:00', place: '蒙阴县野店镇文化广场', workIds: ['work-003', 'work-005'], status: 'published' },
+  { id: 'event-004', type: 'Event', title: '青年演员汇报演出', lifecycleStatus: 'upcoming', startAt: '2026-09-20T14:30:00+08:00', place: '临沂市文化馆小剧场', workIds: ['work-004', 'work-006'], status: 'published' }
 ];
 
 const performances = [
   { id: 'performance-001', type: 'Performance', title: '2026沂蒙小戏小剧展演·专场一', workId: 'work-001', eventId: 'event-001', startAt: '2026-09-05T19:30:00+08:00', place: '临沂文化艺术中心', status: 'published' },
-  { id: 'performance-002', type: 'Performance', title: '2026小戏小剧展演·红色专场', workId: 'work-002', eventId: 'event-002', startAt: '2026-09-12T19:30:00+08:00', place: '临沂剧院', status: 'published' }
+  { id: 'performance-002', type: 'Performance', title: '2026小戏小剧展演·红色专场', workId: 'work-002', eventId: 'event-002', startAt: '2026-09-12T19:30:00+08:00', place: '临沂剧院', status: 'published' },
+  { id: 'performance-003', type: 'Performance', title: '文化惠民专场·野店站', workId: 'work-003', eventId: 'event-003', startAt: '2026-08-28T19:00:00+08:00', place: '蒙阴县野店镇文化广场', status: 'published' },
+  { id: 'performance-004', type: 'Performance', title: '青年演员汇报演出·下午场', workId: 'work-004', eventId: 'event-004', startAt: '2026-09-20T14:30:00+08:00', place: '临沂市文化馆小剧场', status: 'published' }
 ];
 
 // 影像馆五类：演出实录 / 精品片段 / 幕后花絮 / 专题片 / 人物访谈
