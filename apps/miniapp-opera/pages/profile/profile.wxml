@@ -1,31 +1,49 @@
 <view class="container">
-  <!-- 用户头卡（未登录态；登录体系按产品路线暂缓） -->
+  <!-- 用户头卡（未登录态） -->
   <view class="user-card">
     <view class="avatar serif">观</view>
     <view class="user-info">
-      <view class="user-name">观众朋友</view>
-      <view class="user-sub">登录后可同步收藏与观看历史</view>
+      <view class="user-name">沂蒙文化爱好者</view>
+      <view class="user-sub">山东 · 临沂</view>
     </view>
   </view>
 
-  <!-- 统计 -->
-  <view class="stats-card">
-    <view wx:for="{{stats}}" wx:key="id" class="stat-item">
-      <view class="stat-value">{{item.value}}</view>
-      <view class="stat-label">{{item.label}}</view>
+  <!-- 数据看板 -->
+  <view class="dashboard-card">
+    <view wx:for="{{dashboard}}" wx:key="id" class="dash-item">
+      <view class="dash-icon dash-icon--{{item.color}}">●</view>
+      <view class="dash-value">{{item.value}}</view>
+      <view class="dash-label">{{item.label}}</view>
     </view>
   </view>
 
-  <!-- 菜单组 -->
-  <view class="menu-group">
-    <view wx:for="{{menus}}" wx:key="id" class="menu-row" data-id="{{item.id}}" bindtap="openMenu">
-      <view class="menu-icon">{{item.icon}}</view>
-      <view class="menu-body">
-        <view class="menu-label">{{item.label}}</view>
-        <view class="menu-desc">{{item.desc}}</view>
+  <!-- 继续观看 -->
+  <view class="section-label">继续观看</view>
+  <scroll-view scroll-x class="cw-strip" show-scrollbar="{{false}}">
+    <view wx:for="{{continueWatching}}" wx:key="id" class="cw-card" data-id="{{item.id}}" bindtap="openContinue">
+      <view class="cw-cover">
+        <view class="cw-play">▶</view>
       </view>
-      <view class="arrow">›</view>
+      <view class="cw-title">{{item.title}}</view>
+      <view class="cw-progress"><view class="cw-bar"><view class="cw-fill" style="width: {{item.percent}}%"></view></view></view>
+      <view class="cw-percent">{{item.percent}}%</view>
     </view>
+  </scroll-view>
+
+  <!-- 功能矩阵 -->
+  <view class="matrix">
+    <view wx:for="{{matrix}}" wx:key="id" class="matrix-cell" data-id="{{item.id}}" bindtap="openMatrix">
+      <view class="matrix-icon matrix-icon--{{item.color}}">{{item.icon}}</view>
+      <view class="matrix-label">{{item.label}}</view>
+      <view class="matrix-value">{{item.value}}</view>
+    </view>
+  </view>
+
+  <!-- 设置列表 -->
+  <view class="menu-group">
+    <view class="menu-row" bindtap="onAbout"><view class="menu-label">关于我们</view><view class="arrow">›</view></view>
+    <view class="menu-row"><view class="menu-label">意见反馈</view><view class="arrow">›</view></view>
+    <button class="menu-row menu-row--share" open-type="share"><view class="menu-label">分享给朋友</view><view class="arrow">›</view></button>
   </view>
 
   <view class="official-footer">

@@ -2,30 +2,80 @@
   <view class="page-head">
     <view class="eyebrow">官方展演日历</view>
     <view class="title serif">展演活动</view>
-    <view class="subtitle">即将开始、正在进行与历史回顾。</view>
   </view>
+
+  <view class="search-box">
+    <input class="search-input" placeholder="搜索相关活动名称..." value="{{q}}" bindinput="onInput" confirm-type="search" />
+  </view>
+
+  <!-- 日历条（按活动日期） -->
+  <view class="calendar-card">
+    <view class="cal-head">
+      <view class="cal-title">活动日历</view>
+      <view class="cal-tip">点日期筛选 · 再点取消</view>
+    </view>
+    <scroll-view scroll-x class="cal-strip" show-scrollbar="{{false}}">
+      <view
+        wx:for="{{days}}"
+        wx:key="key"
+        class="cal-day {{activeDay === item.key ? 'cal-day--on' : ''}}"
+        data-key="{{item.key}}"
+        bindtap="selectDay"
+      >
+        <view class="cal-week">{{item.weekLabel}}</view>
+        <view class="cal-num">{{item.dayLabel}}</view>
+      </view>
+    </scroll-view>
+  </view>
+
+  <!-- 分类筛选 -->
+  <scroll-view scroll-x class="cat-strip" show-scrollbar="{{false}}">
+    <view
+      wx:for="{{categories}}"
+      wx:key="*this"
+      class="cat-chip {{activeCategory === item ? 'cat-chip--on' : ''}}"
+      data-cat="{{item}}"
+      bindtap="selectCategory"
+    >{{item}}</view>
+  </scroll-view>
 
   <view wx:if="{{loading}}" class="state">正在调取展演日历…</view>
   <view wx:elif="{{error}}" class="state">
     <view>活动加载失败</view>
     <view class="retry-btn" bindtap="retry">重新加载</view>
   </view>
-  <view wx:elif="{{!events.length}}" class="state">暂无展演活动</view>
+  <view wx:elif="{{!events.length}}" class="state">该条件下暂无活动</view>
 
   <view wx:else class="event-list">
-    <view wx:for="{{events}}" wx:key="id" class="event-card" data-id="{{item.id}}" bindtap="openEvent">
-      <view class="date-block date-block--{{item.lifecycleStatus}}">
-        <view class="date-month">{{item.month}}月</view>
-        <view class="date-day">{{item.day}}</view>
+    <view wx:for="{{events}}" wx:key="id" class="event-card">
+      <view class="event-head">
+        <view class="event-dot"></view>
+        <view class="event-card-title">{{item.title}}</view>
       </view>
-      <view class="event-body">
-        <view class="event-title-row">
-          <view class="event-title">{{item.title}}</view>
-          <view class="event-status event-status--{{item.lifecycleStatus}}">{{item.statusLabel}}</view>
+      <view class="event-cover">
+        <view wx:if="{{item.free}}" class="cover-flag">免费</view>
+        <view class="cover-status cover-status--{{item.lifecycleStatus}}">{{item.statusLabel}}</view>
+      </view>
+      <view class="event-desc">{{item.desc}}</view>
+      <view class="event-tags">
+        <text wx:for="{{item.tags}}" wx:for-item="tag" wx:key="*this" class="event-tag">{{tag}}</text>
+      </view>
+      <view class="event-info">
+        <view class="event-info-row"><text class="info-label">时间</text><text class="info-value">{{item.timeLabel}}</text></view>
+        <view class="event-info-row"><text class="info-label">地址</text><text class="info-value">{{item.place}}</text></view>
+        <view class="event-info-row">
+          <text class="info-label">报名</text>
+          <view class="sign-progress">
+            <view class="sign-bar"><view class="sign-bar-fill" style="width: {{item.signUpPercent}}%"></view></view>
+            <text class="sign-num">{{item.signedUp}}/{{item.capacity}}人</text>
+          </view>
         </view>
-        <view class="event-meta">{{item.timeLabel}} · {{item.place}}</view>
       </view>
-      <view class="arrow">›</view>
+      <view class="event-actions">
+        <view class="action-btn" catchtap="onFavorite">收藏</view>
+        <view class="action-btn" catchtap="onShareCard">分享</view>
+        <view class="action-btn action-btn--primary" catchtap="onSignUp">立即报名</view>
+      </view>
     </view>
   </view>
 </view>

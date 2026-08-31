@@ -84,10 +84,26 @@ const organizations = [
 ];
 
 const events = [
-  { id: 'event-001', type: 'Event', title: '2026沂蒙小戏小剧展演', lifecycleStatus: 'upcoming', startAt: '2026-09-05T19:30:00+08:00', place: '临沂文化艺术中心', workIds: ['work-001', 'work-002'], status: 'published' },
-  { id: 'event-002', type: 'Event', title: '红色题材精品专场', lifecycleStatus: 'upcoming', startAt: '2026-09-12T19:30:00+08:00', place: '临沂剧院', workIds: ['work-002'], status: 'published' },
-  { id: 'event-003', type: 'Event', title: '文化惠民·小戏小剧进乡村专场', lifecycleStatus: 'ongoing', startAt: '2026-08-28T19:00:00+08:00', place: '蒙阴县野店镇文化广场', workIds: ['work-003', 'work-005'], status: 'published' },
-  { id: 'event-004', type: 'Event', title: '青年演员汇报演出', lifecycleStatus: 'upcoming', startAt: '2026-09-20T14:30:00+08:00', place: '临沂市文化馆小剧场', workIds: ['work-004', 'work-006'], status: 'published' }
+  {
+    id: 'event-001', type: 'Event', title: '2026沂蒙小戏小剧展演', lifecycleStatus: 'upcoming', startAt: '2026-09-05T19:30:00+08:00', place: '临沂文化艺术中心', workIds: ['work-001', 'work-002'], status: 'published',
+    category: '线下活动', free: true, tags: ['非物质文化遗产', '地方戏曲'], desc: '传承红色基因，唱响沂蒙精神——全市优秀小戏小剧作品集中展演。',
+    capacity: 200, signedUp: 165
+  },
+  {
+    id: 'event-002', type: 'Event', title: '红色题材精品专场', lifecycleStatus: 'upcoming', startAt: '2026-09-12T19:30:00+08:00', place: '临沂剧院', workIds: ['work-002'], status: 'published',
+    category: '线下活动', free: false, tags: ['红色教育', '精品剧目'], desc: '《红嫂情》等红色题材精品剧目专场演出。',
+    capacity: 300, signedUp: 87
+  },
+  {
+    id: 'event-003', type: 'Event', title: '文化惠民·小戏小剧进乡村专场', lifecycleStatus: 'ongoing', startAt: '2026-08-28T19:00:00+08:00', place: '蒙阴县野店镇文化广场', workIds: ['work-003', 'work-005'], status: 'published',
+    category: '线下活动', free: true, tags: ['文化惠民', '乡村振兴'], desc: '把舞台搬到田间地头，文化惠民演出持续进行中。',
+    capacity: 500, signedUp: 342
+  },
+  {
+    id: 'event-004', type: 'Event', title: '青年演员汇报演出', lifecycleStatus: 'upcoming', startAt: '2026-09-20T14:30:00+08:00', place: '临沂市文化馆小剧场', workIds: ['work-004', 'work-006'], status: 'published',
+    category: '比赛征集', free: true, tags: ['红色教育', '青少年'], desc: '青年演员培训班学员汇报展示，见证戏曲新力量。',
+    capacity: 150, signedUp: 96
+  }
 ];
 
 const performances = [
