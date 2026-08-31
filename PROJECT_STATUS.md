@@ -10,8 +10,10 @@
 
 | 分支 | 领先 main | 内容 | 状态 |
 | --- | --- | --- | --- |
-| `feature/opera` | 10 commits | OPERA UI Phase 1：五页 + Media UX + 死路由修复 | **待真机验收** → 合 main |
-| `feature/yimeng` | 8 commits | Y2 数字档案馆 MVP：四屏 + 检索工作台 + 引用回链 | **待档案 UX 验收** → 合 main |
+| `feature/opera` | 11 commits | OPERA UI Phase 1：五页 + Media UX + 死路由修复 + 数据密度达标 | **Gate U 体验验收中**（真机/领导视角）→ 通过后合 main + tag |
+| `feature/yimeng` | 8 commits | Y2 数字档案馆 MVP：四屏 + 检索工作台 + 引用回链 | **Gate Y 档案体验验收中** → 通过后合 main + tag |
+
+验收数据密度下限（Gate U，2026-08-31 补齐）：新闻 ≥8 ✅ / 剧目 ≥6 ✅ / 视频 ≥8 ✅ / 活动 ≥4 ✅ / 专题 ≥3 ✅（静态专题位）。
 
 ## 当前 Sprint
 
@@ -38,4 +40,5 @@
 3. 临时分支仅限"连续多天的独立试验"（如 `feature/yimeng-rag-experiment`），完成即 merge 回产品线分支并删除，不长存。
 4. PR 固定两条：`feature/opera → main`、`feature/yimeng → main`；commit 保持细粒度 Conventional Commits。
 5. 删除分支前必须确认 `git rev-list --count main..<branch>` 为 0 或已并入目标分支。
-6. 里程碑合入 main 后打 Tag（如 `v0.2-opera-mvp`、`v0.2-archive-mvp`）。
+6. **产品线分支互不合并**：`feature/opera` 与 `feature/yimeng` 不得互相 merge，共享基础能力（api-client/domain-types/mock-data/design-system）只能经 main 流转，避免跨产品线影响。
+7. 里程碑合入 main 后打 Tag，命名描述里程碑而非绑定产品版本序列：`v0.2-opera-ui-phase1`、`v0.2-yimeng-archive-mvp`、后续 `v0.3-multi-channel`、`v1.0-official-platform`。
