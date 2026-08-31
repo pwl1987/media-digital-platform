@@ -55,6 +55,7 @@
       <view class="video-wall">
         <view wx:for="{{videos}}" wx:key="id" class="media-card" data-id="{{item.id}}" bindtap="openVideo">
           <view class="media-cover">
+            <image wx:if="{{item.coverUrl}}" class="media-cover-img" src="{{item.coverUrl}}" mode="aspectFill" />
             <view class="media-cat">{{item.category}}</view>
             <view class="media-duration">{{item.durationLabel}}</view>
           </view>

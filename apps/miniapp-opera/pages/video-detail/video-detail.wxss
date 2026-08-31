@@ -1,24 +1,31 @@
-/* 视频详情：播放面 + 著录信息（红金宣纸 token 化） */
+/* 视频详情：媒体组件 + 著录信息 + 传播链（红金宣纸 token 化） */
 .page { min-height: 100vh; background: var(--ym-paper); padding: 0 0 60rpx; }
 
-.player { height: 420rpx; background: linear-gradient(160deg, var(--ym-red-900), var(--ym-red-700)); display: flex; flex-direction: column; align-items: center; justify-content: center; color: rgba(255,255,255,0.92); }
-.player-title { font-size: 44rpx; letter-spacing: 4rpx; }
-.player-note { margin-top: 16rpx; font-size: 24rpx; opacity: 0.85; }
+.player { width: 100%; height: 420rpx; display: block; background: var(--ym-ink); }
+.player--placeholder { background: var(--ym-ink); }
+.player-poster { height: 340rpx; display: flex; align-items: center; justify-content: center; }
+.poster-img { width: 100%; height: 100%; }
+.player-title { color: rgba(255,255,255,0.92); font-size: 40rpx; letter-spacing: 4rpx; text-align: center; padding: 0 40rpx; }
+.player-note { text-align: center; color: rgba(255,255,255,0.7); font-size: 24rpx; padding: 24rpx 0; }
 
 .title { padding: 28rpx 30rpx 0; font-size: 36rpx; font-weight: 700; color: var(--ym-ink); line-height: 1.4; }
-.meta-row { padding: 16rpx 30rpx 0; display: flex; align-items: center; gap: 16rpx; }
+.meta-row { padding: 16rpx 30rpx 0; display: flex; align-items: center; gap: 16rpx; flex-wrap: wrap; }
 .meta-tag { font-size: 22rpx; color: var(--ym-gold-700); background: var(--ym-gold-100); border-radius: 4rpx; padding: 6rpx 14rpx; }
 .meta { font-size: 24rpx; color: var(--ym-text-3); font-variant-numeric: tabular-nums; }
 
 .section { margin-top: 44rpx; padding: 0 30rpx; }
 .section-title { font-size: 32rpx; font-weight: 700; color: var(--ym-ink); padding-left: 16rpx; border-left: 6rpx solid var(--ym-red-700); margin-bottom: 20rpx; font-family: "Noto Serif SC", "Songti SC", serif; }
 
-.video-row { display: flex; gap: 18rpx; background: var(--ym-surface); border-radius: 12rpx; box-shadow: var(--ym-shadow-rest); padding: 18rpx; margin-bottom: 16rpx; align-items: center; }
-.mini-cover { width: 200rpx; height: 118rpx; border-radius: 8rpx; background: linear-gradient(150deg, var(--ym-red-900), var(--ym-red-700)); position: relative; flex-shrink: 0; }
-.mini-duration { position: absolute; right: 12rpx; bottom: 12rpx; font-size: 20rpx; color: #fff; background: rgba(31,31,31,0.55); border-radius: 4rpx; padding: 4rpx 10rpx; font-variant-numeric: tabular-nums; }
-.video-text { flex: 1; min-width: 0; }
-.video-title { font-size: 27rpx; font-weight: 650; color: var(--ym-ink); line-height: 1.4; }
-.video-meta { margin-top: 8rpx; font-size: 22rpx; color: var(--ym-text-3); }
+.work-row { display: flex; align-items: center; gap: 20rpx; background: var(--ym-surface); border-radius: 12rpx; box-shadow: var(--ym-shadow-rest); padding: 20rpx; }
+.work-poster { width: 120rpx; height: 156rpx; border-radius: 8rpx; background: linear-gradient(160deg, var(--ym-paper), var(--ym-gold-100)); color: var(--ym-red-700); font-size: 30rpx; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.work-text { flex: 1; min-width: 0; }
+.work-name { font-size: 29rpx; font-weight: 650; color: var(--ym-ink); }
+.work-meta { margin-top: 8rpx; font-size: 22rpx; color: var(--ym-text-3); }
+.arrow { color: var(--ym-text-3); font-size: 32rpx; }
+
+.news-row { padding: 22rpx 0; border-bottom: 1rpx solid var(--ym-line); }
+.news-title { font-size: 28rpx; font-weight: 600; color: var(--ym-ink); line-height: 1.45; }
+.news-meta { margin-top: 8rpx; font-size: 22rpx; color: var(--ym-text-3); }
 
 .official-footer { margin-top: 40rpx; text-align: center; font-size: 22rpx; color: var(--ym-text-3); }
 

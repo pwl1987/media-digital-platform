@@ -24,6 +24,7 @@
   <view wx:else class="wall">
     <view wx:for="{{items}}" wx:key="id" class="media-card" data-id="{{item.id}}" bindtap="openVideo">
       <view class="cover">
+        <image wx:if="{{item.coverUrl}}" class="cover-img" src="{{item.coverUrl}}" mode="aspectFill" />
         <view class="cat-tag">{{item.category}}</view>
         <view class="duration">{{item.durationLabel}}</view>
       </view>

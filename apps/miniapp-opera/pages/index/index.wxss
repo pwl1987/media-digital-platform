@@ -39,7 +39,8 @@
 /* 视频墙 2 列（MediaCard：封面/时长/标题/来源/清晰度） */
 .video-wall { margin-top: 24rpx; display: grid; grid-template-columns: repeat(2, 1fr); gap: 20rpx; }
 .media-card { background: var(--ym-surface); border-radius: 12rpx; box-shadow: var(--ym-shadow-rest); overflow: hidden; }
-.media-cover { height: 190rpx; background: linear-gradient(150deg, var(--ym-red-900), var(--ym-red-700)); position: relative; }
+.media-cover { height: 190rpx; background: linear-gradient(150deg, var(--ym-red-900), var(--ym-red-700)); position: relative; overflow: hidden; }
+.media-cover-img { width: 100%; height: 100%; }
 .media-cat { position: absolute; top: 14rpx; left: 14rpx; font-size: 20rpx; color: #FFFFFF; background: rgba(31,31,31,0.35); border-radius: 4rpx; padding: 4rpx 10rpx; }
 .media-duration { position: absolute; right: 14rpx; bottom: 14rpx; font-size: 20rpx; color: #FFFFFF; background: rgba(31,31,31,0.55); border-radius: 4rpx; padding: 4rpx 10rpx; font-variant-numeric: tabular-nums; }
 .media-title { padding: 16rpx 18rpx 4rpx; font-size: 26rpx; font-weight: 650; color: var(--ym-ink); line-height: 1.4; white-space: normal; }

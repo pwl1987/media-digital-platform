@@ -6,9 +6,21 @@
   </view>
 
   <block wx:else>
-    <!-- 播放面：媒资接入前为封面占位（Gate E：无播放地址态有明确提示） -->
-    <view class="player">
-      <view class="player-title serif">{{video.title}}</view>
+    <!-- 媒体组件：有播放地址走 <video>；无源走结构化占位（Gate E：无播放地址态） -->
+    <video
+      wx:if="{{video.url}}"
+      class="player"
+      src="{{video.url}}"
+      poster="{{video.coverUrl}}"
+      controls
+      object-fit="cover"
+      binderror="onPlayError"
+    />
+    <view wx:else class="player player--placeholder">
+      <view class="player-poster">
+        <image wx:if="{{video.coverUrl}}" class="poster-img" src="{{video.coverUrl}}" mode="aspectFill" />
+        <view wx:else class="player-title serif">{{video.title}}</view>
+      </view>
       <view class="player-note">官方影像 · 媒资接入后支持在线播放</view>
     </view>
 
@@ -18,14 +30,24 @@
       <text class="meta">{{video.sourceName}} · {{video.resolution}} · 时长 {{video.durationLabel}}</text>
     </view>
 
-    <view class="section">
-      <view class="section-title">继续观看</view>
-      <view wx:for="{{others}}" wx:key="id" class="video-row" data-id="{{item.id}}" bindtap="openVideo">
-        <view class="mini-cover"><view class="mini-duration">{{item.durationLabel}}</view></view>
-        <view class="video-text">
-          <view class="video-title">{{item.title}}</view>
-          <view class="video-meta">{{item.category}} · {{item.sourceName}}</view>
+    <!-- 传播链：影像 → 相关剧目 → 相关新闻 -->
+    <view wx:if="{{relatedWork}}" class="section">
+      <view class="section-title">相关剧目</view>
+      <view class="work-row" bindtap="openWork">
+        <view class="work-poster serif">{{relatedWork.title}}</view>
+        <view class="work-text">
+          <view class="work-name">《{{relatedWork.title}}》</view>
+          <view class="work-meta">{{relatedWork.tag}} · {{relatedWork.organization.title}}</view>
         </view>
+        <text class="arrow">›</text>
+      </view>
+    </view>
+
+    <view wx:if="{{relatedNews.length}}" class="section">
+      <view class="section-title">相关新闻</view>
+      <view wx:for="{{relatedNews}}" wx:key="id" class="news-row" data-id="{{item.id}}" bindtap="openNews">
+        <view class="news-title">{{item.title}}</view>
+        <view class="news-meta">{{item.date}} · {{item.sourceName}}</view>
       </view>
     </view>
 
