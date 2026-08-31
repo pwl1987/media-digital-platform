@@ -1,12 +1,31 @@
 <view class="container">
-  <view class="title">展演活动</view>
-  <view class="subtitle">即将开始、正在进行与历史回顾，统一进入活动详情。</view>
-  <view wx:if="{{events.length}}">
-    <view wx:for="{{events}}" wx:key="id" class="card relation-card" bindtap="openEvent" data-id="{{item.id}}">
-      <view class="work-tag">{{item.status === 'upcoming' ? '即将开始' : '展演'}}</view>
-      <view class="relation-title">{{item.title}}</view>
-      <view class="work-meta">{{item.startAt}} · {{item.place}}</view>
+  <view class="page-head">
+    <view class="eyebrow">官方展演日历</view>
+    <view class="title serif">展演活动</view>
+    <view class="subtitle">即将开始、正在进行与历史回顾。</view>
+  </view>
+
+  <view wx:if="{{loading}}" class="state">正在调取展演日历…</view>
+  <view wx:elif="{{error}}" class="state">
+    <view>活动加载失败</view>
+    <view class="retry-btn" bindtap="retry">重新加载</view>
+  </view>
+  <view wx:elif="{{!events.length}}" class="state">暂无展演活动</view>
+
+  <view wx:else class="event-list">
+    <view wx:for="{{events}}" wx:key="id" class="event-card" data-id="{{item.id}}" bindtap="openEvent">
+      <view class="date-block date-block--{{item.lifecycleStatus}}">
+        <view class="date-month">{{item.month}}月</view>
+        <view class="date-day">{{item.day}}</view>
+      </view>
+      <view class="event-body">
+        <view class="event-title-row">
+          <view class="event-title">{{item.title}}</view>
+          <view class="event-status event-status--{{item.lifecycleStatus}}">{{item.statusLabel}}</view>
+        </view>
+        <view class="event-meta">{{item.timeLabel}} · {{item.place}}</view>
+      </view>
+      <view class="arrow">›</view>
     </view>
   </view>
-  <view wx:else class="card muted">暂无展演活动</view>
 </view>

@@ -1,0 +1,30 @@
+/* 展演活动：日期块状态卡（红金宣纸 token） */
+.container { min-height: 100vh; background: var(--ym-paper); padding: 34rpx 28rpx 60rpx; box-sizing: border-box; }
+.page-head { padding: 4rpx 4rpx 8rpx; }
+.eyebrow { font-size: 22rpx; letter-spacing: 3rpx; color: var(--ym-gold-700); font-weight: 700; }
+.title { font-size: 46rpx; font-weight: 800; margin-top: 8rpx; color: var(--ym-ink); }
+.subtitle { margin-top: 8rpx; font-size: 24rpx; color: var(--ym-text-2); line-height: 1.6; }
+
+.event-list { margin-top: 16rpx; }
+.event-card { display: flex; align-items: center; gap: 22rpx; background: var(--ym-surface); border-radius: 12rpx; box-shadow: var(--ym-shadow-rest); padding: 26rpx; margin-top: 20rpx; }
+
+.date-block { width: 108rpx; height: 108rpx; border-radius: 10rpx; flex-shrink: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+.date-block--upcoming { background: var(--ym-gold-100); color: var(--ym-gold-700); }
+.date-block--ongoing { background: var(--ym-red-700); color: #FFFFFF; }
+.date-block--ended { background: var(--ym-slate-100, #F1EDE4); color: var(--ym-text-3); }
+.date-month { font-size: 20rpx; opacity: 0.85; }
+.date-day { font-size: 44rpx; font-weight: 700; line-height: 1.1; font-variant-numeric: tabular-nums; font-family: "Noto Serif SC", "Songti SC", serif; }
+
+.event-body { flex: 1; min-width: 0; }
+.event-title-row { display: flex; align-items: center; gap: 14rpx; }
+.event-title { flex: 1; font-size: 29rpx; font-weight: 650; color: var(--ym-ink); line-height: 1.4; }
+.event-status { flex-shrink: 0; font-size: 20rpx; border-radius: 4rpx; padding: 4rpx 12rpx; }
+.event-status--upcoming { background: var(--ym-gold-100); color: var(--ym-gold-700); }
+.event-status--ongoing { background: var(--ym-red-700); color: #FFFFFF; }
+.event-status--ended { background: var(--ym-line); color: var(--ym-text-2); }
+.event-meta { margin-top: 10rpx; font-size: 23rpx; color: var(--ym-text-3); font-variant-numeric: tabular-nums; }
+
+.arrow { color: var(--ym-text-3); font-size: 36rpx; flex-shrink: 0; }
+
+.state { text-align: center; padding-top: 120rpx; color: var(--ym-text-2); font-size: 26rpx; }
+.retry-btn { margin: 24rpx auto 0; width: 200rpx; padding: 14rpx 0; border: 1rpx solid var(--ym-red-700); border-radius: 8rpx; color: var(--ym-red-700); font-size: 26rpx; }

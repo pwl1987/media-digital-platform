@@ -1,5 +1,25 @@
 <view class="container">
-  <view class="title">现场直播</view>
-  <view class="subtitle">正在进行的展演、活动与舞台直播。</view>
-  <view class="card" style="margin-top:28rpx">当前直播将在接入 Live API 后展示</view>
+  <view class="page-head">
+    <view class="eyebrow">官方现场</view>
+    <view class="title serif">现场直播</view>
+    <view class="subtitle">正在进行的展演、活动与舞台直播。</view>
+  </view>
+
+  <view class="section-label">直播预告</view>
+  <view wx:for="{{upcoming}}" wx:key="id" class="live-card live-card--upcoming" data-id="{{item.id}}" bindtap="openLive">
+    <view class="live-flag">直播预告</view>
+    <view class="live-title">{{item.title}}</view>
+    <view class="live-sub">{{item.subtitle}}</view>
+    <view class="live-meta">{{item.startAt}} · {{item.place}}</view>
+  </view>
+
+  <view class="section-label">精彩回顾</view>
+  <view wx:for="{{ended}}" wx:key="id" class="live-card live-card--ended" data-id="{{item.id}}" bindtap="openLive">
+    <view class="live-flag live-flag--ended">已结束</view>
+    <view class="live-title">{{item.title}}</view>
+    <view class="live-sub">{{item.subtitle}}</view>
+    <view class="live-meta">{{item.startAt}} · {{item.place}}</view>
+  </view>
+
+  <view class="official-footer">沂蒙小戏小剧官方数字传播平台</view>
 </view>

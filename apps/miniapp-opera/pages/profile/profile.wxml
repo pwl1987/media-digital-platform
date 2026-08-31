@@ -1,7 +1,35 @@
 <view class="container">
-  <view class="title">我的</view>
-  <view class="card" style="margin-top:28rpx">收藏剧目</view>
-  <view class="card" style="margin-top:20rpx">观看历史</view>
-  <view class="card" style="margin-top:20rpx">活动报名</view>
-  <view class="card" style="margin-top:20rpx">关于平台</view>
+  <!-- 用户头卡（未登录态；登录体系按产品路线暂缓） -->
+  <view class="user-card">
+    <view class="avatar serif">观</view>
+    <view class="user-info">
+      <view class="user-name">观众朋友</view>
+      <view class="user-sub">登录后可同步收藏与观看历史</view>
+    </view>
+  </view>
+
+  <!-- 统计 -->
+  <view class="stats-card">
+    <view wx:for="{{stats}}" wx:key="id" class="stat-item">
+      <view class="stat-value">{{item.value}}</view>
+      <view class="stat-label">{{item.label}}</view>
+    </view>
+  </view>
+
+  <!-- 菜单组 -->
+  <view class="menu-group">
+    <view wx:for="{{menus}}" wx:key="id" class="menu-row" data-id="{{item.id}}" bindtap="openMenu">
+      <view class="menu-icon">{{item.icon}}</view>
+      <view class="menu-body">
+        <view class="menu-label">{{item.label}}</view>
+        <view class="menu-desc">{{item.desc}}</view>
+      </view>
+      <view class="arrow">›</view>
+    </view>
+  </view>
+
+  <view class="official-footer">
+    <view>沂蒙小戏小剧官方数字传播平台</view>
+    <view class="official-footer-sub">主管单位：沂蒙小戏小剧官方平台建设工作组</view>
+  </view>
 </view>
