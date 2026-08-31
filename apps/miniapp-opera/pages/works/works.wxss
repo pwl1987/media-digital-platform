@@ -1,0 +1,21 @@
+/* 剧目列表：文化新闻门户风格（token 化，OPERA_UI_VISUAL_BASELINE_V0.1） */
+.container { min-height: 100vh; background: var(--ym-paper); padding: 34rpx 28rpx 60rpx; box-sizing: border-box; }
+.title { font-size: 46rpx; font-weight: 800; color: var(--ym-ink); font-family: "Noto Serif SC", "Songti SC", serif; }
+.subtitle { margin-top: 8rpx; font-size: 24rpx; color: var(--ym-text-2); line-height: 1.6; }
+
+.filter-scroll { white-space: nowrap; margin-top: 24rpx; padding-bottom: 8rpx; }
+.filter-row { display: flex; flex-direction: row; }
+.filter { display: inline-block; margin-right: 14rpx; padding: 12rpx 24rpx; border: 1rpx solid var(--ym-line); border-radius: 4rpx; color: var(--ym-text-2); font-size: 24rpx; background: var(--ym-surface); flex-shrink: 0; }
+.filter-active { background: var(--ym-red-700); color: #FFFFFF; border-color: var(--ym-red-700); }
+
+.work-list { margin-top: 12rpx; }
+.work-card { display: flex; align-items: center; gap: 20rpx; background: var(--ym-surface); border-radius: 12rpx; box-shadow: var(--ym-shadow-rest); padding: 24rpx; margin-top: 20rpx; }
+.poster-placeholder { width: 150rpx; height: 200rpx; border-radius: 8rpx; background: linear-gradient(160deg, var(--ym-paper), var(--ym-gold-100)); color: var(--ym-red-700); font-size: 26rpx; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.work-content { flex: 1; min-width: 0; }
+.work-tag { display: inline-block; font-size: 22rpx; color: var(--ym-gold-700); background: var(--ym-gold-100); border-radius: 4rpx; padding: 4rpx 12rpx; }
+.work-title { margin-top: 10rpx; font-size: 30rpx; font-weight: 650; color: var(--ym-ink); }
+.work-summary { margin-top: 8rpx; font-size: 24rpx; color: var(--ym-text-2); line-height: 1.55; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.work-meta { margin-top: 8rpx; font-size: 22rpx; color: var(--ym-text-3); }
+.arrow { color: var(--ym-text-3); font-size: 36rpx; flex-shrink: 0; }
+
+.empty { margin-top: 32rpx; text-align: center; color: var(--ym-text-2); font-size: 26rpx; padding: 48rpx 0; }

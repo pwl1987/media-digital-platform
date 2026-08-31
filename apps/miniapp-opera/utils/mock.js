@@ -2,7 +2,7 @@
 // 作用：消除页面内联 Mock 副本（AGENTS.md 已知坑收口的第一步）。
 // 旧页面字段差异在此适配（events.status、works.performances 反规范化）；
 // 新页面一律走 utils/api.js（共享 client），后续批次迁完页面后本文件退役。
-const shared = require('../../../packages/mock-data/opera.js');
+const shared = require('../shared/packages/mock-data/opera.js');
 
 const works = shared.works.map((w) => ({
   ...w,

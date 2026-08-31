@@ -1,6 +1,6 @@
 // 小戏小剧官方平台 · API facade（页面唯一数据入口）
 // 走共享 api-client（Mock 只替代 transport 层）；接口签名与旧 facade 保持兼容。
-const { createExperienceClient } = require('../../../packages/api-client/create-client.js');
+const { createExperienceClient } = require('../shared/packages/api-client/create-client.js');
 
 const client = createExperienceClient();
 

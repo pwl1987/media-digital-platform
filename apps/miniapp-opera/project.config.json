@@ -1,5 +1,5 @@
 {
-  "appid": "touristappid",
+  "appid": "wx747a185aecb67236",
   "compileType": "miniprogram",
   "libVersion": "3.8.0",
   "projectname": "miniapp-opera",
@@ -8,7 +8,29 @@
     "es6": true,
     "postcss": true,
     "minified": true,
-    "enhance": true
+    "enhance": true,
+    "compileWorklet": false,
+    "uglifyFileName": false,
+    "uploadWithSourceMap": true,
+    "packNpmManually": false,
+    "packNpmRelationList": [],
+    "minifyWXSS": true,
+    "minifyWXML": true,
+    "localPlugins": false,
+    "disableUseStrict": false,
+    "useCompilerPlugins": false,
+    "condition": false,
+    "babelSetting": {
+      "ignore": [],
+      "disablePlugins": [],
+      "outputPath": ""
+    }
   },
-  "condition": {}
+  "condition": {},
+  "simulatorPluginLibVersion": {},
+  "packOptions": {
+    "ignore": [],
+    "include": []
+  },
+  "editorSetting": {}
 }
