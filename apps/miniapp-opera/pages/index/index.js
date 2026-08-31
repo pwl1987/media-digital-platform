@@ -94,8 +94,9 @@ Page({
       .catch(() => this.setData({ loading: false, error: true }));
   },
 
-  // 轮播位：头条新闻 + 精品剧目 + 专题（结构支持 coverUrl，无图走渐变海报位）
+  // 轮播位：头条新闻 + 精品剧目 + 专题（结构支持 coverUrl，平台形象位统一用 logo）
   buildSlides(news, works) {
+    const LOGO = '/assets/logo.jpg';
     const slides = [];
     const headline = news.find((n) => n.featured) || news[0];
     if (headline) {
@@ -103,7 +104,7 @@ Page({
         id: `slide-${headline.id}`,
         type: 'news',
         targetId: headline.id,
-        coverUrl: headline.coverUrl || '',
+        coverUrl: LOGO,
         kicker: '官方发布',
         title: headline.title,
         sub: headline.summary
@@ -114,7 +115,7 @@ Page({
         id: `slide-${w.id}`,
         type: 'work',
         targetId: w.id,
-        coverUrl: (w.media && w.media[0] && w.media[0].coverUrl) || '',
+        coverUrl: LOGO,
         kicker: w.tag,
         title: `《${w.title}》`,
         sub: w.organization.title
@@ -124,7 +125,7 @@ Page({
       id: 'slide-topic',
       type: 'topic',
       targetId: '',
-      coverUrl: '',
+      coverUrl: LOGO,
       kicker: '文化专题',
       title: '精品剧目展播',
       sub: '集中展示沂蒙小戏小剧创作成果'

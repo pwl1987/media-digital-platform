@@ -1,0 +1,14 @@
+{
+  "yimeng": {
+    "title": "沂蒙精神智能平台",
+    "hero": { "title": "传承沂蒙精神", "subtitle": "让红色文化看得见、听得到、问得懂" },
+    "quickEntries": ["AI问答", "人物", "故事", "数字展馆"],
+    "recommendations": []
+  },
+  "opera": {
+    "title": "沂蒙小戏小剧",
+    "hero": { "title": "精彩小戏小剧，云上尽情看", "subtitle": "剧目、展演、直播与文化档案" },
+    "quickEntries": ["精品剧目", "展演", "直播", "活动"],
+    "recommendations": []
+  }
+}

@@ -16,8 +16,8 @@ page {
   --ym-gold-300: #E3CB7A;
   --ym-gold-100: #F7EFD8;
 
-  /* 宣纸白（页面底）与卡片 */
-  --ym-paper: #F7F3EA;
+  /* 宣纸白（页面底）与卡片（2026-08-31 用户定稿 #fffff5） */
+  --ym-paper: #fffff5;
   --ym-surface: #FFFFFF;
 
   /* 墨色文字 */
