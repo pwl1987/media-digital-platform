@@ -12,7 +12,9 @@
     "pages/profile/profile",
     "pages/search/search",
     "pages/artist-detail/artist-detail",
-    "pages/organization-detail/organization-detail"
+    "pages/organization-detail/organization-detail",
+    "pages/live/live",
+    "pages/live-detail/live-detail"
   ],
   "window": {
     "navigationBarTitleText": "沂蒙小戏小剧",

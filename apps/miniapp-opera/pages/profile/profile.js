@@ -1,23 +1,31 @@
 // 我的：个人身份 + 数据看板 + 继续观看 + 功能矩阵（未登录演示态；登录体系按路线暂缓）
+// 看板/矩阵计数接入真实本地持久化（opera_favorites / opera_signed_up / opera_notify / opera_followed）
+function countKeys(map) { return map ? Object.keys(map).length : 0; }
+function sum(map) { return Object.keys(map || {}).reduce((n, k) => n + countKeys(map[k]), 0); }
+
 Page({
   data: {
-    dashboard: [
-      { id: 'watched', label: '观看剧目', value: 6, color: 'red' },
-      { id: 'liked', label: '喜欢作品', value: 8, color: 'orange' },
-      { id: 'favorites', label: '收藏剧目', value: 2, color: 'blue' },
-      { id: 'shared', label: '分享次数', value: 4, color: 'tan' }
-    ],
+    stats: { favorites: 0, signedUp: 0, followed: 0, notified: 0 },
     continueWatching: [
       { id: 'video-002', title: '红嫂情·演出实录', percent: 65 },
       { id: 'video-001', title: '沂蒙山小调·舞台精彩片段', percent: 32 },
       { id: 'video-005', title: '专题片《小戏小剧·大美沂蒙》先导预告', percent: 83 }
-    ],
-    matrix: [
-      { id: 'favorites', label: '我的收藏', value: 2, color: 'red', icon: '★' },
-      { id: 'history', label: '观看历史', value: 6, color: 'blue', icon: '◔' },
-      { id: 'signup', label: '活动报名', value: 1, color: 'orange', icon: '▣' },
-      { id: 'feedback', label: '意见反馈', value: '', color: 'tan', icon: '✎' }
     ]
+  },
+
+  onShow() {
+    const fav = wx.getStorageSync('opera_favorites') || {};
+    const signed = wx.getStorageSync('opera_signed_up') || {};
+    const followed = wx.getStorageSync('opera_followed') || {};
+    const notified = wx.getStorageSync('opera_notify') || {};
+    this.setData({
+      stats: {
+        favorites: sum(fav),
+        signedUp: countKeys(signed.event),
+        followed: sum(followed),
+        notified: countKeys(notified.live)
+      }
+    });
   },
 
   openContinue(e) {
@@ -26,8 +34,8 @@ Page({
 
   openMatrix(e) {
     const { id } = e.currentTarget.dataset;
-    if (id === 'signup') wx.navigateTo({ url: '/pages/events/events' });
-    else if (id === 'history') wx.navigateTo({ url: '/pages/videos/videos' });
+    if (id === 'signup') wx.switchTab({ url: '/pages/events/events' });
+    else if (id === 'favorites') wx.showToast({ title: '收藏在各详情页底部操作条管理', icon: 'none' });
     else wx.showToast({ title: '演示数据，敬请期待', icon: 'none' });
   },
 

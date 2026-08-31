@@ -22,7 +22,12 @@
     >{{item}}</view>
   </scroll-view>
 
-  <view wx:if="{{loading}}" class="state">正在调取影像…</view>
+  <view wx:if="{{loading}}" class="sk-list">
+    <view wx:for="{{[1,2,3]}}" wx:key="*this" class="card sk-card">
+      <view class="sk-line sk-line--lg"></view>
+      <view class="sk-line"></view>
+    </view>
+  </view>
   <view wx:elif="{{error}}" class="state">
     <view>影像加载失败</view>
     <view class="retry-btn" bindtap="retry">重新加载</view>

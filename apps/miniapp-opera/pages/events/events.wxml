@@ -39,7 +39,12 @@
     >{{item}}</view>
   </scroll-view>
 
-  <view wx:if="{{loading}}" class="state"><view class="state-emoji">⏳</view>正在调取展演日历…</view>
+  <view wx:if="{{loading}}" class="sk-list">
+    <view wx:for="{{[1,2,3]}}" wx:key="*this" class="card sk-card">
+      <view class="sk-line sk-line--lg"></view>
+      <view class="sk-line"></view>
+    </view>
+  </view>
   <view wx:elif="{{error}}" class="state">
     <view class="state-emoji">📡</view>
     <view class="state-title">活动加载失败</view>

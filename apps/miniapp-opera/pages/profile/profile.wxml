@@ -9,12 +9,27 @@
     </view>
   </view>
 
-  <!-- 数据看板 -->
+  <!-- 数据看板（真实本地持久化计数） -->
   <view class="dashboard-card">
-    <view wx:for="{{dashboard}}" wx:key="id" class="dash-item">
-      <view class="dash-icon dash-icon--{{item.color}}">●</view>
-      <view class="dash-value">{{item.value}}</view>
-      <view class="dash-label">{{item.label}}</view>
+    <view class="dash-item">
+      <view class="dash-icon dash-icon--red">●</view>
+      <view class="dash-value">{{stats.favorites}}</view>
+      <view class="dash-label">收藏</view>
+    </view>
+    <view class="dash-item">
+      <view class="dash-icon dash-icon--orange">●</view>
+      <view class="dash-value">{{stats.signedUp}}</view>
+      <view class="dash-label">活动报名</view>
+    </view>
+    <view class="dash-item">
+      <view class="dash-icon dash-icon--blue">●</view>
+      <view class="dash-value">{{stats.followed}}</view>
+      <view class="dash-label">关注</view>
+    </view>
+    <view class="dash-item">
+      <view class="dash-icon dash-icon--tan">●</view>
+      <view class="dash-value">{{stats.notified}}</view>
+      <view class="dash-label">直播提醒</view>
     </view>
   </view>
 
@@ -31,12 +46,27 @@
     </view>
   </scroll-view>
 
-  <!-- 功能矩阵 -->
+  <!-- 功能矩阵（真实计数） -->
   <view class="matrix">
-    <view wx:for="{{matrix}}" wx:key="id" class="matrix-cell" data-id="{{item.id}}" bindtap="openMatrix">
-      <view class="matrix-icon matrix-icon--{{item.color}}">{{item.icon}}</view>
-      <view class="matrix-label">{{item.label}}</view>
-      <view class="matrix-value">{{item.value}}</view>
+    <view class="matrix-cell" data-id="favorites" bindtap="openMatrix">
+      <view class="matrix-icon matrix-icon--red">★</view>
+      <view class="matrix-label">我的收藏</view>
+      <view class="matrix-value">{{stats.favorites}}</view>
+    </view>
+    <view class="matrix-cell" data-id="signup" bindtap="openMatrix">
+      <view class="matrix-icon matrix-icon--orange">▣</view>
+      <view class="matrix-label">活动报名</view>
+      <view class="matrix-value">{{stats.signedUp}}</view>
+    </view>
+    <view class="matrix-cell" data-id="followed" bindtap="openMatrix">
+      <view class="matrix-icon matrix-icon--blue">♥</view>
+      <view class="matrix-label">我的关注</view>
+      <view class="matrix-value">{{stats.followed}}</view>
+    </view>
+    <view class="matrix-cell" data-id="notified" bindtap="openMatrix">
+      <view class="matrix-icon matrix-icon--tan">◷</view>
+      <view class="matrix-label">直播提醒</view>
+      <view class="matrix-value">{{stats.notified}}</view>
     </view>
   </view>
 

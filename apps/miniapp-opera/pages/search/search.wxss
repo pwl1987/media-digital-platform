@@ -1,0 +1,32 @@
+/* 搜索页：红金宣纸 token（OPERA_UI_VISUAL_BASELINE_V0.1） */
+.page { min-height: 100vh; background: var(--ym-paper); padding: 20rpx 28rpx 40rpx; }
+
+/* 搜索栏 */
+.search-bar { display: flex; align-items: center; gap: 16rpx; }
+.search-input-wrap { flex: 1; display: flex; align-items: center; gap: 12rpx; background: var(--ym-surface); border: 1rpx solid var(--ym-line); border-radius: 40rpx; padding: 0 24rpx; height: 72rpx; }
+.search-icon { font-size: 32rpx; color: var(--ym-text-3); flex-shrink: 0; }
+.search-input { flex: 1; font-size: 26rpx; color: var(--ym-ink); }
+.search-ph { color: var(--ym-text-3); }
+.search-clear { font-size: 24rpx; color: var(--ym-text-3); padding: 8rpx; flex-shrink: 0; }
+.search-btn { flex-shrink: 0; background: var(--ym-red-700); color: #FFFFFF; border-radius: 40rpx; padding: 16rpx 28rpx; font-size: 26rpx; font-weight: 650; }
+
+/* 结果 */
+.result-count { margin: 32rpx 0 16rpx; font-size: 24rpx; color: var(--ym-text-3); }
+.results { }
+.result-card { position: relative; padding: 26rpx 40rpx; margin-bottom: 16rpx; }
+.result-tag { display: inline-block; font-size: 20rpx; color: var(--ym-gold-700); background: var(--ym-gold-100); border: 1rpx solid var(--ym-gold-300); border-radius: 4rpx; padding: 4rpx 14rpx; margin-bottom: 12rpx; }
+.result-title { font-size: 30rpx; font-weight: 650; color: var(--ym-ink); line-height: 1.4; }
+.result-summary { margin-top: 10rpx; font-size: 24rpx; color: var(--ym-text-2); line-height: 1.6; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden; }
+.result-arrow { position: absolute; right: 24rpx; top: 50%; transform: translateY(-50%); font-size: 36rpx; color: var(--ym-text-3); }
+
+/* 空态 */
+.empty-state { padding: 140rpx 0 0; text-align: center; }
+.empty-emoji { font-size: 88rpx; line-height: 1; }
+.empty-title { margin-top: 24rpx; font-size: 30rpx; color: var(--ym-ink); font-weight: 650; }
+.empty-sub { margin-top: 12rpx; font-size: 24rpx; color: var(--ym-text-3); }
+
+/* 加载态 */
+.state { padding: 140rpx 0 0; text-align: center; }
+.state-emoji { font-size: 88rpx; line-height: 1; }
+.state-title { margin-top: 24rpx; font-size: 30rpx; color: var(--ym-ink); font-weight: 650; }
+.state-sub { margin-top: 12rpx; font-size: 24rpx; color: var(--ym-text-3); }

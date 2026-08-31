@@ -9,7 +9,13 @@
     <view wx:for="{{filters}}" wx:key="*this" class="filter {{active === item ? 'active' : ''}}" data-filter="{{item}}" bindtap="selectFilter">{{item}}</view>
   </scroll-view>
 
-  <view wx:if="{{loading}}" class="state">正在加载资讯…</view>
+  <view wx:if="{{loading}}" class="sk-list">
+    <view wx:for="{{[1,2,3]}}" wx:key="*this" class="card sk-card">
+      <view class="sk-line sk-line--lg"></view>
+      <view class="sk-line"></view>
+      <view class="sk-line sk-line--sm"></view>
+    </view>
+  </view>
   <view wx:elif="{{error}}" class="state">
     <view>资讯加载失败</view>
     <view class="retry-btn" bindtap="retry">重新加载</view>
