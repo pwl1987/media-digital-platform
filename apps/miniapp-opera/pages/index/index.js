@@ -1,16 +1,40 @@
-// 小戏小剧官方平台 · 首页（新闻 > 宣传内容 > 视频 > 剧目，新闻权重 ≥60%）
-// 视觉：OPERA_UI_VISUAL_BASELINE_V0.1 §7 分区顺序；数据走 utils/api（共享 client）
+// 小戏小剧官方平台 · 首页
+// 结构参考成熟实践（沉浸式轮播 + 悬浮快捷入口 + 直播预告 + 海报卡），数据一律走 utils/api。
 const api = require('../../utils/api');
 
 Page({
   data: {
     loading: true,
     error: false,
+
+    // 沉浸式轮播（无图时用红金渐变海报位，结构支持 coverUrl）
+    carousel: {
+      autoplay: true,
+      interval: 5000,
+      duration: 450,
+      current: 0
+    },
+    slides: [],
+    imageErrors: {},
+
+    // 新闻（权重 ≥60%）
     headline: null,
     newsList: [],
+
+    // 直播预告
+    liveCard: null,
+    countdown: '',
+
+    // 精品剧目（海报卡）
     works: [],
+
+    // 影像（视频墙）
     videos: [],
+
+    // 展演活动
     events: [],
+
+    // 文化专题
     topics: [
       { id: 'topic-zhanbo', title: '精品剧目展播', sub: '集中展示创作成果', category: '剧目动态' },
       { id: 'topic-chancheng', title: '沂蒙戏曲传承', sub: '地方文艺的守正创新', category: '媒体报道' },
@@ -20,6 +44,10 @@ Page({
 
   onLoad() {
     this.fetch();
+  },
+
+  onUnload() {
+    if (this.countdownTimer) clearInterval(this.countdownTimer);
   },
 
   retry() {
@@ -32,19 +60,108 @@ Page({
       api.getNews({ page: 1, pageSize: 8 }),
       api.getWorks(),
       api.getVideos(),
-      api.getEvents()
+      api.getEvents(),
+      api.getArtists()
     ])
       .then(([newsRes, worksRes, videosRes, eventsRes]) => {
         if (newsRes.error) throw new Error('news failed');
         const news = (newsRes.data && newsRes.data.items) || [];
         const headline = news.find((n) => n.featured) || news[0] || null;
-        const newsList = news.filter((n) => n.id !== (headline && headline.id)).slice(0, 4);
-        const videos = ((videosRes.data && videosRes.data.items) || []).slice(0, 4);
         const works = ((worksRes.data && worksRes.data.items) || []).slice(0, 4);
+        const videos = ((videosRes.data && videosRes.data.items) || []).slice(0, 4);
         const events = ((eventsRes.data && eventsRes.data.items) || []).slice(0, 2);
-        this.setData({ loading: false, headline, newsList, works, videos, events });
+        const liveEvent = ((eventsRes.data && eventsRes.data.items) || []).find((e) => e.lifecycleStatus === 'upcoming') || null;
+
+        this.setData({
+          loading: false,
+          headline,
+          newsList: news.filter((n) => n.id !== (headline && headline.id)).slice(0, 4),
+          works,
+          videos,
+          events,
+          liveCard: liveEvent
+            ? {
+                id: liveEvent.id,
+                title: liveEvent.title,
+                startAt: liveEvent.startAt,
+                place: liveEvent.place
+              }
+            : null,
+          slides: this.buildSlides(news, works)
+        });
+        this.startCountdown();
       })
       .catch(() => this.setData({ loading: false, error: true }));
+  },
+
+  // 轮播位：头条新闻 + 精品剧目 + 专题（结构支持 coverUrl，无图走渐变海报位）
+  buildSlides(news, works) {
+    const slides = [];
+    const headline = news.find((n) => n.featured) || news[0];
+    if (headline) {
+      slides.push({
+        id: `slide-${headline.id}`,
+        type: 'news',
+        targetId: headline.id,
+        coverUrl: headline.coverUrl || '',
+        kicker: '官方发布',
+        title: headline.title,
+        sub: headline.summary
+      });
+    }
+    works.slice(0, 2).forEach((w) => {
+      slides.push({
+        id: `slide-${w.id}`,
+        type: 'work',
+        targetId: w.id,
+        coverUrl: (w.media && w.media[0] && w.media[0].coverUrl) || '',
+        kicker: w.tag,
+        title: `《${w.title}》`,
+        sub: w.organization.title
+      });
+    });
+    slides.push({
+      id: 'slide-topic',
+      type: 'topic',
+      targetId: '',
+      coverUrl: '',
+      kicker: '文化专题',
+      title: '精品剧目展播',
+      sub: '集中展示沂蒙小戏小剧创作成果'
+    });
+    return slides;
+  },
+
+  // 直播倒计时
+  startCountdown() {
+    if (this.countdownTimer) clearInterval(this.countdownTimer);
+    if (!this.data.liveCard) return;
+    const tick = () => {
+      const start = this.data.liveCard && new Date(this.data.liveCard.startAt).getTime();
+      if (!start || Number.isNaN(start)) return;
+      const diff = start - Date.now();
+      if (diff <= 0) {
+        this.setData({ countdown: '直播已开始' });
+        clearInterval(this.countdownTimer);
+        return;
+      }
+      const d = Math.floor(diff / 86400000);
+      const h = Math.floor((diff % 86400000) / 3600000);
+      const m = Math.floor((diff % 3600000) / 60000);
+      this.setData({ countdown: d > 0 ? `距开播 ${d} 天 ${h} 小时` : `距开播 ${h} 小时 ${m} 分钟` });
+    };
+    tick();
+    this.countdownTimer = setInterval(tick, 30000);
+  },
+
+  onSwiperChange(e) {
+    this.setData({ 'carousel.current': e.detail.current });
+  },
+
+  onSlideTap(e) {
+    const { type, id } = e.currentTarget.dataset;
+    if (type === 'news') wx.navigateTo({ url: `/pages/news-detail/news-detail?id=${id}` });
+    else if (type === 'work') wx.navigateTo({ url: `/pages/work-detail/work-detail?id=${id}` });
   },
 
   onPullDownRefresh() {
@@ -56,6 +173,7 @@ Page({
   goWorks() { wx.switchTab({ url: '/pages/works/works' }); },
   goVideos() { wx.switchTab({ url: '/pages/videos/videos' }); },
   goEvents() { wx.navigateTo({ url: '/pages/events/events' }); },
+  goLive() { wx.navigateTo({ url: '/pages/live/live' }); },
   openNews(e) { wx.navigateTo({ url: `/pages/news-detail/news-detail?id=${e.currentTarget.dataset.id}` }); },
   openWork(e) { wx.navigateTo({ url: `/pages/work-detail/work-detail?id=${e.currentTarget.dataset.id}` }); },
   openVideo(e) { wx.navigateTo({ url: `/pages/video-detail/video-detail?id=${e.currentTarget.dataset.id}` }); },

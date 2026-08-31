@@ -1,11 +1,4 @@
 <view class="container">
-  <!-- 主视觉：官方品牌 + 平台定位（首页 §7） -->
-  <view class="hero">
-    <view class="hero-eyebrow">官方数字传播平台</view>
-    <view class="hero-title serif">沂蒙小戏小剧</view>
-    <view class="hero-sub">资讯带流量 · 剧目做沉淀 · 影像增强传播 · 展演制造热点</view>
-  </view>
-
   <view wx:if="{{loading}}" class="state">正在加载官方平台…</view>
   <view wx:elif="{{error}}" class="state">
     <view>内容加载失败</view>
@@ -13,19 +6,61 @@
   </view>
 
   <block wx:else>
-    <!-- 最新动态（权重 ≥60%：头条大卡 + 新闻列表） -->
+    <!-- 沉浸式轮播：宣传位（新闻头条/精品剧目/专题），支持 coverUrl，无图走红金渐变海报位 -->
+    <view class="carousel-wrapper">
+      <swiper
+        class="carousel"
+        indicator-dots="{{false}}"
+        autoplay="{{carousel.autoplay}}"
+        interval="{{carousel.interval}}"
+        duration="{{carousel.duration}}"
+        circular="{{true}}"
+        current="{{carousel.current}}"
+        bindchange="onSwiperChange"
+      >
+        <swiper-item wx:for="{{slides}}" wx:key="id">
+          <view class="slide" data-type="{{item.type}}" data-id="{{item.targetId}}" bindtap="onSlideTap">
+            <image wx:if="{{item.coverUrl}}" class="slide-img" src="{{item.coverUrl}}" mode="aspectFill" />
+            <view wx:else class="slide-poster">
+              <view class="slide-kicker">{{item.kicker}}</view>
+              <view class="slide-title serif">{{item.title}}</view>
+              <view class="slide-sub">{{item.sub}}</view>
+            </view>
+            <view class="slide-badge">{{item.kicker}}</view>
+          </view>
+        </swiper-item>
+      </swiper>
+      <view class="indicators">
+        <view
+          wx:for="{{slides}}"
+          wx:key="id"
+          class="dot {{carousel.current === index ? 'dot--on' : ''}}"
+        ></view>
+      </view>
+    </view>
+
+    <!-- 悬浮快捷入口卡 -->
+    <view class="quick-card">
+      <view class="quick-item" bindtap="goNews"><view class="quick-icon">讯</view><view class="quick-text">资讯</view></view>
+      <view class="quick-item" bindtap="goWorks"><view class="quick-icon">剧</view><view class="quick-text">剧目</view></view>
+      <view class="quick-item" bindtap="goVideos"><view class="quick-icon">影</view><view class="quick-text">影像</view></view>
+      <view class="quick-item" bindtap="goLive"><view class="quick-icon">播</view><view class="quick-text">直播</view></view>
+    </view>
+
+    <!-- 最新动态（权重 ≥60%） -->
     <view class="section">
       <view class="section-head"><view class="section-bar"></view><view class="section-title">最新动态</view><view class="more" bindtap="goNews">更多 ›</view></view>
       <view wx:if="{{headline}}" class="headline" data-id="{{headline.id}}" bindtap="openNews">
         <view class="headline-cover">
-          <view class="headline-badge">官方发布</view>
+          <image wx:if="{{headline.coverUrl}}" class="headline-img" src="{{headline.coverUrl}}" mode="aspectFill" />
+          <view class="headline-badge">{{headline.sourceLevelLabel}}</view>
         </view>
         <view class="headline-body">
           <view class="headline-title">{{headline.title}}</view>
           <view class="headline-summary">{{headline.summary}}</view>
           <view class="source-meta">来源：{{headline.sourceName}} · {{headline.date}}</view>
         </view>
-        <view class="headline-gold-line"></view>
+        <view class="gold-line"></view>
       </view>
       <view wx:for="{{newsList}}" wx:key="id" class="news-row" data-id="{{item.id}}" bindtap="openNews">
         <view class="news-text">
@@ -36,17 +71,36 @@
       </view>
     </view>
 
-    <!-- 精品剧目（横滑海报卡） -->
+    <!-- 直播预告 -->
+    <view class="section" wx:if="{{liveCard}}">
+      <view class="section-head"><view class="section-bar"></view><view class="section-title">直播预告</view><view class="more" bindtap="goLive">更多 ›</view></view>
+      <view class="live-card" bindtap="goLive">
+        <view class="live-poster">
+          <view class="live-badge">直播预告</view>
+          <view class="live-poster-title serif">{{liveCard.title}}</view>
+        </view>
+        <view class="live-body">
+          <view class="live-time">{{liveCard.startAt}}</view>
+          <view class="live-place">{{liveCard.place}}</view>
+          <view wx:if="{{countdown}}" class="live-countdown">{{countdown}}</view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 精品剧目（海报卡） -->
     <view class="section">
       <view class="section-head"><view class="section-bar"></view><view class="section-title">精品剧目</view><view class="more" bindtap="goWorks">更多 ›</view></view>
-      <scroll-view scroll-x class="h-scroll">
-        <view wx:for="{{works}}" wx:key="id" class="work-card" data-id="{{item.id}}" bindtap="openWork">
-          <view class="work-poster"><view class="work-poster-title serif">{{item.title}}</view></view>
-          <view class="work-tag">{{item.tag}}</view>
-          <view class="work-title">《{{item.title}}》</view>
-          <view class="work-org">{{item.organization.title}}</view>
+      <view class="opera-grid">
+        <view wx:for="{{works}}" wx:key="id" class="opera-card" data-id="{{item.id}}" bindtap="openWork">
+          <view class="opera-poster">
+            <image wx:if="{{item.posterUrl}}" class="opera-poster-img" src="{{item.posterUrl}}" mode="aspectFill" />
+            <view wx:else class="opera-poster-fallback serif">{{item.title}}</view>
+            <view class="opera-tag">{{item.tag}}</view>
+          </view>
+          <view class="opera-title">《{{item.title}}》</view>
+          <view class="opera-org">{{item.organization.title}}</view>
         </view>
-      </scroll-view>
+      </view>
     </view>
 
     <!-- 精彩影像（视频墙 2 列） -->
@@ -89,7 +143,6 @@
       </scroll-view>
     </view>
 
-    <!-- 官方页脚 -->
     <view class="official-footer">
       <view>沂蒙小戏小剧官方数字传播平台</view>
       <view class="official-footer-sub">主管单位：沂蒙小戏小剧官方平台建设工作组</view>
