@@ -98,16 +98,16 @@ const performances = [
 ];
 
 // 影像馆五类：演出实录 / 精品片段 / 幕后花絮 / 专题片 / 人物访谈
-// MediaCard 必备字段（视觉基线 §6.4）：时长、来源、清晰度；封面暂以占位色块呈现，接入媒资后替换
+// MediaCard 必备字段（视觉基线 §6.4）：时长、来源、清晰度；views/likes/tags 支撑热门榜单与标签速览
 const videos = [
-  { id: 'video-001', type: 'MediaAsset', mediaType: 'video', title: '沂蒙山小调·舞台精彩片段', category: '精品片段', durationSeconds: 342, sourceName: '沂蒙艺术团', resolution: '1080P', status: 'published' },
-  { id: 'video-002', type: 'MediaAsset', mediaType: 'video', title: '红嫂情·演出实录', category: '演出实录', durationSeconds: 2760, sourceName: '临沂地方戏剧团', resolution: '1080P', status: 'published' },
-  { id: 'video-003', type: 'MediaAsset', mediaType: 'video', title: '小戏小剧展演·现场直击', category: '演出实录', durationSeconds: 186, sourceName: '沂蒙小戏小剧官方平台', resolution: '720P', status: 'published' },
-  { id: 'video-004', type: 'MediaAsset', mediaType: 'video', title: '《红嫂情》幕后：一段唱腔的打磨', category: '幕后花絮', durationSeconds: 265, sourceName: '临沂地方戏剧团', resolution: '1080P', status: 'published' },
-  { id: 'video-005', type: 'MediaAsset', mediaType: 'video', title: '专题片《小戏小剧·大美沂蒙》先导预告', category: '专题片', durationSeconds: 128, sourceName: '沂蒙小戏小剧官方平台', resolution: '4K', status: 'published' },
-  { id: 'video-006', type: 'MediaAsset', mediaType: 'video', title: '媒体看小戏小剧：传承与创新', category: '专题片', durationSeconds: 315, sourceName: '市级媒体联合报道', resolution: '1080P', status: 'published' },
-  { id: 'video-007', type: 'MediaAsset', mediaType: 'video', title: '青年演员培训班·名家授课实录', category: '人物访谈', durationSeconds: 540, sourceName: '文化周刊', resolution: '1080P', status: 'published' },
-  { id: 'video-008', type: 'MediaAsset', mediaType: 'video', title: '主演谈角色：把沂蒙故事唱给更多人', category: '人物访谈', durationSeconds: 425, sourceName: '沂蒙小戏小剧官方平台', resolution: '1080P', status: 'published' }
+  { id: 'video-001', type: 'MediaAsset', mediaType: 'video', title: '沂蒙山小调·舞台精彩片段', category: '精品片段', durationSeconds: 342, sourceName: '沂蒙艺术团', resolution: '1080P', views: 230300, likes: 12, tags: ['沂蒙精神', '爱国主义'], status: 'published' },
+  { id: 'video-002', type: 'MediaAsset', mediaType: 'video', title: '红嫂情·演出实录', category: '演出实录', durationSeconds: 2760, sourceName: '临沂地方戏剧团', resolution: '1080P', views: 198700, likes: 99, tags: ['红色经典', '革命历史'], status: 'published' },
+  { id: 'video-003', type: 'MediaAsset', mediaType: 'video', title: '小戏小剧展演·现场直击', category: '演出实录', durationSeconds: 186, sourceName: '沂蒙小戏小剧官方平台', resolution: '720P', views: 211000, likes: 65, tags: ['展演资讯'], status: 'published' },
+  { id: 'video-004', type: 'MediaAsset', mediaType: 'video', title: '《红嫂情》幕后：一段唱腔的打磨', category: '幕后花絮', durationSeconds: 265, sourceName: '临沂地方戏剧团', resolution: '1080P', views: 87200, likes: 31, tags: ['幕后故事'], status: 'published' },
+  { id: 'video-005', type: 'MediaAsset', mediaType: 'video', title: '专题片《小戏小剧·大美沂蒙》先导预告', category: '专题片', durationSeconds: 128, sourceName: '沂蒙小戏小剧官方平台', resolution: '4K', views: 152400, likes: 78, tags: ['专题片'], status: 'published' },
+  { id: 'video-006', type: 'MediaAsset', mediaType: 'video', title: '媒体看小戏小剧：传承与创新', category: '专题片', durationSeconds: 315, sourceName: '市级媒体联合报道', resolution: '1080P', views: 96500, likes: 22, tags: ['媒体报道'], status: 'published' },
+  { id: 'video-007', type: 'MediaAsset', mediaType: 'video', title: '青年演员培训班·名家授课实录', category: '人物访谈', durationSeconds: 540, sourceName: '文化周刊', resolution: '1080P', views: 74800, likes: 40, tags: ['柳琴戏', '地方戏曲'], status: 'published' },
+  { id: 'video-008', type: 'MediaAsset', mediaType: 'video', title: '主演谈角色：把沂蒙故事唱给更多人', category: '人物访谈', durationSeconds: 425, sourceName: '沂蒙小戏小剧官方平台', resolution: '1080P', views: 130900, likes: 108, tags: ['沂蒙红嫂', '解读类'], status: 'published' }
 ];
 
 module.exports = { news, works, artists, organizations, events, performances, videos };

@@ -39,12 +39,18 @@
       </view>
     </view>
 
-    <!-- 悬浮快捷入口卡 -->
-    <view class="quick-card">
-      <view class="quick-item" bindtap="goNews"><view class="quick-icon">讯</view><view class="quick-text">资讯</view></view>
-      <view class="quick-item" bindtap="goWorks"><view class="quick-icon">剧</view><view class="quick-text">剧目</view></view>
-      <view class="quick-item" bindtap="goVideos"><view class="quick-icon">影</view><view class="quick-text">影像</view></view>
-      <view class="quick-item" bindtap="goLive"><view class="quick-icon">播</view><view class="quick-text">直播</view></view>
+    <!-- 四色功能瓦片（剧目展演/直播观看/互动参与/文化传承） -->
+    <view class="tile-grid">
+      <view
+        wx:for="{{quickTiles}}"
+        wx:key="id"
+        class="tile tile--{{item.color}}"
+        data-target="{{item.target}}"
+        bindtap="openTile"
+      >
+        <view class="tile-label">{{item.label}}</view>
+        <view class="tile-sub">{{item.sub}}</view>
+      </view>
     </view>
 
     <!-- 最新动态（权重 ≥60%） -->
@@ -87,6 +93,19 @@
       </view>
     </view>
 
+    <!-- 热门榜单（按播放量） -->
+    <view class="section" wx:if="{{ranking.length}}">
+      <view class="section-head"><view class="section-bar"></view><view class="section-title">热门榜单</view><view class="more" bindtap="goVideos">更多 ›</view></view>
+      <view class="rank-card">
+        <view wx:for="{{ranking}}" wx:key="id" class="rank-row" data-id="{{item.id}}" bindtap="openRank">
+          <view class="rank-no rank-no--{{item.rank <= 3 ? 'hot' : 'normal'}}">{{item.rank}}</view>
+          <view class="rank-title">{{item.title}}</view>
+          <view class="rank-views">{{item.viewsLabel}} 播放</view>
+          <view class="rank-play">▶</view>
+        </view>
+      </view>
+    </view>
+
     <!-- 精品剧目（海报卡） -->
     <view class="section">
       <view class="section-head"><view class="section-bar"></view><view class="section-title">精品剧目</view><view class="more" bindtap="goWorks">更多 ›</view></view>
@@ -114,6 +133,9 @@
             <view class="media-duration">{{item.durationLabel}}</view>
           </view>
           <view class="media-title">{{item.title}}</view>
+          <view wx:if="{{item.tags.length}}" class="media-tags">
+            <text wx:for="{{item.tags}}" wx:for-item="tag" wx:key="*this" class="media-tag">{{tag}}</text>
+          </view>
           <view class="source-meta">{{item.sourceName}} · {{item.resolution}}</view>
         </view>
       </view>

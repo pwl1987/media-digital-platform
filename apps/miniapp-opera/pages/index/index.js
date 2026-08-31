@@ -2,11 +2,16 @@
 // 结构参考成熟实践（沉浸式轮播 + 悬浮快捷入口 + 直播预告 + 海报卡），数据一律走 utils/api。
 const api = require('../../utils/api');
 
+// 播放量格式化：230300 -> 23.03万
+function formatViews(views) {
+  const n = Number(views || 0);
+  return n >= 10000 ? `${(n / 10000).toFixed(2)}万` : `${n}`;
+}
+
 Page({
   data: {
     loading: true,
     error: false,
-
     // 沉浸式轮播（无图时用红金渐变海报位，结构支持 coverUrl）
     carousel: {
       autoplay: true,
@@ -28,8 +33,19 @@ Page({
     // 精品剧目（海报卡）
     works: [],
 
+    // 四色功能瓦片（设计稿模式：棕=剧目展演 红=直播观看 橙=互动参与 蓝=文化传承）
+    quickTiles: [
+      { id: 'shows', label: '剧目展演', sub: '探索更多 ›', color: 'tan', target: 'works' },
+      { id: 'live', label: '直播观看', sub: '探索更多 ›', color: 'red', target: 'live' },
+      { id: 'join', label: '互动参与', sub: '探索更多 ›', color: 'orange', target: 'events' },
+      { id: 'culture', label: '文化传承', sub: '探索更多 ›', color: 'blue', target: 'topics' }
+    ],
+
     // 影像（视频墙）
     videos: [],
+
+    // 热门榜单（按播放量）
+    ranking: [],
 
     // 展演活动
     events: [],
@@ -68,7 +84,13 @@ Page({
         const news = (newsRes.data && newsRes.data.items) || [];
         const headline = news.find((n) => n.featured) || news[0] || null;
         const works = ((worksRes.data && worksRes.data.items) || []).slice(0, 4);
-        const videos = ((videosRes.data && videosRes.data.items) || []).slice(0, 4);
+        const allVideos = (videosRes.data && videosRes.data.items) || [];
+        const videos = allVideos.slice(0, 4);
+        // 热门榜单：按播放量取前 5
+        const ranking = [...allVideos]
+          .sort((a, b) => (b.views || 0) - (a.views || 0))
+          .slice(0, 5)
+          .map((v, i) => ({ ...v, rank: i + 1, viewsLabel: formatViews(v.views) }));
         const events = ((eventsRes.data && eventsRes.data.items) || []).slice(0, 2);
         const liveEvent = ((eventsRes.data && eventsRes.data.items) || []).find((e) => e.lifecycleStatus === 'upcoming') || null;
 
@@ -78,6 +100,7 @@ Page({
           newsList: news.filter((n) => n.id !== (headline && headline.id)).slice(0, 4),
           works,
           videos,
+          ranking,
           events,
           liveCard: liveEvent
             ? {
@@ -175,6 +198,16 @@ Page({
   goVideos() { wx.switchTab({ url: '/pages/videos/videos' }); },
   goEvents() { wx.navigateTo({ url: '/pages/events/events' }); },
   goLive() { wx.navigateTo({ url: '/pages/live/live' }); },
+  openTile(e) {
+    const { target } = e.currentTarget.dataset;
+    if (target === 'works') this.goWorks();
+    else if (target === 'live') this.goLive();
+    else if (target === 'events') this.goEvents();
+    else this.openTopic({ currentTarget: { dataset: { category: '剧目动态' } } });
+  },
+  openRank(e) {
+    wx.navigateTo({ url: `/pages/video-detail/video-detail?id=${e.currentTarget.dataset.id}` });
+  },
   openNews(e) { wx.navigateTo({ url: `/pages/news-detail/news-detail?id=${e.currentTarget.dataset.id}` }); },
   openWork(e) { wx.navigateTo({ url: `/pages/work-detail/work-detail?id=${e.currentTarget.dataset.id}` }); },
   openVideo(e) { wx.navigateTo({ url: `/pages/video-detail/video-detail?id=${e.currentTarget.dataset.id}` }); },

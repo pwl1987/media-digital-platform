@@ -20,7 +20,7 @@ function decorateNews(item) {
 }
 
 function decorateVideo(item) {
-  return { ...item, durationLabel: formatDuration(item.durationSeconds) };
+  return { ...item, durationLabel: formatDuration(item.durationSeconds), tags: item.tags || [] };
 }
 
 const api = {

@@ -29,6 +29,27 @@
 .section-title { flex: 1; font-size: 34rpx; font-weight: 700; color: var(--ym-ink); font-family: "Noto Serif SC", "Songti SC", "STSong", serif; }
 .more { color: var(--ym-red-700); font-size: 24rpx; }
 
+/* 四色功能瓦片（设计稿配色：陶土棕/革命红/暖橙/长空蓝） */
+.tile-grid { margin: -36rpx 28rpx 0; position: relative; display: grid; grid-template-columns: repeat(2, 1fr); gap: 16rpx; }
+.tile { border-radius: 12rpx; padding: 26rpx 28rpx; color: #FFFFFF; box-shadow: var(--ym-shadow-float); }
+.tile--tan { background: linear-gradient(140deg, #A96F35, #BC7E42); }
+.tile--red { background: linear-gradient(140deg, #A82F1E, #CB3925); }
+.tile--orange { background: linear-gradient(140deg, #B25D3C, #CA6E4B); }
+.tile--blue { background: linear-gradient(140deg, #48657A, #57788C); }
+.tile-label { font-size: 30rpx; font-weight: 700; }
+.tile-sub { margin-top: 8rpx; font-size: 20rpx; opacity: 0.85; }
+
+/* 热门榜单 */
+.rank-card { margin-top: 24rpx; background: var(--ym-surface); border-radius: 12rpx; box-shadow: var(--ym-shadow-rest); padding: 10rpx 26rpx; }
+.rank-row { display: flex; align-items: center; gap: 18rpx; padding: 22rpx 0; border-bottom: 1rpx solid var(--ym-paper); }
+.rank-row:last-child { border-bottom: 0; }
+.rank-no { width: 44rpx; height: 44rpx; border-radius: 8rpx; display: flex; align-items: center; justify-content: center; font-size: 26rpx; font-weight: 700; font-variant-numeric: tabular-nums; flex-shrink: 0; font-family: "Noto Serif SC", "Songti SC", serif; }
+.rank-no--hot { background: var(--ym-red-700); color: #FFFFFF; }
+.rank-no--normal { background: var(--ym-red-50); color: var(--ym-red-700); }
+.rank-title { flex: 1; min-width: 0; font-size: 28rpx; font-weight: 600; color: var(--ym-ink); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.rank-views { font-size: 22rpx; color: var(--ym-text-3); font-variant-numeric: tabular-nums; flex-shrink: 0; }
+.rank-play { color: var(--ym-red-700); font-size: 22rpx; flex-shrink: 0; }
+
 /* 头条大卡 */
 .headline { position: relative; margin-top: 24rpx; background: var(--ym-surface); border-radius: 12rpx; box-shadow: var(--ym-shadow-rest); overflow: hidden; }
 .headline-cover { height: 300rpx; background: linear-gradient(140deg, var(--ym-red-900), var(--ym-red-500)); position: relative; }
@@ -76,6 +97,8 @@
 .media-duration { position: absolute; right: 14rpx; bottom: 14rpx; font-size: 20rpx; color: #FFFFFF; background: rgba(31,31,31,0.55); border-radius: 4rpx; padding: 4rpx 10rpx; font-variant-numeric: tabular-nums; }
 .media-title { padding: 16rpx 18rpx 4rpx; font-size: 26rpx; font-weight: 650; color: var(--ym-ink); line-height: 1.4; white-space: normal; }
 .media-card .source-meta { padding: 0 18rpx 16rpx; margin-top: 4rpx; font-size: 22rpx; }
+.media-tags { padding: 8rpx 18rpx 0; display: flex; flex-wrap: wrap; gap: 8rpx; }
+.media-tag { font-size: 20rpx; color: var(--ym-red-700); background: var(--ym-red-50); border-radius: 4rpx; padding: 2rpx 10rpx; }
 
 /* 展演活动 */
 .event-row { margin-top: 20rpx; background: var(--ym-surface); border-radius: 12rpx; box-shadow: var(--ym-shadow-rest); padding: 26rpx; display: flex; align-items: center; gap: 18rpx; }
