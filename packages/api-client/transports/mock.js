@@ -22,6 +22,7 @@ function filterArchives(query = {}) {
   let items = heritage.archives;
   if (query.archiveType) items = items.filter((item) => item.archiveType === query.archiveType);
   if (query.era) items = items.filter((item) => item.era === query.era);
+  if (query.grade) items = items.filter((item) => item.grade === query.grade);
   if (query.personId) items = items.filter((item) => (item.relatedPersonIds || []).includes(query.personId));
   if (query.q) {
     const q = String(query.q).trim().toLowerCase();

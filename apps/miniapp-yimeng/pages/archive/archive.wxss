@@ -13,6 +13,13 @@
 .type-tab { display: inline-block; padding: 12rpx 28rpx; margin-right: 12rpx; border-radius: 4rpx; background: var(--ymh-slate-100); color: var(--ymh-slate-700); font-size: 24rpx; }
 .type-tab--on { background: var(--ymh-slate-700); color: #FFFFFF; }
 
+/* 检索工作台第二层筛选：年代/等级（档案蓝灰语义） */
+.filter-row { display: flex; align-items: center; margin-top: 16rpx; }
+.filter-label { flex-shrink: 0; width: 72rpx; font-size: 22rpx; color: var(--ymh-slate-600); }
+.filter-row .type-tabs { margin-top: 0; flex: 1; }
+.type-tab--slate { background: var(--ymh-surface); border: 1rpx solid var(--ymh-paper-deep); color: var(--ymh-slate-600); padding: 8rpx 20rpx; font-size: 22rpx; }
+.type-tab--era-on { background: var(--ymh-red-800); border-color: var(--ymh-red-800); color: #F2ECDF; }
+
 .state { margin-top: 96rpx; text-align: center; color: var(--ymh-text-2); font-size: 26rpx; }
 .retry-btn { margin: 24rpx auto 0; width: 200rpx; padding: 14rpx 0; border: 1rpx solid var(--ymh-slate-600); border-radius: 8rpx; color: var(--ymh-slate-700); font-size: 26rpx; }
 

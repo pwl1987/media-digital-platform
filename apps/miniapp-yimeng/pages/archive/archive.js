@@ -12,10 +12,32 @@ const TYPE_TABS = [
   { key: 'audio', label: '音频' }
 ];
 
+// 检索工作台第二层筛选：年代 + 来源等级（中文标签，UI 不显示字母，V0.2 §6.1）
+const ERA_TABS = [
+  { key: '', label: '全部年代' },
+  { key: '1930s', label: '1930s' },
+  { key: '1940s', label: '1940s' },
+  { key: '1950s', label: '1950s' },
+  { key: '1980s-90s', label: '1980s-90s' },
+  { key: '2010s', label: '2010s' },
+  { key: 'new-era', label: '新时代' }
+];
+
+const GRADE_TABS = [
+  { key: '', label: '全部等级' },
+  { key: 'A', label: '官方档案' },
+  { key: 'B', label: '权威出版物' },
+  { key: 'C', label: '权威媒体' }
+];
+
 Page({
   data: {
     tabs: TYPE_TABS,
+    eraTabs: ERA_TABS,
+    gradeTabs: GRADE_TABS,
     activeType: '',
+    activeEra: '',
+    activeGrade: '',
     q: '',
     items: [],
     total: 0,
@@ -41,16 +63,28 @@ Page({
     this.fetch();
   },
 
+  switchEra(e) {
+    this.setData({ activeEra: e.currentTarget.dataset.key });
+    this.fetch();
+  },
+
+  switchGrade(e) {
+    this.setData({ activeGrade: e.currentTarget.dataset.key });
+    this.fetch();
+  },
+
   retry() {
     this.setData({ error: false, loading: true });
     this.fetch();
   },
 
   fetch() {
-    const { activeType, q } = this.data;
+    const { activeType, activeEra, activeGrade, q } = this.data;
     this.setData({ loading: true });
     const query = { pageSize: 50 };
     if (activeType) query.archiveType = activeType;
+    if (activeEra) query.era = activeEra;
+    if (activeGrade) query.grade = activeGrade;
     if (q && q.trim()) query.q = q.trim();
     api.getArchives(query)
       .then((res) => {
@@ -59,7 +93,7 @@ Page({
           loading: false,
           items: res.data.items,
           total: res.data.total,
-          searched: Boolean(query.q || query.archiveType)
+          searched: Boolean(query.q || query.archiveType || query.era || query.grade)
         });
       })
       .catch(() => {

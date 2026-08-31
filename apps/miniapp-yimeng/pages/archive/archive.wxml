@@ -15,6 +15,32 @@
         bindtap="switchType"
       >{{item.label}}</view>
     </scroll-view>
+
+    <!-- 检索工作台：年代 + 来源等级筛选 -->
+    <view class="filter-row">
+      <text class="filter-label">年代</text>
+      <scroll-view class="type-tabs" scroll-x>
+        <view
+          wx:for="{{eraTabs}}"
+          wx:key="key"
+          class="type-tab type-tab--slate {{activeEra === item.key ? 'type-tab--era-on' : ''}}"
+          data-key="{{item.key}}"
+          bindtap="switchEra"
+        >{{item.label}}</view>
+      </scroll-view>
+    </view>
+    <view class="filter-row">
+      <text class="filter-label">等级</text>
+      <scroll-view class="type-tabs" scroll-x>
+        <view
+          wx:for="{{gradeTabs}}"
+          wx:key="key"
+          class="type-tab type-tab--slate {{activeGrade === item.key ? 'type-tab--era-on' : ''}}"
+          data-key="{{item.key}}"
+          bindtap="switchGrade"
+        >{{item.label}}</view>
+      </scroll-view>
+    </view>
   </view>
 
   <view wx:if="{{loading}}" class="state">正在调取档案…</view>
