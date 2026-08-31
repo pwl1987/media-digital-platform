@@ -35,7 +35,9 @@ Page({
   openMatrix(e) {
     const { id } = e.currentTarget.dataset;
     if (id === 'signup') wx.switchTab({ url: '/pages/events/events' });
-    else if (id === 'favorites') wx.showToast({ title: '收藏在各详情页底部操作条管理', icon: 'none' });
+    else if (id === 'favorites') wx.navigateTo({ url: '/pages/my-favorites/my-favorites' });
+    else if (id === 'followed') wx.navigateTo({ url: '/pages/my-followed/my-followed' });
+    else if (id === 'notified') wx.navigateTo({ url: '/pages/my-notify/my-notify' });
     else wx.showToast({ title: '演示数据，敬请期待', icon: 'none' });
   },
 

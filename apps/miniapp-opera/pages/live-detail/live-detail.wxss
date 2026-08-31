@@ -73,3 +73,7 @@
 .action-bar { position: fixed; left: 0; right: 0; bottom: 0; display: flex; gap: 16rpx; padding: 18rpx 28rpx calc(18rpx + env(safe-area-inset-bottom)); background: var(--ym-surface); box-shadow: 0 -4rpx 16rpx rgba(31,31,31,0.08); }
 .action-btn { flex: 1; text-align: center; padding: 20rpx 0; border-radius: 10rpx; border: 1rpx solid var(--ym-line); color: var(--ym-text-2); font-size: 28rpx; background: var(--ym-surface); }
 .action-btn--primary { background: var(--ym-red-700); border-color: var(--ym-red-700); color: #FFFFFF; font-weight: 650; }
+
+/* 官方页脚 */
+.official-footer { margin: 56rpx 0 40rpx; text-align: center; font-size: 22rpx; color: var(--ym-text-3); line-height: 1.7; }
+.official-footer-sub { font-size: 20rpx; margin-top: 4rpx; }

@@ -18,7 +18,9 @@
     </view>
   </view>
   <view wx:elif="{{error}}" class="state">
-    <view>剧目加载失败</view>
+    <view class="state-emoji">📡</view>
+    <view class="state-title">剧目加载失败</view>
+    <view class="state-sub">下拉刷新或点重试</view>
     <view class="retry-btn" bindtap="retry">重新加载</view>
   </view>
   <view wx:elif="{{!works.length}}" class="state">该分类暂无剧目</view>

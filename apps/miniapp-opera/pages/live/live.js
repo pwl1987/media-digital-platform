@@ -5,10 +5,22 @@ const liveItems = [
 
 Page({
   data: {
-    upcoming: liveItems.filter((x) => x.status !== 'ended'),
-    ended: liveItems.filter((x) => x.status === 'ended')
+    loading: true,
+    upcoming: [],
+    ended: []
+  },
+  onLoad() {
+    // 静态数据预热：百毫秒级骨架闪一下与全站体验一致
+    setTimeout(() => {
+      this.setData({
+        loading: false,
+        upcoming: liveItems.filter((x) => x.status !== 'ended'),
+        ended: liveItems.filter((x) => x.status === 'ended')
+      });
+    }, 120);
   },
   openLive(e) {
+    wx.vibrateShort && wx.vibrateShort({ type: 'light' });
     wx.navigateTo({ url: `/pages/live-detail/live-detail?id=${e.currentTarget.dataset.id}` });
   }
 });

@@ -18,6 +18,7 @@
   <block wx:else>
     <!-- 海报（媒资接入前占位） -->
     <view class="poster">
+      <view class="poster-badge">官方收录</view>
       <view class="poster-title serif">《{{work.title}}》</view>
       <view class="poster-tag">{{work.tag}}</view>
     </view>

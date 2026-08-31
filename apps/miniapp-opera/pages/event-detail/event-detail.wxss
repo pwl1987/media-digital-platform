@@ -71,3 +71,6 @@
 .state-title { margin-top: 20rpx; font-size: 32rpx; color: var(--ym-ink); font-weight: 650; }
 .state-sub { margin-top: 12rpx; font-size: 24rpx; color: var(--ym-text-3); }
 .retry-btn { margin: 32rpx auto 0; width: 220rpx; padding: 16rpx 0; border: 1rpx solid var(--ym-red-700); border-radius: 8rpx; color: var(--ym-red-700); font-size: 26rpx; }
+/* 官方页脚 */
+.official-footer { margin: 56rpx 0 40rpx; text-align: center; font-size: 22rpx; color: var(--ym-text-3); line-height: 1.7; }
+.official-footer-sub { font-size: 20rpx; margin-top: 4rpx; }

@@ -64,3 +64,6 @@
 .action-bar { position: fixed; left: 0; right: 0; bottom: 0; display: flex; gap: 16rpx; padding: 18rpx 28rpx calc(18rpx + env(safe-area-inset-bottom)); background: var(--ym-surface); box-shadow: 0 -4rpx 16rpx rgba(31,31,31,0.08); }
 .action-btn { flex: 1; text-align: center; padding: 20rpx 0; border-radius: 10rpx; border: 1rpx solid var(--ym-line); color: var(--ym-text-2); font-size: 28rpx; background: var(--ym-surface); }
 .action-btn--active { color: var(--ym-red-700); border-color: var(--ym-red-100); background: var(--ym-red-50); }
+
+/* 官方收录角标 */
+.poster-badge { position: absolute; top: 28rpx; left: 32rpx; font-size: 22rpx; color: #FFFFFF; background: rgba(0,0,0,0.45); border: 1rpx solid rgba(255,255,255,0.3); border-radius: 4rpx; padding: 6rpx 14rpx; letter-spacing: 2rpx; z-index: 2; }

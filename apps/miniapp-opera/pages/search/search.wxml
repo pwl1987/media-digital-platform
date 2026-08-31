@@ -9,11 +9,13 @@
     <view class="search-btn" bindtap="doSearch">搜索</view>
   </view>
 
-  <!-- 检索源加载中 -->
-  <view wx:if="{{loading}}" class="state">
-    <view class="state-emoji">⏳</view>
-    <view class="state-title">正在准备检索…</view>
-    <view class="state-sub">剧目 · 演员 · 剧团 · 活动 · 影像 · 资讯</view>
+  <!-- 检索源加载中（骨架，避免白屏） -->
+  <view wx:if="{{loading}}" class="sk-list">
+    <view wx:for="{{[1,2,3]}}" wx:key="*this" class="sk-card">
+      <view class="sk-line sk-line--lg"></view>
+      <view class="sk-line"></view>
+      <view class="sk-line sk-line--sm"></view>
+    </view>
   </view>
 
   <block wx:else>

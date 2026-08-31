@@ -80,6 +80,12 @@
   <view class="retry-btn" bindtap="retry">重新加载</view>
 </view>
 
+<!-- 官方页脚 -->
+<view wx:if="{{item && !loading}}" class="official-footer">
+  <view>沂蒙小戏小剧官方数字传播平台</view>
+  <view class="official-footer-sub">直播安排以官方公告为准</view>
+</view>
+
 <!-- 底部操作条 -->
 <view wx:if="{{item && !loading}}" class="action-bar">
   <view class="action-btn" bindtap="onShare">分享</view>

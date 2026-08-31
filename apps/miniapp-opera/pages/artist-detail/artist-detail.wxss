@@ -54,3 +54,10 @@
 .action-btn { flex: 1; text-align: center; padding: 20rpx 0; border-radius: 10rpx; border: 1rpx solid var(--ym-line); color: var(--ym-text-2); font-size: 28rpx; background: var(--ym-surface); }
 .action-btn--primary { background: var(--ym-red-700); border-color: var(--ym-red-700); color: #FFFFFF; font-weight: 650; }
 .action-btn--active { color: var(--ym-red-700); border-color: var(--ym-red-100); background: var(--ym-red-50); }
+
+/* 官方页脚 */
+.official-footer { margin: 56rpx 0 40rpx; text-align: center; font-size: 22rpx; color: var(--ym-text-3); line-height: 1.7; }
+.official-footer-sub { font-size: 20rpx; margin-top: 4rpx; }
+
+/* 官方收录角标（人像） */
+.portrait-badge { position: absolute; top: 24rpx; left: 28rpx; font-size: 22rpx; color: #FFFFFF; background: rgba(0,0,0,0.5); border: 1rpx solid rgba(255,255,255,0.3); border-radius: 4rpx; padding: 6rpx 14rpx; letter-spacing: 2rpx; z-index: 2; }

@@ -18,3 +18,23 @@
 .live-meta { margin-top: 10rpx; font-size: 22rpx; color: var(--ym-text-3); font-variant-numeric: tabular-nums; }
 
 .official-footer { margin-top: 56rpx; text-align: center; font-size: 22rpx; color: var(--ym-text-3); }
+
+/* 错误态：emoji + 主标 + 副标 + 重试（与详情页一致） */
+.state { padding: 140rpx 0 0; text-align: center; }
+.state-emoji { font-size: 88rpx; line-height: 1; }
+.state-title { margin-top: 24rpx; font-size: 30rpx; color: var(--ym-ink); font-weight: 650; }
+.state-sub { margin-top: 12rpx; font-size: 24rpx; color: var(--ym-text-3); padding: 0 80rpx; }
+.retry-btn { margin: 32rpx auto 0; width: 220rpx; padding: 16rpx 0; border: 1rpx solid var(--ym-red-700); border-radius: 8rpx; color: var(--ym-red-700); font-size: 26rpx; }
+
+/* 加载骨架（避免白屏） */
+.sk-list { padding-top: 20rpx; }
+.sk-card { padding: 30rpx; margin-bottom: 20rpx; }
+.sk-line { height: 22rpx; border-radius: 4rpx; background: var(--ym-paper-deep, #E9E0CC); margin-top: 18rpx; animation: sk-pulse 1.4s ease-in-out infinite; }
+.sk-line--lg { height: 34rpx; width: 70%; }
+@keyframes sk-pulse { 0%, 100% { opacity: 0.6; } 50% { opacity: 1; } }
+
+/* 空态 */
+.empty-state { padding: 140rpx 0 0; text-align: center; }
+.empty-emoji { font-size: 88rpx; line-height: 1; }
+.empty-title { margin-top: 24rpx; font-size: 30rpx; color: var(--ym-ink); font-weight: 650; }
+.empty-sub { margin-top: 12rpx; font-size: 24rpx; color: var(--ym-text-3); padding: 0 80rpx; }

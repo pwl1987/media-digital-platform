@@ -8,6 +8,7 @@
   <block wx:else wx:if="{{artist}}">
     <!-- 演员头卡：黑白人像 + 红色名条 + 金色荣誉 -->
     <view class="portrait">
+      <view class="portrait-badge">官方收录</view>
       <view class="portrait-glyph">{{glyph}}</view>
     </view>
     <view class="name-bar">
@@ -59,6 +60,12 @@
     <view class="state-sub">下拉刷新或点重试</view>
     <view class="retry-btn" bindtap="retry">重新加载</view>
   </view>
+</view>
+
+<!-- 官方页脚 -->
+<view wx:if="{{artist && !loading}}" class="official-footer">
+  <view>沂蒙小戏小剧官方数字传播平台</view>
+  <view class="official-footer-sub">演员资料以官方审核发布为准</view>
 </view>
 
 <!-- 底部操作条 -->

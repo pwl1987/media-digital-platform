@@ -1,0 +1,31 @@
+<view class="page">
+  <view class="tabs">
+    <view wx:for="{{tabs}}" wx:key="key" class="tab {{activeTab === item.key ? 'tab--on' : ''}}" data-tab="{{item.key}}" bindtap="switchTab">
+      {{item.label}} · {{counts[item.key]}}
+    </view>
+  </view>
+
+  <view wx:if="{{loading}}" class="sk-list">
+    <view wx:for="{{[1,2,3]}}" wx:key="*this" class="sk-card">
+      <view class="sk-line sk-line--lg"></view>
+      <view class="sk-line"></view>
+    </view>
+  </view>
+
+  <view wx:elif="{{!items.length}}" class="empty-state">
+    <view class="empty-emoji">♥</view>
+    <view class="empty-title">暂无关注</view>
+    <view class="empty-sub">在演员或剧团档案详情页底部操作条点击关注后会出现在这里</view>
+  </view>
+
+  <view wx:else class="results">
+    <view wx:for="{{items}}" wx:key="id" class="card result-card" data-type="{{item.type}}" data-id="{{item.id}}" bindtap="open">
+      <view class="result-title">{{item.title}}</view>
+      <view wx:if="{{item.summary}}" class="result-summary">{{item.summary}}</view>
+      <view wx:if="{{item.meta}}" class="result-meta">{{item.meta}}</view>
+      <view class="result-actions" data-type="{{item.type}}" data-id="{{item.id}}" catchtap="unfollow">
+        <view class="unfav-btn">取消关注</view>
+      </view>
+    </view>
+  </view>
+</view>

@@ -8,6 +8,7 @@
   <block wx:else wx:if="{{organization}}">
     <!-- 剧团头卡：红色渐变 + 院名 + 编号占位 -->
     <view class="org-hero">
+      <view class="org-hero-badge">官方收录</view>
       <view class="org-glyph">{{glyph}}</view>
     </view>
     <view class="org-name-bar">
@@ -53,6 +54,12 @@
     <view class="state-sub">下拉刷新或点重试</view>
     <view class="retry-btn" bindtap="retry">重新加载</view>
   </view>
+</view>
+
+<!-- 官方页脚 -->
+<view wx:if="{{organization && !loading}}" class="official-footer">
+  <view>沂蒙小戏小剧官方数字传播平台</view>
+  <view class="official-footer-sub">剧团资料以官方审核发布为准</view>
 </view>
 
 <!-- 底部操作条 -->
