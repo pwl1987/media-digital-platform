@@ -43,9 +43,22 @@
       </view>
     </view>
 
-    <!-- 轻量关系网络 -->
-    <view class="section" wx:if="{{persons.length || events.length || relatedArchives.length}}">
-      <view class="section-title">这份史料还关联</view>
+    <!-- 引用回链：可信链从模型变成产品 -->
+    <view class="section" wx:if="{{citedCount || persons.length || relatedArchives.length}}">
+      <view wx:if="{{citedCount}}" class="cite-block">
+        <view class="cite-title">本史料被 {{citedCount}} 项内容引用</view>
+        <view wx:if="{{citedByPersons.length}}" class="cite-sub">人物档案</view>
+        <view wx:for="{{citedByPersons}}" wx:key="id" class="person-chip" data-id="{{item.id}}" bindtap="openPerson">
+          <view class="person-name">{{item.title}}</view>
+          <view class="person-identity">{{item.identity}}</view>
+        </view>
+        <view wx:if="{{citedByEvents.length}}" class="cite-sub">历史节点</view>
+        <view wx:for="{{citedByEvents}}" wx:key="id" class="event-row" data-id="{{item.id}}" bindtap="goMemory">
+          <text class="event-era">{{item.era}}</text>
+          <text class="event-title">{{item.title}}</text>
+          <text class="event-arrow">›</text>
+        </view>
+      </view>
 
       <view wx:if="{{persons.length}}" class="rel-group">
         <view class="rel-label">关联人物</view>
@@ -73,7 +86,6 @@
         </view>
       </view>
     </view>
-
     <view class="seed-note">本档案为工程种子数据（{{statusNote}}），正式内容以官方审核发布为准</view>
   </block>
 </view>

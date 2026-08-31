@@ -28,6 +28,11 @@
 .source-name { font-size: 26rpx; color: var(--ymh-ink); }
 .source-locator { margin-top: 6rpx; font-size: 22rpx; color: var(--ymh-slate-600); font-variant-numeric: tabular-nums; }
 
+/* 引用回链块：宣纸底 + 红左条（与引言块同构） */
+.cite-block { background: var(--ymh-paper); border-left: 6rpx solid var(--ymh-red-800); padding: 24rpx; }
+.cite-title { font-size: 28rpx; font-weight: 650; color: var(--ymh-red-800); font-variant-numeric: tabular-nums; }
+.cite-sub { margin: 16rpx 0 8rpx; font-size: 22rpx; color: var(--ymh-slate-600); }
+
 .rel-group { margin-top: 24rpx; }
 .rel-label { font-size: 22rpx; color: var(--ymh-slate-600); margin-bottom: 12rpx; }
 .person-chip { display: inline-block; margin: 0 16rpx 16rpx 0; background: var(--ymh-surface); border: 1rpx solid var(--ymh-stone); border-radius: 8rpx; padding: 16rpx 24rpx; }

@@ -40,7 +40,17 @@ Page({
           .map((id) => people.find((p) => p.id === id))
           .filter(Boolean)
           .map((p) => ({ id: p.id, title: p.title, identity: p.identity }));
+
+        // 引用回链（citation backlink）：动态反查——本史料被哪些人物档案与历史节点引用
+        const citedByEvents = events
+          .filter((e) => (e.resourceIds || []).includes(archive.id))
+          .map((e) => ({ id: e.id, title: e.title, date: e.date, era: e.era }));
+        const citedByPersons = people
+          .filter((p) => (p.archiveIds || []).includes(archive.id))
+          .map((p) => ({ id: p.id, title: p.title, identity: p.identity }));
+        const citedCount = citedByEvents.length + citedByPersons.length;
         const relatedEvents = (archive.relatedEventIds || [])
+          .filter((id) => !citedByEvents.some((e) => e.id === id))
           .map((id) => events.find((e) => e.id === id))
           .filter(Boolean)
           .map((e) => ({ id: e.id, title: e.title, date: e.date, era: e.era }));
@@ -60,6 +70,9 @@ Page({
           sources: (archive.sourceReferences || []).map((s) => ({ ...s, gradeLabel: api.gradeLabels[s.grade] || s.grade })),
           persons,
           events: relatedEvents,
+          citedByEvents,
+          citedByPersons,
+          citedCount,
           statusNote: archive.contentStatusLabel
         });
 
