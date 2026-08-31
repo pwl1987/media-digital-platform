@@ -3,9 +3,9 @@
 
 /* 加载骨架（避免白屏） */
 .page-loading { min-height: 100vh; background: var(--ym-paper); }
-.sk-poster { width: 100%; height: 460rpx; background: linear-gradient(180deg, var(--ym-paper-deep, #E9E0CC), var(--ym-paper)); animation: sk-pulse 1.4s ease-in-out infinite; }
+.sk-poster { width: 100%; height: 460rpx; background: linear-gradient(180deg, var(--ym-paper-deep, var(--ym-paper-deep)), var(--ym-paper)); animation: sk-pulse 1.4s ease-in-out infinite; }
 .sk-card { margin: -40rpx 30rpx 0; position: relative; background: var(--ym-surface); border-radius: 12rpx; box-shadow: var(--ym-shadow-float); padding: 32rpx; }
-.sk-line { height: 22rpx; border-radius: 4rpx; background: var(--ym-paper-deep, #E9E0CC); margin-top: 18rpx; animation: sk-pulse 1.4s ease-in-out infinite; }
+.sk-line { height: 22rpx; border-radius: 4rpx; background: var(--ym-paper-deep, var(--ym-paper-deep)); margin-top: 18rpx; animation: sk-pulse 1.4s ease-in-out infinite; }
 .sk-line--lg { height: 36rpx; width: 70%; }
 .sk-line--sm { width: 40%; }
 @keyframes sk-pulse { 0%, 100% { opacity: 0.6; } 50% { opacity: 1; } }
@@ -39,7 +39,7 @@
 .person-role { margin-top: 4rpx; font-size: 22rpx; color: var(--ym-text-3); }
 .arrow { color: var(--ym-text-3); font-size: 32rpx; }
 
-.timeline { padding-left: 14rpx; border-left: 2rpx solid var(--ym-stone, #8A8578); }
+.timeline { padding-left: 14rpx; border-left: 2rpx solid var(--ym-stone, var(--ym-stone)); }
 .perf-row { display: flex; gap: 20rpx; padding: 20rpx 0 20rpx 16rpx; position: relative; }
 .perf-dot { width: 18rpx; height: 18rpx; border-radius: 50%; background: var(--ym-red-700); margin-right: 16rpx; margin-top: 14rpx; flex-shrink: 0; box-shadow: 0 0 0 4rpx var(--ym-red-50); }
 .perf-text { flex: 1; }

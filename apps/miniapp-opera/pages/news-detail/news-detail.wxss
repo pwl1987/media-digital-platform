@@ -4,11 +4,11 @@
 /* 加载骨架（避免白屏） */
 .page-loading { min-height: 100vh; background: var(--ym-paper); padding: 36rpx 30rpx 220rpx; }
 .sk-badges { display: flex; gap: 12rpx; margin-bottom: 20rpx; }
-.sk-badge { width: 96rpx; height: 36rpx; border-radius: 4rpx; background: var(--ym-paper-deep, #E9E0CC); animation: sk-pulse 1.4s ease-in-out infinite; }
-.sk-line { height: 22rpx; border-radius: 4rpx; background: var(--ym-paper-deep, #E9E0CC); margin-top: 18rpx; animation: sk-pulse 1.4s ease-in-out infinite; }
+.sk-badge { width: 96rpx; height: 36rpx; border-radius: 4rpx; background: var(--ym-paper-deep, var(--ym-paper-deep)); animation: sk-pulse 1.4s ease-in-out infinite; }
+.sk-line { height: 22rpx; border-radius: 4rpx; background: var(--ym-paper-deep, var(--ym-paper-deep)); margin-top: 18rpx; animation: sk-pulse 1.4s ease-in-out infinite; }
 .sk-line--xl { height: 48rpx; width: 90%; }
 .sk-line--lg { height: 30rpx; width: 60%; }
-.sk-block { height: 200rpx; border-radius: 8rpx; background: var(--ym-paper-deep, #E9E0CC); margin-top: 24rpx; animation: sk-pulse 1.4s ease-in-out infinite; }
+.sk-block { height: 200rpx; border-radius: 8rpx; background: var(--ym-paper-deep, var(--ym-paper-deep)); margin-top: 24rpx; animation: sk-pulse 1.4s ease-in-out infinite; }
 @keyframes sk-pulse { 0%, 100% { opacity: 0.6; } 50% { opacity: 1; } }
 
 /* 底部操作条（固定，悬浮） */

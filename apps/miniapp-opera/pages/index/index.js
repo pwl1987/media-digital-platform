@@ -198,6 +198,7 @@ Page({
   goVideos() { this.haptic(); wx.switchTab({ url: '/pages/videos/videos' }); },
   goEvents() { this.haptic(); wx.navigateTo({ url: '/pages/events/events' }); },
   goLive() { this.haptic(); wx.navigateTo({ url: '/pages/live/live' }); },
+  goSearch() { this.haptic(); wx.navigateTo({ url: '/pages/search/search' }); },
   openTile(e) {
     const { target } = e.currentTarget.dataset;
     if (target === 'works') this.goWorks();

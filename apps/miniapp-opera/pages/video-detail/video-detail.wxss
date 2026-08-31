@@ -3,9 +3,9 @@
 
 /* 加载骨架（避免白屏） */
 .page-loading { min-height: 100vh; background: var(--ym-paper); }
-.sk-player { width: 100%; height: 420rpx; background: linear-gradient(180deg, var(--ym-paper-deep, #E9E0CC), var(--ym-paper)); animation: sk-pulse 1.4s ease-in-out infinite; }
+.sk-player { width: 100%; height: 420rpx; background: linear-gradient(180deg, var(--ym-paper-deep, var(--ym-paper-deep)), var(--ym-paper)); animation: sk-pulse 1.4s ease-in-out infinite; }
 .sk-card { margin: 30rpx; }
-.sk-line { height: 22rpx; border-radius: 4rpx; background: var(--ym-paper-deep, #E9E0CC); margin-top: 18rpx; animation: sk-pulse 1.4s ease-in-out infinite; }
+.sk-line { height: 22rpx; border-radius: 4rpx; background: var(--ym-paper-deep, var(--ym-paper-deep)); margin-top: 18rpx; animation: sk-pulse 1.4s ease-in-out infinite; }
 .sk-line--lg { height: 30rpx; width: 70%; }
 @keyframes sk-pulse { 0%, 100% { opacity: 0.6; } 50% { opacity: 1; } }
 
@@ -49,3 +49,5 @@
 .action-bar { position: fixed; left: 0; right: 0; bottom: 0; display: flex; gap: 16rpx; padding: 18rpx 30rpx calc(18rpx + env(safe-area-inset-bottom)); background: var(--ym-surface); box-shadow: 0 -4rpx 16rpx rgba(31,31,31,0.08); }
 .action-btn { flex: 1; text-align: center; padding: 20rpx 0; border-radius: 10rpx; border: 1rpx solid var(--ym-line); color: var(--ym-text-2); font-size: 28rpx; background: var(--ym-surface); }
 .action-btn--active { color: var(--ym-red-700); border-color: var(--ym-red-100); background: var(--ym-red-50); }
+/* 官方影像角标（占位播放器上） */
+.player-badge { position: absolute; top: 24rpx; left: 24rpx; font-size: 22rpx; color: #FFFFFF; background: rgba(255,255,255,0.18); border: 1rpx solid rgba(255,255,255,0.35); border-radius: 4rpx; padding: 6rpx 14rpx; letter-spacing: 2rpx; }

@@ -12,7 +12,7 @@
 .unfav-btn { font-size: 22rpx; color: var(--ym-red-700); border: 1rpx solid var(--ym-red-100); background: var(--ym-red-50); border-radius: 6rpx; padding: 8rpx 18rpx; }
 .sk-list { }
 .sk-card { padding: 26rpx 28rpx; background: var(--ym-surface); border-radius: 12rpx; box-shadow: var(--ym-shadow-rest); margin-bottom: 18rpx; }
-.sk-line { height: 22rpx; border-radius: 4rpx; background: var(--ym-paper-deep, #E9E0CC); margin-top: 16rpx; animation: sk-pulse 1.4s ease-in-out infinite; }
+.sk-line { height: 22rpx; border-radius: 4rpx; background: var(--ym-paper-deep, var(--ym-paper-deep)); margin-top: 16rpx; animation: sk-pulse 1.4s ease-in-out infinite; }
 .sk-line--lg { height: 32rpx; width: 60%; }
 @keyframes sk-pulse { 0%, 100% { opacity: 0.6; } 50% { opacity: 1; } }
 .empty-state { padding: 180rpx 0 0; text-align: center; }

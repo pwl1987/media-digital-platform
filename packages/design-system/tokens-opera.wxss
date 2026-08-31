@@ -5,6 +5,7 @@
 page {
   /* 沂蒙红（主色） */
   --ym-red-900: #4A0F13;
+  --ym-red-800: #6A1820;
   --ym-red-700: #8B1E24;
   --ym-red-500: #B8484E;
   --ym-red-100: #F5E4E4;
@@ -15,9 +16,12 @@ page {
   --ym-gold-500: #C9A227;
   --ym-gold-300: #E3CB7A;
   --ym-gold-100: #F7EFD8;
+  --ym-gold-50: #F2ECDF;
 
   /* 宣纸白（页面底）与卡片（2026-08-31 用户定稿 #fffff5） */
   --ym-paper: #fffff5;
+  --ym-paper-deep: #E9E0CC;       /* 骨架屏、分割线弱对比；宣纸灰阶 */
+  --ym-stone: #8A8578;             /* 棕灰，过渡色 */
   --ym-surface: #FFFFFF;
 
   /* 墨色文字 */

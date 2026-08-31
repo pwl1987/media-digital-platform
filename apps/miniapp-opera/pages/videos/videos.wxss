@@ -37,7 +37,7 @@
 /* 加载骨架（避免白屏） */
 .sk-list { padding-top: 20rpx; }
 .sk-card { padding: 30rpx; margin-bottom: 20rpx; }
-.sk-line { height: 22rpx; border-radius: 4rpx; background: var(--ym-paper-deep, #E9E0CC); margin-top: 18rpx; animation: sk-pulse 1.4s ease-in-out infinite; }
+.sk-line { height: 22rpx; border-radius: 4rpx; background: var(--ym-paper-deep, var(--ym-paper-deep)); margin-top: 18rpx; animation: sk-pulse 1.4s ease-in-out infinite; }
 .sk-line--lg { height: 34rpx; width: 70%; }
 .sk-line--sm { width: 40%; }
 @keyframes sk-pulse { 0%, 100% { opacity: 0.6; } 50% { opacity: 1; } }

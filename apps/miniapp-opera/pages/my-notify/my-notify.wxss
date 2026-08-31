@@ -7,7 +7,7 @@
 .live-card--upcoming { background: linear-gradient(160deg, var(--ym-surface), var(--ym-gold-50)); }
 .live-card--ended { background: var(--ym-surface); opacity: 0.88; }
 .live-flag { display: inline-block; font-size: 22rpx; color: var(--ym-gold-700); background: var(--ym-gold-100); border-radius: 4rpx; padding: 4rpx 12rpx; margin-bottom: 12rpx; }
-.live-flag--ended { background: var(--ym-paper-deep, #E9E0CC); color: var(--ym-text-3); }
+.live-flag--ended { background: var(--ym-paper-deep, var(--ym-paper-deep)); color: var(--ym-text-3); }
 .live-title { font-size: 30rpx; font-weight: 650; color: var(--ym-ink); line-height: 1.4; }
 .live-meta { margin-top: 10rpx; font-size: 22rpx; color: var(--ym-text-3); font-variant-numeric: tabular-nums; }
 .result-actions { margin-top: 18rpx; display: flex; justify-content: flex-end; }
@@ -15,7 +15,7 @@
 
 .sk-list { }
 .sk-card { padding: 26rpx 28rpx; background: var(--ym-surface); border-radius: 12rpx; box-shadow: var(--ym-shadow-rest); margin-bottom: 18rpx; }
-.sk-line { height: 22rpx; border-radius: 4rpx; background: var(--ym-paper-deep, #E9E0CC); margin-top: 16rpx; animation: sk-pulse 1.4s ease-in-out infinite; }
+.sk-line { height: 22rpx; border-radius: 4rpx; background: var(--ym-paper-deep, var(--ym-paper-deep)); margin-top: 16rpx; animation: sk-pulse 1.4s ease-in-out infinite; }
 .sk-line--lg { height: 32rpx; width: 60%; }
 @keyframes sk-pulse { 0%, 100% { opacity: 0.6; } 50% { opacity: 1; } }
 

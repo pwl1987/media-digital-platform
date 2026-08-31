@@ -1,9 +1,9 @@
 /* 演员档案：黑白人像 + 红色名条 + 金色荣誉（红金宣纸 token） */
 .container { min-height: 100vh; background: var(--ym-paper); padding: 0 0 60rpx; }
-.portrait { height: 320rpx; background: var(--ym-stone, #8A8578); filter: grayscale(1); display: flex; align-items: center; justify-content: center; }
+.portrait { height: 320rpx; background: var(--ym-stone, var(--ym-stone)); filter: grayscale(1); display: flex; align-items: center; justify-content: center; }
 .portrait-glyph { font-size: 120rpx; color: var(--ym-paper); font-family: "Songti SC", "STSong", serif; }
 .name-bar { background: var(--ym-red-800); padding: 24rpx 32rpx; display: flex; align-items: baseline; gap: 20rpx; }
-.name { font-size: 38rpx; font-weight: 700; color: #F2ECDF; }
+.name { font-size: 38rpx; font-weight: 700; color: var(--ym-gold-50); }
 .role { font-size: 24rpx; color: rgba(242,236,223,0.85); }
 .org { padding: 16rpx 32rpx; font-size: 26rpx; color: var(--ym-text-2); }
 .honors { padding: 0 32rpx 20rpx; display: flex; flex-wrap: wrap; gap: 12rpx; }
@@ -20,7 +20,7 @@
 .work-meta { margin-top: 6rpx; font-size: 22rpx; color: var(--ym-text-3); }
 
 .empty { margin-top: 18rpx; padding: 30rpx; background: var(--ym-surface); border-radius: 8rpx; font-size: 24rpx; color: var(--ym-text-3); text-align: center; }
-.skeleton-block { margin-top: 18rpx; height: 60rpx; border-radius: 8rpx; background: var(--ym-paper-deep, #E9E0CC); animation: sk-pulse 1.4s ease-in-out infinite; }
+.skeleton-block { margin-top: 18rpx; height: 60rpx; border-radius: 8rpx; background: var(--ym-paper-deep, var(--ym-paper-deep)); animation: sk-pulse 1.4s ease-in-out infinite; }
 @keyframes sk-pulse { 0%, 100% { opacity: 0.6; } 50% { opacity: 1; } }
 
 .actions { margin: 32rpx 28rpx 0; display: flex; gap: 16rpx; }
@@ -34,10 +34,10 @@
 
 /* 加载骨架 */
 .sk-page { min-height: 100vh; background: var(--ym-paper); padding-bottom: 220rpx; }
-.sk-portrait { width: 100%; height: 320rpx; background: var(--ym-stone, #8A8578); opacity: 0.6; animation: sk-pulse 1.4s ease-in-out infinite; }
+.sk-portrait { width: 100%; height: 320rpx; background: var(--ym-stone, var(--ym-stone)); opacity: 0.6; animation: sk-pulse 1.4s ease-in-out infinite; }
 .sk-name-bar { height: 84rpx; background: var(--ym-red-800); animation: sk-pulse 1.4s ease-in-out infinite; }
 .sk-card { margin: 24rpx 28rpx 0; padding: 26rpx; background: var(--ym-surface); border-radius: 12rpx; box-shadow: var(--ym-shadow-rest); }
-.sk-line { height: 22rpx; border-radius: 4rpx; background: var(--ym-paper-deep, #E9E0CC); margin-top: 18rpx; animation: sk-pulse 1.4s ease-in-out infinite; }
+.sk-line { height: 22rpx; border-radius: 4rpx; background: var(--ym-paper-deep, var(--ym-paper-deep)); margin-top: 18rpx; animation: sk-pulse 1.4s ease-in-out infinite; }
 .sk-line--lg { height: 30rpx; width: 60%; }
 @keyframes sk-pulse { 0%, 100% { opacity: 0.6; } 50% { opacity: 1; } }
 

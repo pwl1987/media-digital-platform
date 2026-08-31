@@ -6,19 +6,30 @@ const liveItems = [
 Page({
   data: {
     loading: true,
+    error: false,
     upcoming: [],
     ended: []
   },
   onLoad() {
+    this.refresh();
+  },
+  refresh() {
     // 静态数据预热：百毫秒级骨架闪一下与全站体验一致
     setTimeout(() => {
-      this.setData({
-        loading: false,
-        upcoming: liveItems.filter((x) => x.status !== 'ended'),
-        ended: liveItems.filter((x) => x.status === 'ended')
-      });
+      try {
+        if (!Array.isArray(liveItems) || !liveItems.length) throw new Error('empty source');
+        this.setData({
+          loading: false,
+          error: false,
+          upcoming: liveItems.filter((x) => x.status !== 'ended'),
+          ended: liveItems.filter((x) => x.status === 'ended')
+        });
+      } catch (err) {
+        this.setData({ loading: false, error: true });
+      }
     }, 120);
   },
+  retry() { this.setData({ loading: true, error: false }); this.refresh(); },
   openLive(e) {
     wx.vibrateShort && wx.vibrateShort({ type: 'light' });
     wx.navigateTo({ url: `/pages/live-detail/live-detail?id=${e.currentTarget.dataset.id}` });

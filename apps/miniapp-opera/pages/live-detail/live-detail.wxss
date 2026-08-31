@@ -22,7 +22,7 @@
 .player-sub { margin-top: 12rpx; font-size: 22rpx; opacity: 0.7; }
 .chat { background: #1a1a1a; padding: 16rpx 24rpx; }
 .chat-title { font-size: 24rpx; color: #999; margin-bottom: 12rpx; }
-.chat-row { display: flex; gap: 12rpx; padding: 8rpx 0; font-size: 24rpx; color: #F2ECDF; }
+.chat-row { display: flex; gap: 12rpx; padding: 8rpx 0; font-size: 24rpx; color: var(--ym-gold-50); }
 .chat-user { flex-shrink: 0; color: var(--ym-gold-300); font-weight: 600; }
 
 /* 预告：倒计时卡 */
@@ -51,9 +51,9 @@
 
 /* 加载骨架（避免白屏） */
 .sk-page { min-height: 100vh; background: var(--ym-paper); padding-bottom: 220rpx; }
-.sk-hero { height: 220rpx; background: linear-gradient(180deg, var(--ym-paper-deep, #E9E0CC), var(--ym-paper)); animation: sk-pulse 1.4s ease-in-out infinite; }
+.sk-hero { height: 220rpx; background: linear-gradient(180deg, var(--ym-paper-deep, var(--ym-paper-deep)), var(--ym-paper)); animation: sk-pulse 1.4s ease-in-out infinite; }
 .sk-card { margin: 30rpx; }
-.sk-line { height: 22rpx; border-radius: 4rpx; background: var(--ym-paper-deep, #E9E0CC); margin-top: 18rpx; animation: sk-pulse 1.4s ease-in-out infinite; }
+.sk-line { height: 22rpx; border-radius: 4rpx; background: var(--ym-paper-deep, var(--ym-paper-deep)); margin-top: 18rpx; animation: sk-pulse 1.4s ease-in-out infinite; }
 .sk-line--lg { height: 30rpx; width: 60%; }
 @keyframes sk-pulse { 0%, 100% { opacity: 0.6; } 50% { opacity: 1; } }
 

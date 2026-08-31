@@ -30,6 +30,8 @@
       <view class="player-poster">
         <image wx:if="{{video.coverUrl}}" class="poster-img" src="{{video.coverUrl}}" mode="aspectFill" />
         <view wx:else class="player-title serif">{{video.title}}</view>
+        <view class="player-badge">官方影像</view>
+      </view>
       </view>
       <view class="player-note">官方影像 · 媒资接入后支持在线播放</view>
     </view>

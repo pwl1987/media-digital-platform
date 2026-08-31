@@ -9,6 +9,7 @@ const STATUS_LABELS = { live: '直播中', scheduled: '即将直播', ended: '�
 Page({
   data: {
     loading: true,
+    error: false,
     item: null,
     statusLabel: '',
     countdown: '计算中...',

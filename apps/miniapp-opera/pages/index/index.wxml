@@ -20,6 +20,12 @@
   </view>
 
   <block wx:else>
+    <!-- 顶部搜索入口（全站统一发现入口） -->
+    <view class="search-entry" bindtap="goSearch">
+      <view class="search-entry-icon">⌕</view>
+      <view class="search-entry-text">搜索剧目 · 演员 · 剧团 · 活动 · 影像 · 资讯</view>
+    </view>
+
     <!-- 沉浸式轮播：宣传位（新闻头条/精品剧目/专题），支持 coverUrl，无图走红金渐变海报位 -->
     <view class="carousel-wrapper">
       <swiper

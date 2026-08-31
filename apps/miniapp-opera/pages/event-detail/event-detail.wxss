@@ -3,9 +3,9 @@
 
 /* 加载骨架（避免白屏） */
 .sk-page { padding-bottom: 220rpx; }
-.sk-hero { height: 220rpx; background: linear-gradient(150deg, var(--ym-paper-deep, #E9E0CC), var(--ym-paper)); animation: sk-pulse 1.4s ease-in-out infinite; }
+.sk-hero { height: 220rpx; background: linear-gradient(150deg, var(--ym-paper-deep, var(--ym-paper-deep)), var(--ym-paper)); animation: sk-pulse 1.4s ease-in-out infinite; }
 .sk-card { margin: 16rpx 28rpx 0; background: var(--ym-surface); border-radius: 12rpx; box-shadow: var(--ym-shadow-rest); padding: 26rpx 28rpx; }
-.sk-line { height: 22rpx; border-radius: 4rpx; background: var(--ym-paper-deep, #E9E0CC); margin-top: 18rpx; animation: sk-pulse 1.4s ease-in-out infinite; }
+.sk-line { height: 22rpx; border-radius: 4rpx; background: var(--ym-paper-deep, var(--ym-paper-deep)); margin-top: 18rpx; animation: sk-pulse 1.4s ease-in-out infinite; }
 .sk-line--lg { height: 30rpx; width: 60%; }
 @keyframes sk-pulse { 0%, 100% { opacity: 0.6; } 50% { opacity: 1; } }
 
@@ -25,7 +25,7 @@
 .info-row:last-child { border-bottom: 0; }
 .info-label { flex-shrink: 0; width: 80rpx; font-size: 24rpx; color: var(--ym-text-3); }
 .info-value { flex: 1; font-size: 26rpx; color: var(--ym-text); font-variant-numeric: tabular-nums; }
-.sign-bar { flex: 1; height: 12rpx; border-radius: 6rpx; background: var(--ym-paper-deep, #E9E0CC); overflow: hidden; margin-right: 14rpx; }
+.sign-bar { flex: 1; height: 12rpx; border-radius: 6rpx; background: var(--ym-paper-deep, var(--ym-paper-deep)); overflow: hidden; margin-right: 14rpx; }
 .sign-bar-fill { height: 100%; background: linear-gradient(90deg, var(--ym-gold-500), var(--ym-red-700)); border-radius: 6rpx; }
 .sign-num { font-size: 22rpx; color: var(--ym-red-700); font-weight: 650; font-variant-numeric: tabular-nums; flex-shrink: 0; }
 
@@ -34,7 +34,7 @@
 .desc { margin-top: 18rpx; font-size: 28rpx; color: var(--ym-text); line-height: 1.8; }
 
 /* 演出场次时间线 */
-.timeline { margin-top: 18rpx; padding-left: 14rpx; border-left: 2rpx solid var(--ym-stone, #8A8578); }
+.timeline { margin-top: 18rpx; padding-left: 14rpx; border-left: 2rpx solid var(--ym-stone, var(--ym-stone)); }
 .tl-item { display: flex; align-items: stretch; padding: 12rpx 0 12rpx 16rpx; position: relative; }
 .tl-dot { width: 18rpx; height: 18rpx; border-radius: 50%; background: var(--ym-red-700); margin-right: 16rpx; margin-top: 14rpx; flex-shrink: 0; box-shadow: 0 0 0 4rpx var(--ym-red-50); }
 .tl-card { flex: 1; background: var(--ym-surface); border-radius: 8rpx; padding: 18rpx 20rpx; box-shadow: var(--ym-shadow-rest); }

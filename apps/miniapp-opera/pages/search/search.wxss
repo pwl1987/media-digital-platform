@@ -40,7 +40,7 @@
 /* 加载骨架 */
 .sk-list { margin-top: 24rpx; }
 .sk-card { padding: 26rpx 28rpx; background: var(--ym-surface); border-radius: 12rpx; box-shadow: var(--ym-shadow-rest); margin-bottom: 18rpx; }
-.sk-line { height: 22rpx; border-radius: 4rpx; background: var(--ym-paper-deep, #E9E0CC); margin-top: 16rpx; animation: sk-pulse 1.4s ease-in-out infinite; }
+.sk-line { height: 22rpx; border-radius: 4rpx; background: var(--ym-paper-deep, var(--ym-paper-deep)); margin-top: 16rpx; animation: sk-pulse 1.4s ease-in-out infinite; }
 .sk-line--lg { height: 32rpx; width: 60%; }
 .sk-line--sm { width: 40%; }
 @keyframes sk-pulse { 0%, 100% { opacity: 0.6; } 50% { opacity: 1; } }
