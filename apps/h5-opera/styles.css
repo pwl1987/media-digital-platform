@@ -83,7 +83,7 @@ button { font-family: inherit; cursor: pointer; }
   .site-header .brand .brand-sub { display: none; }
   .site-header nav { gap: 2px; }
   .site-header nav a { font-size: 13px; padding: 4px 7px; }
-  .site-header nav a:nth-child(n+5) { display: none; }
+  .site-header nav a:nth-child(n+6) { display: none; }
   .site-header .search-link { padding: 5px 12px; font-size: 12px; }
 }
 
@@ -598,3 +598,108 @@ button { font-family: inherit; cursor: pointer; }
   .portrait-hero .portrait-glyph { font-size: 72px; }
   .org-hero { height: 180px; }
 }
+
+/* ---- 直播列表卡 ---- */
+.live-card--upcoming { border-left: 4px solid var(--ym-red-700); }
+.live-card--ended { border-left: 4px solid var(--ym-gold-500); opacity: 0.92; }
+
+/* ---- 直播中舞台 ---- */
+.live-stage {
+  margin-top: 20px;
+  padding: 56px 28px;
+  border-radius: 12px;
+  background: linear-gradient(160deg, var(--ym-red-900), var(--ym-red-700));
+  color: #FFFFFF;
+  text-align: center;
+  box-shadow: var(--ym-shadow-float);
+}
+.live-stage .live-dot {
+  display: inline-block;
+  width: 14px; height: 14px;
+  border-radius: 50%;
+  background: var(--ym-gold-500);
+  box-shadow: 0 0 0 6px rgba(201, 162, 39, 0.25);
+  animation: live-pulse 1.6s ease-in-out infinite;
+}
+@keyframes live-pulse { 0%, 100% { box-shadow: 0 0 0 6px rgba(201, 162, 39, 0.25); } 50% { box-shadow: 0 0 0 12px rgba(201, 162, 39, 0.1); } }
+.live-stage .live-stage-title { margin-top: 18px; font-size: 24px; font-family: 'Songti SC', serif; font-weight: 700; }
+.live-stage .live-stage-sub { margin-top: 10px; font-size: 13px; color: rgba(255, 255, 255, 0.75); }
+
+/* ---- 倒计时卡 ---- */
+.countdown-card {
+  margin-top: 20px;
+  padding: 44px 28px;
+  border-radius: 12px;
+  background: var(--ym-surface);
+  box-shadow: var(--ym-shadow-float);
+  text-align: center;
+}
+.cd-emoji { font-size: 44px; }
+.cd-title { margin-top: 12px; font-size: 15px; color: var(--ym-text-2); }
+.cd-time { margin-top: 12px; font-size: 32px; font-family: 'Songti SC', serif; font-weight: 700; color: var(--ym-red-700); font-variant-numeric: tabular-nums; }
+.cd-sub { margin-top: 10px; font-size: 12px; color: var(--ym-text-3); }
+
+/* ---- 节目单 ---- */
+.program-list { display: flex; flex-direction: column; }
+.prog-row {
+  display: grid;
+  grid-template-columns: 72px 1fr;
+  gap: 4px 18px;
+  padding: 16px 0;
+  border-bottom: 1px dashed var(--ym-line);
+}
+.prog-row:last-child { border-bottom: 0; }
+.prog-time { font-size: 16px; font-weight: 700; color: var(--ym-red-700); font-variant-numeric: tabular-nums; }
+.prog-title { font-size: 15px; font-weight: 650; color: var(--ym-ink); }
+.prog-artists { grid-column: 2; font-size: 13px; color: var(--ym-text-3); }
+
+/* ---- 回放缩略 ---- */
+.review-thumbs { display: grid; gap: 12px; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); }
+.review-thumb {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  border-radius: 8px;
+  background: linear-gradient(150deg, var(--ym-ink), var(--ym-stone));
+  color: #FFFFFF;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 14px;
+}
+.review-thumb .review-time {
+  position: absolute;
+  right: 10px; bottom: 10px;
+  font-size: 11px;
+  background: rgba(31, 31, 31, 0.6);
+  border-radius: 4px;
+  padding: 2px 8px;
+  font-variant-numeric: tabular-nums;
+}
+.review-thumb .review-title { font-size: 14px; font-weight: 650; text-shadow: 0 1px 4px rgba(0,0,0,.4); }
+
+/* ---- 直播操作 ---- */
+.live-actions {
+  margin-top: 24px;
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+.live-btn {
+  flex: 1;
+  min-width: 140px;
+  padding: 14px 24px;
+  border-radius: 10px;
+  border: 1px solid var(--ym-line);
+  background: var(--ym-surface);
+  color: var(--ym-text-2);
+  font-size: 15px;
+  transition: all .15s;
+}
+.live-btn--primary { background: var(--ym-red-700); border-color: var(--ym-red-700); color: #FFFFFF; font-weight: 650; }
+.live-btn--primary:hover { background: var(--ym-red-800); }
+.live-btn--on { color: var(--ym-red-700); border-color: var(--ym-red-500); background: var(--ym-red-50); }
+
+/* ---- 直播 hero 三态 ---- */
+.live-hero--live { background: linear-gradient(150deg, var(--ym-red-900), var(--ym-red-500) 130%); }
+.live-hero--scheduled { background: linear-gradient(150deg, var(--ym-ink), var(--ym-stone)); }
+.live-hero--ended { background: linear-gradient(150deg, var(--ym-gold-700), var(--ym-stone)); }

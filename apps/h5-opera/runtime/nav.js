@@ -6,7 +6,8 @@ const NAV_ITEMS = [
   { href: './pages/news/index.html', label: '资讯', key: 'news' },
   { href: './pages/works/index.html', label: '剧目', key: 'works' },
   { href: './pages/events/index.html', label: '展演', key: 'events' },
-  { href: './pages/videos/index.html', label: '影像', key: 'videos' }
+  { href: './pages/videos/index.html', label: '影像', key: 'videos' },
+  { href: './pages/live/index.html', label: '直播', key: 'live' }
 ];
 
 function currentKey() {
@@ -15,6 +16,7 @@ function currentKey() {
   if (path.includes('/pages/works/')) return 'works';
   if (path.includes('/pages/events/')) return 'events';
   if (path.includes('/pages/videos/')) return 'videos';
+  if (path.includes('/pages/live/')) return 'live';
   return 'home';
 }
 
