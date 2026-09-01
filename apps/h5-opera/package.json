@@ -1,0 +1,10 @@
+{
+  "name": "@media/h5-opera",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "沂蒙小戏小剧官方 H5 端（同源方案：零构建、共享 api-client + design-system token）",
+  "scripts": {
+    "start": "node ../../scripts/serve-h5.mjs"
+  }
+}

@@ -1,0 +1,43 @@
+/* 小戏小剧官方平台 · 设计 Token（H5 / PC / APP 通用）
+   与小程序端 tokens-opera.wxss 严格对齐（红金宣纸墨，OPERA_UI_VISUAL_BASELINE_V0.1）
+   单位换算：小程序 750rpx ≈ H5 10rem（设计稿按 750 宽）→ 1rpx ≈ 0.0133rem
+   页面禁止硬编码色值，一律引用 var(--ym-*)。 */
+
+:root {
+  /* 沂蒙红（主色） */
+  --ym-red-900: #4A0F13;
+  --ym-red-800: #6A1820;
+  --ym-red-700: #8B1E24;
+  --ym-red-500: #B8484E;
+  --ym-red-100: #F5E4E4;
+  --ym-red-50: #FBF5F5;
+
+  /* 金色（荣誉、专题、装饰线） */
+  --ym-gold-700: #8C6E14;
+  --ym-gold-500: #C9A227;
+  --ym-gold-300: #E3CB7A;
+  --ym-gold-100: #F7EFD8;
+  --ym-gold-50: #F2ECDF;
+
+  /* 宣纸白（页面底）与卡片（2026-08-31 用户定稿 #fffff5） */
+  --ym-paper: #fffff5;
+  --ym-paper-deep: #E9E0CC;       /* 骨架屏、分割线弱对比；宣纸灰阶 */
+  --ym-stone: #8A8578;             /* 棕灰，过渡色 */
+  --ym-surface: #FFFFFF;
+
+  /* 墨色文字 */
+  --ym-ink: #1F1F1F;
+  --ym-text: #3D3D3D;
+  --ym-text-2: #6F6F6F;
+  --ym-text-3: #9B9B9B;
+  --ym-line: #E8E2D5;
+
+  /* 阴影（仅两级） */
+  --ym-shadow-rest: 0 1px 6px rgba(31, 31, 31, 0.06);
+  --ym-shadow-float: 0 4px 12px rgba(31, 31, 31, 0.10);
+
+  /* H5 排版基线：font-size 16px；rem = 设计稿 750 宽换算（1rpx ≈ 0.0133rem） */
+  --rpx: 0.0133rem;
+}
+
+/* 设计稿按 750 宽：1rpx → 0.0133rem；常用字号 28rpx ≈ 0.372rem（实际项目可直接写 px） */

@@ -1,0 +1,7 @@
+{
+  "name": "@media-digital-platform/api-client",
+  "private": true,
+  "version": "0.1.0",
+  "type": "commonjs",
+  "main": "./index.js"
+}
