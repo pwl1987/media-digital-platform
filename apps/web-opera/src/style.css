@@ -209,9 +209,14 @@ footer { border-top: 1px solid var(--ym-line); padding: 30px 0; color: var(--ym-
   .hero h1 { font-size: 40px; }
   .hero-art { width: 170px; height: 220px; font-size: 30px; }
   .news-split, .split { grid-template-columns: 1fr; }
-  .poster-grid { grid-template-columns: 1fr; }
+  /* poster/media/grid-3 走 auto-fill（minmax 自适应列数）：平板 2 列、窄屏 1 列，不强制单列 */
   .detail-hero { padding: 40px 30px 30px; }
   .detail-body { padding: 26px 24px; }
+}
+@media (max-width: 700px) {
+  .poster-grid { grid-template-columns: 1fr; }
+  .media-grid { grid-template-columns: 1fr; }
+  .grid-3 { grid-template-columns: 1fr; }
 }
 @media (max-width: 620px) {
   .wrap { width: calc(100% - 28px); }

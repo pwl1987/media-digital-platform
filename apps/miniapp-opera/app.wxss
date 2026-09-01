@@ -55,3 +55,6 @@ page { background: var(--ym-paper, #F7F3EA); color: var(--ym-ink, #1F1F1F); font
 .relation-card { margin-bottom: 16rpx; }
 .relation-title { font-size: 29rpx; font-weight: 650; }
 .work-detail-meta { color: #7f7772; font-size: 24rpx; margin-top: 10rpx; }
+
+/* 响应式兜底：长串（URL/编号/英文）防撑破容器；中文排版无影响 */
+view, text { overflow-wrap: anywhere; }
