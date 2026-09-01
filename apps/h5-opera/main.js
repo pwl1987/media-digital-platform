@@ -24,72 +24,89 @@ if (newsId) {
 
 const api = createExperienceClient();
 
-function cardHTML({ title, summary, badge, meta, href }) {
-  return `<a class="card" href="${href}" style="display:block;color:inherit">
-    ${badge ? `<span class="badge">${badge}</span>` : ''}
-    <div class="title">${title}</div>
-    ${summary ? `<div class="summary">${summary}</div>` : ''}
-    ${meta ? `<div class="meta">${meta}</div>` : ''}
-  </a>`;
-}
+function esc(s) { return String(s == null ? '' : s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c])); }
 
 function render(target, html) {
   const el = document.getElementById(target);
   if (el) el.innerHTML = html || `<div class="state">暂无内容</div>`;
 }
 
-async function loadNews() {
-  const res = await api.getNews({ pageSize: 6 });
-  if (res.error || !res.data) { render('news-list', `<div class="state">资讯加载失败</div>`); return; }
-  const items = res.data.items.slice(0, 6).map((n) => cardHTML({
-    title: n.title,
-    summary: n.summary || '',
-    badge: n.sourceLevelLabel || '官方资讯',
-    meta: `${n.date || ''} · ${n.sourceName || ''}`,
-    href: `./pages/news-detail/index.html?id=${encodeURIComponent(n.id)}`
-  })).join('');
-  render('news-list', items);
+// ---- Hero 统计 ----
+function renderStats(counts) {
+  const items = [
+    { value: counts.news, label: '官方资讯' },
+    { value: counts.works, label: '精品剧目' },
+    { value: counts.videos, label: '舞台影像' },
+    { value: counts.events, label: '展演活动' }
+  ];
+  render('hero-stats', items.map((s) => `<div class="hero-stat"><b>${s.value}</b><span>${s.label}</span></div>`).join(''));
 }
 
-async function loadWorks() {
-  const res = await api.getWorks();
-  if (res.error || !res.data) { render('works-list', `<div class="state">剧目加载失败</div>`); return; }
-  const items = res.data.items.slice(0, 6).map((w) => cardHTML({
-    title: `《${w.title}》`,
-    summary: w.summary || '',
-    badge: w.tag || '精品剧目',
-    meta: (w.organization && w.organization.title) || '',
-    href: `./pages/work-detail/index.html?id=${encodeURIComponent(w.id)}`
-  })).join('');
-  render('works-list', items);
+// ---- 资讯卡 ----
+function newsCard(n) {
+  return `<a class="card" href="./pages/news-detail/index.html?id=${encodeURIComponent(n.id)}">
+    <div><span class="badge ${n.sourceLevel === 'media' ? 'badge--gold' : ''}">${esc(n.sourceLevelLabel || '官方资讯')}</span><span class="badge badge--gold">${esc(n.category || '')}</span></div>
+    <div class="title">${esc(n.title)}</div>
+    <div class="summary">${esc(n.summary || '')}</div>
+    <div class="meta">${esc(n.date || '')} · ${esc(n.sourceName || '')}</div>
+  </a>`;
 }
 
-async function loadEvents() {
-  const res = await api.getEvents();
-  if (res.error || !res.data) { render('events-list', `<div class="state">活动加载失败</div>`); return; }
-  const items = res.data.items.slice(0, 6).map((e) => cardHTML({
-    title: e.title,
-    summary: e.desc || '',
-    badge: e.category || '展演',
-    meta: `${e.startAt || ''} · ${e.place || ''}`,
-    href: `./pages/event-detail/index.html?id=${encodeURIComponent(e.id)}`
-  })).join('');
-  render('events-list', items);
+// ---- 剧目海报卡 ----
+function workCard(w) {
+  return `<a class="poster-card" href="./pages/work-detail/index.html?id=${encodeURIComponent(w.id)}">
+    <div class="poster"><span class="poster-title">${esc(w.title)}</span></div>
+    <div class="poster-body">
+      <div class="title">《${esc(w.title)}》</div>
+      <div class="summary">${esc(w.summary || '')}</div>
+      <div class="meta">${esc((w.organization && w.organization.title) || '')}${w.tag ? ' · ' + esc(w.tag) : ''}</div>
+    </div>
+  </a>`;
 }
 
-async function loadVideos() {
-  const res = await api.getVideos();
-  if (res.error || !res.data) { render('videos-list', `<div class="state">影像加载失败</div>`); return; }
-  const items = res.data.items.slice(0, 6).map((v) => cardHTML({
-    title: v.title,
-    summary: v.tags ? v.tags.join(' · ') : '',
-    badge: v.category || '影像',
-    meta: `${v.sourceName || ''} · ${v.resolution || ''} · ${v.durationLabel || ''}`,
-    href: `./pages/video-detail/index.html?id=${encodeURIComponent(v.id)}`
-  })).join('');
-  render('videos-list', items);
+// ---- 活动卡 ----
+function eventCard(e) {
+  const life = e.lifecycleStatus === 'ongoing' ? '进行中' : e.lifecycleStatus === 'ended' ? '已结束' : '预告';
+  return `<a class="card" href="./pages/event-detail/index.html?id=${encodeURIComponent(e.id)}">
+    <div><span class="badge">${esc(e.category || '展演')}</span><span class="badge badge--gold">${life}</span></div>
+    <div class="title">${esc(e.title)}</div>
+    <div class="summary">${esc(e.desc || '')}</div>
+    <div class="meta">${esc((e.startAt || '').replace('T', ' ').slice(0, 16))} · ${esc(e.place || '')}</div>
+  </a>`;
+}
+
+// ---- 影像卡（MediaCard：封面 + 播放钮 + 时长角标） ----
+function videoCard(v) {
+  return `<a class="media-card" href="./pages/video-detail/index.html?id=${encodeURIComponent(v.id)}">
+    <div class="cover">
+      <span class="cat">${esc(v.category || '影像')}</span>
+      <span class="cover-glyph">${esc(v.title.slice(0, 8))}</span>
+      <span class="play">▶</span>
+      <span class="duration">${esc(v.durationLabel || '')}</span>
+    </div>
+    <div class="media-body">
+      <div class="title">${esc(v.title)}</div>
+      <div class="meta">${esc(v.sourceName || '')} · ${esc(v.resolution || '')}</div>
+      ${v.tags && v.tags.length ? `<div class="tags">${v.tags.map((t) => `<span class="tag">${esc(t)}</span>`).join('')}</div>` : ''}
+    </div>
+  </a>`;
 }
 
 (async () => {
-  await Promise.all([loadNews(), loadWorks(), loadEvents(), loadVideos()]);
+  const [nRes, wRes, eRes, vRes] = await Promise.all([
+    api.getNews({ pageSize: 6 }),
+    api.getWorks(),
+    api.getEvents(),
+    api.getVideos()
+  ]);
+  renderStats({
+    news: (nRes.data && nRes.data.total) || (nRes.data && nRes.data.items.length) || 0,
+    works: (wRes.data && wRes.data.items.length) || 0,
+    videos: (vRes.data && vRes.data.items.length) || 0,
+    events: (eRes.data && eRes.data.items.length) || 0
+  });
+  render('news-list', (nRes.data ? nRes.data.items : []).slice(0, 6).map(newsCard).join(''));
+  render('works-list', (wRes.data ? wRes.data.items : []).slice(0, 6).map(workCard).join(''));
+  render('events-list', (eRes.data ? eRes.data.items : []).slice(0, 4).map(eventCard).join(''));
+  render('videos-list', (vRes.data ? vRes.data.items : []).slice(0, 6).map(videoCard).join(''));
 })();

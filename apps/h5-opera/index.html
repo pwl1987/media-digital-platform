@@ -10,7 +10,7 @@
 </head>
 <body>
   <header class="site-header">
-    <div class="brand">沂蒙小戏小剧</div>
+    <div class="brand">沂蒙小戏小剧<span class="brand-sub">官方数字传播平台</span></div>
     <nav>
       <a href="./index.html" class="on">首页</a>
       <a href="./pages/news/index.html">资讯</a>
@@ -21,41 +21,46 @@
     <a class="search-link" href="./pages/search/index.html">⌕ 搜索</a>
   </header>
   <main class="page">
-    <!-- 头条 -->
-    <div class="page-head">
-      <div class="eyebrow">官方数字传播平台</div>
+    <!-- Hero -->
+    <section class="hero-band">
+      <span class="hero-eyebrow">小戏小剧 · 大美沂蒙</span>
       <h1>让更多人看见沂蒙小戏小剧</h1>
-      <p class="subtitle">聚焦最新资讯、精品剧目、舞台影像与展演动态，记录沂蒙地方文化的精彩瞬间。</p>
-    </div>
-
-    <!-- 资讯流 -->
-    <section>
-      <h2 style="font-size:18px;font-weight:700;color:var(--ym-ink);margin:0 0 16px;font-family:'Songti SC',serif">最新资讯</h2>
-      <div id="news-list" class="grid"></div>
+      <p class="hero-sub">聚焦最新资讯、精品剧目、舞台影像与展演动态，记录沂蒙地方文化的精彩瞬间。</p>
+      <div class="hero-stats" id="hero-stats"></div>
     </section>
+
+    <!-- 资讯 -->
+    <div class="section-head">
+      <h2>最新资讯</h2>
+      <a class="more" href="./pages/news/index.html">全部资讯 ›</a>
+    </div>
+    <div id="news-list" class="grid"></div>
 
     <!-- 剧目 -->
-    <section style="margin-top:48px">
-      <h2 style="font-size:18px;font-weight:700;color:var(--ym-ink);margin:0 0 16px;font-family:'Songti SC',serif">精品剧目</h2>
-      <div id="works-list" class="grid"></div>
-    </section>
+    <div class="section-head">
+      <h2>精品剧目</h2>
+      <a class="more" href="./pages/works/index.html">全部剧目 ›</a>
+    </div>
+    <div id="works-list" class="grid"></div>
 
     <!-- 活动 -->
-    <section style="margin-top:48px">
-      <h2 style="font-size:18px;font-weight:700;color:var(--ym-ink);margin:0 0 16px;font-family:'Songti SC',serif">近期展演</h2>
-      <div id="events-list" class="grid"></div>
-    </section>
+    <div class="section-head">
+      <h2>近期展演</h2>
+      <a class="more" href="./pages/events/index.html">全部展演 ›</a>
+    </div>
+    <div id="events-list" class="grid"></div>
 
     <!-- 影像 -->
-    <section style="margin-top:48px">
-      <h2 style="font-size:18px;font-weight:700;color:var(--ym-ink);margin:0 0 16px;font-family:'Songti SC',serif">精彩影像</h2>
-      <div id="videos-list" class="grid"></div>
-    </section>
+    <div class="section-head">
+      <h2>精彩影像</h2>
+      <a class="more" href="./pages/videos/index.html">全部影像 ›</a>
+    </div>
+    <div id="videos-list" class="grid grid--media"></div>
 
-    <div class="official-footer">
+    <footer class="official-footer">
       <div>沂蒙小戏小剧官方数字传播平台</div>
       <div class="sub">主管单位：沂蒙小戏小剧官方平台建设工作组</div>
-    </div>
+    </footer>
   </main>
   <script type="module" src="./main.js"></script>
 </body>

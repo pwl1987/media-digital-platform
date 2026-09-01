@@ -10,10 +10,14 @@
 <body>
   <main class="page">
     <div class="page-head">
-      <div class="eyebrow">全站搜索</div>
-      <h1>⌕ 找剧目 · 演员 · 剧团 · 影像 · 资讯</h1>
+      <span class="eyebrow">全站检索</span>
+      <h1>搜索</h1>
+      <p class="subtitle">剧目 · 演员 · 剧团 · 活动 · 影像 · 资讯</p>
     </div>
-    <input id="q" placeholder="输入关键词" style="width:100%;padding:14px 16px;font-size:16px;border:1px solid var(--ym-line);border-radius:8px;background:var(--ym-surface);outline:none;color:var(--ym-ink)" autofocus />
+    <div class="search-input-wrap">
+      <span class="icon">⌕</span>
+      <input id="q" placeholder="输入关键词，如：红嫂" />
+    </div>
     <div id="results" class="grid" style="margin-top:24px"></div>
     <div id="empty" class="state" style="display:none"><span class="emoji">🔍</span>输入关键词开始检索</div>
   </main>
