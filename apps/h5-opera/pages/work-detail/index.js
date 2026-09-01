@@ -9,10 +9,11 @@ const root = document.getElementById('root');
 if (!id) {
   root.innerHTML = `<div class="state"><span class="emoji">🎭</span>剧目档案未找到</div>`;
 } else {
-  const [wRes, perfRes, newsRes] = await Promise.all([
+  const [wRes, perfRes, newsRes, aRes] = await Promise.all([
     api.getWork(id),
     api.getPerformances({ workId: id }),
-    api.getNews({ pageSize: 50 })
+    api.getNews({ pageSize: 50 }),
+    api.getArtists()
   ]);
   if (wRes.error || !wRes.data) {
     root.innerHTML = `<div class="state"><span class="emoji">📡</span>剧目加载失败</div>`;
@@ -20,12 +21,21 @@ if (!id) {
     const w = wRes.data;
     const perfs = (perfRes.data && perfRes.data.items) || [];
     const relatedNews = ((newsRes.data && newsRes.data.items) || []).filter((n) => (n.relatedWorkIds || []).includes(w.id)).slice(0, 3);
+    // 演员名 → 档案链接（按姓名反查 id）；剧团直接有 id
+    const allArtists = (aRes.data && aRes.data.items) || [];
+    const artistLink = (name) => {
+      const hit = allArtists.find((a) => a.title === name);
+      return hit ? `<a class="inline-link" href="../artist-detail/index.html?id=${encodeURIComponent(hit.id)}">${esc(name)}</a>` : esc(name);
+    };
+    const orgLink = w.organization && w.organization.id
+      ? `<a class="inline-link" href="../organization-detail/index.html?id=${encodeURIComponent(w.organization.id)}">${esc(w.organization.title)}</a>`
+      : esc((w.organization && w.organization.title) || '');
     root.innerHTML = `
       <section class="detail-hero">
         <span class="official-badge">官方收录</span>
         <span class="badge badge--gold">${esc(w.tag || '精品剧目')}</span>
         <h1>《${esc(w.title)}》</h1>
-        <div class="meta">${esc((w.organization && w.organization.title) || '')}${w.artists && w.artists.length ? ' · ' + w.artists.map((a) => a.title).join(' / ') : ''}</div>
+        <div class="meta">${orgLink}${w.artists && w.artists.length ? ' · ' + w.artists.map((a) => artistLink(a.title)).join(' / ') : ''}</div>
       </section>
       ${w.summary ? `<blockquote class="detail-quote">${esc(w.summary)}</blockquote>` : ''}
       <div class="detail-body">

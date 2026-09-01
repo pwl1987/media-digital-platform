@@ -2,12 +2,15 @@
 // 走 runtime/client.js（与小程序端 packages/api-client/facade.js 同源 ESM 镜像）
 import { createExperienceClient } from './runtime/client.js';
 
-// 分享直达路由：?news=<id> / ?work=<id> 落到对应详情页（资讯传播闭环）
+// 分享直达路由：?news=<id> / ?work=<id> / ?artist=<id> / ?organization=<id> / ?live=<id> 落到对应详情页（传播闭环）
 const param = new URLSearchParams(location.search);
 const newsId = param.get('news');
 const workId = param.get('work');
 const videoId = param.get('video');
 const eventId = param.get('event');
+const artistId = param.get('artist');
+const orgId = param.get('organization');
+const liveId = param.get('live');
 if (newsId) {
   location.replace(`./pages/news-detail/index.html?id=${encodeURIComponent(newsId)}`);
   throw new Error('redirecting to news detail');
@@ -20,6 +23,15 @@ if (newsId) {
 } else if (eventId) {
   location.replace(`./pages/event-detail/index.html?id=${encodeURIComponent(eventId)}`);
   throw new Error('redirecting to event detail');
+} else if (artistId) {
+  location.replace(`./pages/artist-detail/index.html?id=${encodeURIComponent(artistId)}`);
+  throw new Error('redirecting to artist detail');
+} else if (orgId) {
+  location.replace(`./pages/organization-detail/index.html?id=${encodeURIComponent(orgId)}`);
+  throw new Error('redirecting to organization detail');
+} else if (liveId) {
+  location.replace(`./pages/live-detail/index.html?id=${encodeURIComponent(liveId)}`);
+  throw new Error('redirecting to live detail');
 }
 
 const api = createExperienceClient();

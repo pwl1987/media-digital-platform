@@ -703,3 +703,11 @@ button { font-family: inherit; cursor: pointer; }
 .live-hero--live { background: linear-gradient(150deg, var(--ym-red-900), var(--ym-red-500) 130%); }
 .live-hero--scheduled { background: linear-gradient(150deg, var(--ym-ink), var(--ym-stone)); }
 .live-hero--ended { background: linear-gradient(150deg, var(--ym-gold-700), var(--ym-stone)); }
+
+/* ---- 正文内联档案链接（演员名/剧团名可点） ---- */
+.inline-link {
+  color: var(--ym-red-700);
+  border-bottom: 1px dashed var(--ym-red-500);
+  transition: color .15s;
+}
+.inline-link:hover { color: var(--ym-red-800); border-bottom-style: solid; }
