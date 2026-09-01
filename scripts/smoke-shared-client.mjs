@@ -1,10 +1,13 @@
 import { createRequire } from 'node:module';
 
 const require = createRequire(import.meta.url);
-const { createExperienceClient } = require('../packages/api-client/create-client.js');
+// smoke 用 raw client（不走 facade）：契约级端到端检查需全端点 + 无装饰；
+// 端 UI 才走 facade（createExperienceClient 暴露装饰过的展示层）。
+const { createClient } = require('../packages/api-client/index.js');
+const { createMockTransport } = require('../packages/api-client/transports/mock.js');
 const heritage = require('../packages/mock-data/heritage.js');
 
-const client = createExperienceClient();
+const client = createClient(createMockTransport());
 
 const news = await client.getNews();
 if (news.error || !news.data?.items?.length) throw new Error('News endpoint smoke check failed');
