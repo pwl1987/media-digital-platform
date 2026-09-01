@@ -227,3 +227,29 @@ footer { border-top: 1px solid var(--ym-line); padding: 30px 0; color: var(--ym-
 .poster-card .poster { display: flex; }
 a.title-link { color: var(--ym-ink); }
 a.title-link:hover { color: var(--ym-red-700); }
+
+/* ---- 顶栏搜索 ---- */
+.nav-search { display: flex; align-items: center; background: rgba(255, 255, 255, 0.12); border: 1px solid rgba(255, 255, 255, 0.28); border-radius: 20px; overflow: hidden; transition: border-color .15s; }
+.nav-search:focus-within { border-color: var(--ym-gold-300); }
+.nav-search input { width: 260px; border: 0; outline: none; background: transparent; color: #FFFFFF; font-size: 13px; padding: 9px 16px; font-family: inherit; }
+.nav-search input::placeholder { color: rgba(255, 255, 255, 0.55); }
+.nav-search button { border: 0; background: transparent; color: var(--ym-gold-300); font-size: 15px; cursor: pointer; padding: 8px 14px 8px 4px; }
+@media (max-width: 1080px) { .nav-search input { width: 170px; } }
+@media (max-width: 620px) { .nav-search { display: none; } }
+
+/* ---- 首页直播预告条 ---- */
+.live-strip {
+  display: flex; align-items: center; gap: 18px;
+  padding: 20px 26px; border-radius: 12px;
+  background: linear-gradient(135deg, var(--ym-ink), var(--ym-stone));
+  color: #FFFFFF; box-shadow: var(--ym-shadow-float);
+  position: relative; overflow: hidden; transition: transform .15s;
+}
+.live-strip:hover { transform: translateY(-2px); }
+.live-strip::after { content: ''; position: absolute; right: -40px; top: -40px; width: 160px; height: 160px; border-radius: 50%; border: 2px solid rgba(227, 203, 122, 0.25); }
+.live-strip .ls-dot { width: 12px; height: 12px; border-radius: 50%; background: var(--ym-gold-500); flex-shrink: 0; animation: ls-pulse 1.6s ease-in-out infinite; }
+@keyframes ls-pulse { 0%, 100% { box-shadow: 0 0 0 5px rgba(201, 162, 39, 0.25); } 50% { box-shadow: 0 0 0 11px rgba(201, 162, 39, 0.1); } }
+.live-strip .ls-body { flex: 1; min-width: 0; }
+.live-strip .ls-body strong { font-size: 17px; display: block; }
+.live-strip .ls-body span { font-size: 13px; color: rgba(255, 255, 255, 0.72); display: block; margin-top: 4px; }
+.live-strip .ls-go { flex-shrink: 0; font-size: 13px; color: var(--ym-gold-300); border: 1px solid rgba(227, 203, 122, 0.5); border-radius: 18px; padding: 8px 18px; }

@@ -1,5 +1,5 @@
 import { createExperienceClient } from '../../runtime/client.js';
-import { mountHeader, esc, getQuery, officialFooter } from '../../runtime/nav.js';
+import { mountHeader, esc, getQuery, officialFooter, backBar, actionBar, bindShare } from '../../runtime/nav.js';
 mountHeader();
 
 const api = createExperienceClient();
@@ -25,6 +25,7 @@ if (!id) {
       return artistName && v.title.includes(artistName);
     }).slice(0, 6);
     root.innerHTML = `
+      ${backBar("返回剧目", "../works/index.html")}
       <section class="portrait-hero">
         <span class="official-badge">官方收录</span>
         <div class="portrait-glyph">${esc(String(a.title || '').slice(0, 1))}</div>
@@ -59,7 +60,9 @@ if (!id) {
           <div class="meta">${esc(v.sourceName || '')} · ${esc(v.resolution || '')}</div>
         </div>
       </a>`).join('')}</div>` : ''}
+      ${actionBar({ shareLabel: "分享档案" })}
       ${officialFooter()}
     `;
+    bindShare('page-share-btn', { title: `${a.title} · 演员档案` });
   }
 }

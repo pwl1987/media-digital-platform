@@ -1,5 +1,5 @@
 import { createExperienceClient } from '../../runtime/client.js';
-import { mountHeader, esc, getQuery, officialFooter } from '../../runtime/nav.js';
+import { mountHeader, esc, getQuery, officialFooter, backBar, actionBar, bindShare } from '../../runtime/nav.js';
 mountHeader();
 
 const api = createExperienceClient();
@@ -18,6 +18,7 @@ if (!id) {
     const relatedWork = works.find((w) => (w.media || []).some((m) => m.id === v.id)) || null;
     const relatedNews = ((newsRes.data && newsRes.data.items) || []).filter((n) => (n.relatedVideoIds || []).includes(v.id)).slice(0, 3);
     root.innerHTML = `
+      ${backBar("返回影像", "../videos/index.html")}
       <section class="detail-hero" style="padding:0;overflow:hidden">
         <div class="cover" style="position:relative;aspect-ratio:16/9;background:linear-gradient(150deg,var(--ym-red-900),var(--ym-red-700));display:flex;align-items:center;justify-content:center">
           <span class="official-badge">官方影像</span>
@@ -50,7 +51,9 @@ if (!id) {
         <div class="title">${esc(n.title)}</div>
         <div class="meta">${esc(n.date || '')} · ${esc(n.sourceName || '')}</div>
       </a>`).join('')}</div>` : ''}
+      ${actionBar({ shareLabel: "分享影像" })}
       ${officialFooter()}
     `;
+    bindShare('page-share-btn', { title: v.title });
   }
 }

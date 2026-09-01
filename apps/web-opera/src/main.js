@@ -30,6 +30,10 @@ const NAV = `
         <a href="./index.html#events">展演</a>
         <a href="./index.html#topics">专题</a>
       </nav>
+      <form class="nav-search" action="./index.html" method="get">
+        <input type="search" name="q" placeholder="搜索剧目 · 演员 · 剧团 · 影像 · 资讯" value="${esc(param.get('q') || '')}" />
+        <button type="submit">⌕</button>
+      </form>
     </div>
   </header>`;
 
@@ -52,9 +56,33 @@ function detailShell({ badge, badgeGold, title, meta, quote, bodyHTML, backHref,
         ${quote ? `<blockquote class="detail-quote">${esc(quote)}</blockquote>` : ''}
         ${bodyHTML || ''}
         ${chainsHTML || ''}
+        <div class="live-actions">
+          <button class="live-btn live-btn--primary" id="page-share-btn">分享本页</button>
+        </div>
       </article>
     </main>
     ${FOOTER}`;
+}
+
+// 统一挂载：innerHTML + 分享按钮绑定
+function mount(html) {
+  document.querySelector('#app').innerHTML = html;
+  bindShare();
+}
+
+// 详情页分享（mount 渲染后自动绑定）
+function bindShare() {
+  const btn = document.getElementById('page-share-btn');
+  if (!btn) return;
+  btn.addEventListener('click', async () => {
+    if (navigator.share) {
+      try { await navigator.share({ title: document.title, url: location.href }); } catch { /* 用户取消 */ }
+    } else if (navigator.clipboard) {
+      await navigator.clipboard.writeText(location.href);
+      btn.textContent = '✓ 链接已复制';
+      setTimeout(() => { btn.textContent = '分享本页'; }, 1600);
+    }
+  });
 }
 
 function sectionHead(title, moreHref, moreLabel) {
@@ -103,7 +131,7 @@ async function renderNewsDetail(id) {
   const videos = (vRes.data && vRes.data.items) || [];
   const rw = works.filter((w) => (n.relatedWorkIds || []).includes(w.id));
   const rv = videos.filter((v) => (n.relatedVideoIds || []).includes(v.id));
-  document.querySelector('#app').innerHTML = detailShell({
+  mount(detailShell({
     badge: n.sourceLevelLabel || '官方资讯',
     title: n.title,
     meta: `${n.date || ''} · ${n.sourceName || ''} · ${n.category || ''}`,
@@ -115,7 +143,7 @@ async function renderNewsDetail(id) {
       rw.length ? sectionHead('相关剧目') + `<div class="poster-grid">${rw.map((w) => posterCard(w)).join('')}</div>` : '',
       rv.length ? sectionHead('相关影像') + `<div class="media-grid">${rv.map((v) => mediaCard(v)).join('')}</div>` : ''
     ].join('')
-  });
+  }));
 }
 
 async function renderWorkDetail(id) {
@@ -130,7 +158,7 @@ async function renderWorkDetail(id) {
     return hit ? `<a class="inline-link" href="./index.html?artist=${encodeURIComponent(hit.id)}">${esc(name)}</a>` : esc(name);
   };
   const orgLink = w.organization && w.organization.id ? `<a class="inline-link" href="./index.html?organization=${encodeURIComponent(w.organization.id)}">${esc(w.organization.title)}</a>` : esc((w.organization && w.organization.title) || '');
-  document.querySelector('#app').innerHTML = detailShell({
+  mount(detailShell({
     badge: w.tag || '精品剧目',
     title: `《${w.title}》`,
     meta: `${orgLink}${w.artists && w.artists.length ? ' · ' + w.artists.map((a) => artistLink(a.title)).join(' / ') : ''}`,
@@ -142,7 +170,7 @@ async function renderWorkDetail(id) {
       perfs.length ? sectionHead('演出场次') + `<div class="grid-3">${perfs.map((p) => `<div class="card"><div class="title">${esc(p.title)}</div><div class="meta">${esc(fmtDate(p.startAt))} · ${esc(p.place || '')}</div></div>`).join('')}</div>` : '',
       rn.length ? sectionHead('相关资讯') + `<div class="grid-3">${rn.map((n) => `<a class="card" href="./index.html?news=${encodeURIComponent(n.id)}"><div class="title">${esc(n.title)}</div><div class="meta">${esc(n.date || '')} · ${esc(n.sourceName || '')}</div></a>`).join('')}</div>` : ''
     ].join('')
-  });
+  }));
 }
 
 async function renderVideoDetail(id) {
@@ -151,7 +179,7 @@ async function renderVideoDetail(id) {
   if (!v) return notFound('影像');
   const works = (wRes.data && wRes.data.items) || [];
   const rw = works.find((w) => (w.media || []).some((m) => m.id === v.id));
-  document.querySelector('#app').innerHTML = `
+  mount(`
     ${NAV}
     <main>
       <article class="detail wrap">
@@ -169,9 +197,10 @@ async function renderVideoDetail(id) {
           <p>媒资接入后支持在线播放。当前为官方影像档案演示，播放源由媒体服务接入后提供。</p>
         </div></div>
         ${rw ? sectionHead('相关剧目') + `<div class="poster-grid">${posterCard(rw)}</div>` : ''}
+        <div class="live-actions"><button class="live-btn live-btn--primary" id="page-share-btn">分享本页</button></div>
       </article>
     </main>
-    ${FOOTER}`;
+    ${FOOTER}`);
 }
 
 async function renderEventDetail(id) {
@@ -181,7 +210,7 @@ async function renderEventDetail(id) {
   const perfs = (perfRes.data && perfRes.data.items) || [];
   const rws = ((wRes.data && wRes.data.items) || []).filter((w) => (e.workIds || []).includes(w.id));
   const percent = e.capacity ? Math.min(100, Math.round((e.signedUp || 0) / e.capacity * 100)) : 0;
-  document.querySelector('#app').innerHTML = detailShell({
+  mount(detailShell({
     badge: e.category || '展演',
     title: e.title,
     meta: `${fmtDate(e.startAt)} · ${e.place || ''} · ${e.free ? '免费' : '售票'}`,
@@ -193,7 +222,7 @@ async function renderEventDetail(id) {
       perfs.length ? sectionHead('演出场次') + `<div class="grid-3">${perfs.map((p) => `<div class="card"><div class="title">${esc(p.title)}</div><div class="meta">${esc(fmtDate(p.startAt))} · ${esc(p.place || '')}</div></div>`).join('')}</div>` : '',
       rws.length ? sectionHead('参演剧目') + `<div class="poster-grid">${rws.map((w) => posterCard(w)).join('')}</div>` : ''
     ].join('')
-  });
+  }));
 }
 
 async function renderArtistDetail(id) {
@@ -208,7 +237,7 @@ async function renderArtistDetail(id) {
     for (const t of titles) if (v.title.includes(t)) return true;
     return name && v.title.includes(name);
   }).slice(0, 6);
-  document.querySelector('#app').innerHTML = `
+  mount(`
     ${NAV}
     <main>
       <article class="detail wrap">
@@ -220,9 +249,10 @@ async function renderArtistDetail(id) {
         <div class="detail-body"><div class="body"><p>${esc(a.bio || '正式内容接入后展示。')}</p></div></div>
         ${works.length ? sectionHead('代表作品') + `<div class="poster-grid">${works.map((w) => posterCard(w)).join('')}</div>` : ''}
         ${videos.length ? sectionHead('主演影像') + `<div class="media-grid">${videos.map((v) => mediaCard(v)).join('')}</div>` : ''}
+        <div class="live-actions"><button class="live-btn live-btn--primary" id="page-share-btn">分享本页</button></div>
       </article>
     </main>
-    ${FOOTER}`;
+    ${FOOTER}`);
 }
 
 async function renderOrgDetail(id) {
@@ -236,7 +266,7 @@ async function renderOrgDetail(id) {
     for (const t of titles) if (v.title.includes(t)) return true;
     return v.title.includes(o.title || '');
   }).slice(0, 6);
-  document.querySelector('#app').innerHTML = `
+  mount(`
     ${NAV}
     <main>
       <article class="detail wrap">
@@ -247,9 +277,10 @@ async function renderOrgDetail(id) {
         <div class="detail-body"><div class="body"><p>${esc(o.summary || '正式内容接入后展示。')}</p></div></div>
         ${works.length ? sectionHead('代表剧目') + `<div class="poster-grid">${works.map((w) => posterCard(w)).join('')}</div>` : ''}
         ${videos.length ? sectionHead('院团影像') + `<div class="media-grid">${videos.map((v) => mediaCard(v)).join('')}</div>` : ''}
+        <div class="live-actions"><button class="live-btn live-btn--primary" id="page-share-btn">分享本页</button></div>
       </article>
     </main>
-    ${FOOTER}`;
+    ${FOOTER}`);
 }
 
 async function renderLiveDetail(id) {
@@ -257,7 +288,7 @@ async function renderLiveDetail(id) {
   const item = res.data;
   if (!item) return notFound('直播');
   const st = item.status === 'upcoming' ? 'scheduled' : item.status;
-  document.querySelector('#app').innerHTML = detailShell({
+  mount(detailShell({
     badge: st === 'ended' ? '已结束' : st === 'live' ? '直播中' : '即将直播',
     badgeGold: st === 'ended',
     title: item.title,
@@ -266,18 +297,64 @@ async function renderLiveDetail(id) {
     bodyHTML: `<div class="detail-body"><div class="body"><p>${st === 'ended' ? '精彩回顾 · 录播由直播服务接入后提供。' : '官方直播演示占位；开播后在此观看。'}</p></div></div>`,
     backHref: './index.html#topics',
     backLabel: '返回首页'
+  }));
+}
+
+// ---- 搜索（六类检索，与 H5 同逻辑） ----
+const SEARCH_LABELS = { Work: '剧目', Artist: '演员', Organization: '剧团', Event: '活动', Video: '影像', News: '资讯' };
+const SEARCH_ROUTES = { Work: 'work', Artist: 'artist', Organization: 'organization', Event: 'event', Video: 'video', News: 'news' };
+
+async function renderSearch(q) {
+  const [wRes, aRes, oRes, eRes, vRes, nRes] = await Promise.all([
+    api.getWorks(), api.getArtists(), api.getOrganizations(), api.getEvents(), api.getVideos(), api.getNews({ pageSize: 50 })
+  ]);
+  const source = {
+    Work: (wRes.data && wRes.data.items) || [],
+    Artist: (aRes.data && aRes.data.items) || [],
+    Organization: (oRes.data && oRes.data.items) || [],
+    Event: (eRes.data && eRes.data.items) || [],
+    Video: (vRes.data && vRes.data.items) || [],
+    News: (nRes.data && nRes.data.items) || []
+  };
+  const lower = q.toLowerCase();
+  const hits = [];
+  Object.keys(source).forEach((type) => {
+    source[type].forEach((x) => {
+      if (`${x.title || ''} ${x.summary || ''}`.toLowerCase().includes(lower)) {
+        hits.push({ id: x.id, type, title: x.title, summary: x.summary || x.desc || '', label: SEARCH_LABELS[type] });
+      }
+    });
   });
+  const ORDER = { Work: 0, Video: 1, News: 2, Event: 3, Artist: 4, Organization: 5 };
+  hits.sort((x, y) => ORDER[x.type] - ORDER[y.type]);
+  document.querySelector('#app').innerHTML = `
+    ${NAV}
+    <main>
+      <div class="wrap detail">
+        <div class="section-head"><h2>搜索“${esc(q)}”</h2></div>
+        ${hits.length ? `<div class="grid-3">${hits.slice(0, 24).map((h) => `
+          <a class="card" href="./index.html?${SEARCH_ROUTES[h.type]}=${encodeURIComponent(h.id)}">
+            <div><span class="badge">${esc(h.label)}</span></div>
+            <div class="title" style="margin-top:10px">${esc(h.title)}</div>
+            <div class="meta">${esc(h.summary.slice(0, 60))}</div>
+          </a>`).join('')}</div>`
+        : `<div class="state"><span class="emoji">🔍</span>没有找到相关结果</div>`}
+      </div>
+    </main>
+    ${FOOTER}`;
 }
 
 // ---- 首页 ----
 async function renderHome() {
-  const [nRes, wRes, eRes, vRes] = await Promise.all([api.getNews({ pageSize: 7 }), api.getWorks(), api.getEvents(), api.getVideos()]);
+  const [nRes, wRes, eRes, vRes, lRes] = await Promise.all([api.getNews({ pageSize: 7 }), api.getWorks(), api.getEvents(), api.getVideos(), api.getLives()]);
   const news = (nRes.data && nRes.data.items) || [];
   const works = (wRes.data && wRes.data.items) || [];
   const events = (eRes.data && eRes.data.items) || [];
   const videos = (vRes.data && vRes.data.items) || [];
+  const lives = (lRes.data && lRes.data.items) || [];
   const [head, ...rest] = news;
   const life = (e) => e.lifecycleStatus === 'ongoing' ? '进行中' : e.lifecycleStatus === 'ended' ? '已结束' : '预告';
+  const upcoming = lives.find((x) => x.status === 'upcoming' || x.status === 'scheduled');
 
   document.querySelector('#app').innerHTML = `
     ${NAV}
@@ -315,6 +392,17 @@ async function renderHome() {
           </div>
         </div>
       </section>
+
+      ${upcoming ? `<section class="wrap" style="padding-top:36px">
+        <a class="live-strip" href="./index.html?live=${encodeURIComponent(upcoming.id)}">
+          <span class="ls-dot"></span>
+          <span class="ls-body">
+            <strong>${esc(upcoming.title)}</strong>
+            <span>${esc(fmtDate(upcoming.startAt))} 开播 · ${esc(upcoming.place || '')}</span>
+          </span>
+          <span class="ls-go">观看直播 ›</span>
+        </a>
+      </section>` : ''}
 
       <section id="works" class="tone section">
         <div class="wrap">
@@ -356,7 +444,9 @@ async function renderHome() {
 }
 
 // ---- 路由分发 ----
-if (newsId) renderNewsDetail(newsId);
+const q = (param.get('q') || '').trim();
+if (q) renderSearch(q);
+else if (newsId) renderNewsDetail(newsId);
 else if (workId) renderWorkDetail(workId);
 else if (videoId) renderVideoDetail(videoId);
 else if (eventId) renderEventDetail(eventId);

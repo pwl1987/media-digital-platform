@@ -1,5 +1,5 @@
 import { createExperienceClient } from '../../runtime/client.js';
-import { mountHeader, esc, getQuery, officialFooter } from '../../runtime/nav.js';
+import { mountHeader, esc, getQuery, officialFooter, backBar, actionBar, bindShare } from '../../runtime/nav.js';
 mountHeader();
 
 const api = createExperienceClient();
@@ -31,6 +31,7 @@ if (!id) {
       ? `<a class="inline-link" href="../organization-detail/index.html?id=${encodeURIComponent(w.organization.id)}">${esc(w.organization.title)}</a>`
       : esc((w.organization && w.organization.title) || '');
     root.innerHTML = `
+      ${backBar("返回剧目", "../works/index.html")}
       <section class="detail-hero">
         <span class="official-badge">官方收录</span>
         <span class="badge badge--gold">${esc(w.tag || '精品剧目')}</span>
@@ -53,7 +54,9 @@ if (!id) {
         <div class="title">${esc(n.title)}</div>
         <div class="meta">${esc(n.date || '')} · ${esc(n.sourceName || '')}</div>
       </a>`).join('')}</div>` : ''}
+      ${actionBar({ shareLabel: "分享剧目" })}
       ${officialFooter()}
     `;
+    bindShare('page-share-btn', { title: `《${w.title}》` });
   }
 }

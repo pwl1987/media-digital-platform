@@ -1,10 +1,10 @@
 // 端无关 client 工厂：三端（miniapp/h5/app）共用一个入口
-// - 默认 transport = mock（开发/评审阶段）
-// - H5/APP 端可通过 options.transport 注入 http / fetch transport
+// - 默认 transport = mock（开发/评审阶段；仓库内唯一 transport 实现）
+// - 接真实后端：调用方注入自定义 transport（实现 request(path, {method, query, body})），
+//   实现时必须校验 baseURL 协议白名单（https）并做域名白名单，避免 SSRF
 // - facade 与装饰层独立放在 decorator.js / facade.js，端 UI 一律 require facade
 const { createClient } = require('./index.js');
 const { createMockTransport } = require('./transports/mock.js');
-const { createHttpTransport } = require('./transports/http.js');
 
 function createExperienceClient(options = {}) {
   // 平台无关：transport 由调用方注入；mock transport 仍是端内可用的离线 fallback
@@ -15,4 +15,4 @@ function createExperienceClient(options = {}) {
   return facade;
 }
 
-module.exports = { createExperienceClient, createHttpTransport, createMockTransport };
+module.exports = { createExperienceClient, createMockTransport };

@@ -105,11 +105,12 @@ function videoCard(v) {
 }
 
 (async () => {
-  const [nRes, wRes, eRes, vRes] = await Promise.all([
+  const [nRes, wRes, eRes, vRes, lRes] = await Promise.all([
     api.getNews({ pageSize: 6 }),
     api.getWorks(),
     api.getEvents(),
-    api.getVideos()
+    api.getVideos(),
+    api.getLives()
   ]);
   renderStats({
     news: (nRes.data && nRes.data.total) || (nRes.data && nRes.data.items.length) || 0,
@@ -117,6 +118,20 @@ function videoCard(v) {
     videos: (vRes.data && vRes.data.items.length) || 0,
     events: (eRes.data && eRes.data.items.length) || 0
   });
+  // 直播预告条：取最近一场未开播的
+  const upcoming = (lRes.data ? lRes.data.items : []).find((x) => x.status === 'upcoming' || x.status === 'scheduled');
+  const strip = document.getElementById('live-strip');
+  if (strip && upcoming) {
+    strip.style.display = 'flex';
+    strip.href = `./pages/live-detail/index.html?id=${encodeURIComponent(upcoming.id)}`;
+    strip.innerHTML = `
+      <span class="ls-dot"></span>
+      <span class="ls-body">
+        <span class="ls-title" style="display:block">${esc(upcoming.title)}</span>
+        <span class="ls-meta" style="display:block">${esc((upcoming.startAt || '').replace('T', ' ').slice(0, 16))} 开播 · ${esc(upcoming.place || '')}</span>
+      </span>
+      <span class="ls-go">观看直播 ›</span>`;
+  }
   render('news-list', (nRes.data ? nRes.data.items : []).slice(0, 6).map(newsCard).join(''));
   render('works-list', (wRes.data ? wRes.data.items : []).slice(0, 6).map(workCard).join(''));
   render('events-list', (eRes.data ? eRes.data.items : []).slice(0, 4).map(eventCard).join(''));

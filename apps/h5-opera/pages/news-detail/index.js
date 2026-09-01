@@ -1,5 +1,5 @@
 import { createExperienceClient } from '../../runtime/client.js';
-import { mountHeader, esc, getQuery, officialFooter } from '../../runtime/nav.js';
+import { mountHeader, esc, getQuery, officialFooter, backBar, actionBar, bindShare } from '../../runtime/nav.js';
 mountHeader();
 
 const api = createExperienceClient();
@@ -27,6 +27,7 @@ if (!id) {
     const relatedVideos = videos.filter((v) => (n.relatedVideoIds || []).includes(v.id));
     const moreNews = allNews.filter((x) => x.id !== n.id).slice(0, 3);
     root.innerHTML = `
+      ${backBar("返回资讯", "../news/index.html")}
       <section class="detail-hero">
         <span class="badge badge--gold">${esc(n.sourceLevelLabel || '官方资讯')}</span>
         <h1>${esc(n.title)}</h1>
@@ -65,7 +66,9 @@ if (!id) {
         <div class="title">${esc(x.title)}</div>
         <div class="meta">${esc(x.date || '')} · ${esc(x.sourceName || '')}</div>
       </a>`).join('')}</div>` : ''}
+      ${actionBar({ shareLabel: "分享资讯" })}
       ${officialFooter()}
     `;
+    bindShare('page-share-btn', { title: n.title });
   }
 }

@@ -711,3 +711,41 @@ button { font-family: inherit; cursor: pointer; }
   transition: color .15s;
 }
 .inline-link:hover { color: var(--ym-red-800); border-bottom-style: solid; }
+
+/* ---- 详情页返回条 ---- */
+.back-bar {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin: 18px 0 -6px;
+  font-size: 14px;
+  color: var(--ym-red-700);
+  padding: 6px 14px 6px 8px;
+  border-radius: 18px;
+  background: var(--ym-surface);
+  border: 1px solid var(--ym-line);
+  box-shadow: var(--ym-shadow-rest);
+  transition: color .15s;
+}
+.back-bar:hover { color: var(--ym-red-800); }
+
+/* ---- 首页直播预告条 ---- */
+.live-strip {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: 20px 0 8px;
+  padding: 16px 20px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, var(--ym-ink), var(--ym-stone));
+  color: #FFFFFF;
+  box-shadow: var(--ym-shadow-float);
+  position: relative;
+  overflow: hidden;
+}
+.live-strip::after { content: ''; position: absolute; right: -30px; top: -30px; width: 120px; height: 120px; border-radius: 50%; border: 2px solid rgba(227, 203, 122, 0.25); }
+.live-strip .ls-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--ym-gold-500); flex-shrink: 0; animation: live-pulse 1.6s ease-in-out infinite; }
+.live-strip .ls-body { flex: 1; min-width: 0; }
+.live-strip .ls-title { font-size: 15px; font-weight: 650; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.live-strip .ls-meta { font-size: 12px; color: rgba(255, 255, 255, 0.7); margin-top: 4px; }
+.live-strip .ls-go { flex-shrink: 0; font-size: 12px; color: var(--ym-gold-300); border: 1px solid rgba(227, 203, 122, 0.5); border-radius: 16px; padding: 6px 14px; }

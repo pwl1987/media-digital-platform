@@ -1,5 +1,5 @@
 import { createExperienceClient } from '../../runtime/client.js';
-import { mountHeader, esc, getQuery, officialFooter } from '../../runtime/nav.js';
+import { mountHeader, esc, getQuery, officialFooter, backBar, actionBar, bindShare } from '../../runtime/nav.js';
 mountHeader();
 
 const api = createExperienceClient();
@@ -24,6 +24,7 @@ if (!id) {
     const life = e.lifecycleStatus === 'ongoing' ? '进行中' : e.lifecycleStatus === 'ended' ? '已结束' : '预告';
     const percent = e.capacity ? Math.min(100, Math.round((e.signedUp || 0) / e.capacity * 100)) : 0;
     root.innerHTML = `
+      ${backBar("返回展演", "../events/index.html")}
       <section class="detail-hero">
         <span class="badge badge--gold">${esc(e.category || '展演')}</span>
         <span class="badge">${life}</span>
@@ -55,7 +56,9 @@ if (!id) {
           <div class="meta">${esc((w.organization && w.organization.title) || '')}</div>
         </div>
       </a>`).join('')}</div>` : ''}
+      ${actionBar({ shareLabel: "分享活动" })}
       ${officialFooter()}
     `;
+    bindShare('page-share-btn', { title: e.title });
   }
 }
