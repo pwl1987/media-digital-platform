@@ -461,3 +461,140 @@ button { font-family: inherit; cursor: pointer; }
   color: var(--ym-ink);
   background: transparent;
 }
+/* ---- 资讯头条大卡 ---- */
+.news-headline { display: block; grid-column: 1 / -1; }
+.headline-cover {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  min-height: 260px;
+  padding: 28px 32px 26px;
+  border-radius: 12px;
+  background:
+    radial-gradient(120% 90% at 85% 10%, rgba(227, 203, 122, 0.16), transparent 55%),
+    linear-gradient(150deg, var(--ym-red-900), var(--ym-red-700) 75%, var(--ym-red-500) 130%);
+  color: #FFFFFF;
+  box-shadow: var(--ym-shadow-float);
+  overflow: hidden;
+}
+.headline-cover::after {
+  content: '';
+  position: absolute;
+  right: -40px;
+  top: -40px;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  border: 2px solid rgba(227, 203, 122, 0.22);
+}
+.headline-cover .badge--gold { align-self: flex-start; margin-bottom: 14px; }
+.headline-title {
+  font-size: clamp(20px, 3.4vw, 28px);
+  font-family: 'Songti SC', 'Noto Serif SC', serif;
+  font-weight: 700;
+  line-height: 1.45;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+}
+.headline-summary {
+  margin-top: 10px;
+  font-size: 14px;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.85);
+  max-width: 640px;
+}
+.headline-meta { margin-top: 12px; font-size: 12px; color: rgba(255, 255, 255, 0.7); }
+@media (max-width: 600px) { .headline-cover { min-height: 200px; padding: 22px 20px; } }
+
+/* ---- 搜索历史 ---- */
+.search-history { margin-top: 20px; display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+.search-history .hist-label { font-size: 12px; color: var(--ym-text-3); flex-shrink: 0; }
+.search-history .hist-chip {
+  font-size: 13px;
+  color: var(--ym-text-2);
+  background: var(--ym-surface);
+  border: 1rpx solid var(--ym-line);
+  border: 1px solid var(--ym-line);
+  border-radius: 16px;
+  padding: 6px 16px;
+  cursor: pointer;
+  transition: color .15s, border-color .15s;
+}
+.search-history .hist-chip:hover { color: var(--ym-red-700); border-color: var(--ym-red-500); }
+.search-history .hist-clear { font-size: 12px; color: var(--ym-text-3); cursor: pointer; margin-left: 4px; }
+.search-history .hist-clear:hover { color: var(--ym-red-700); }
+
+/* ---- 演员档案：黑白人像头卡（对齐小程序 artist-detail） ---- */
+.portrait-hero {
+  position: relative;
+  height: 300px;
+  background: linear-gradient(160deg, var(--ym-ink), var(--ym-stone));
+  border-radius: 12px 12px 0 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--ym-shadow-rest);
+  overflow: hidden;
+}
+.portrait-hero::after {
+  content: '';
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  height: 40%;
+  background: linear-gradient(180deg, transparent, rgba(31, 31, 31, 0.55));
+}
+.portrait-hero .portrait-glyph {
+  font-size: 96px;
+  font-family: 'Songti SC', 'Noto Serif SC', serif;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.92);
+  text-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
+}
+.name-bar {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  background: var(--ym-red-800);
+  color: #FFFFFF;
+  padding: 18px 28px;
+}
+.name-bar .name { font-size: 24px; font-family: 'Songti SC', serif; font-weight: 700; }
+.name-bar .role { font-size: 14px; color: var(--ym-gold-300); }
+.org-line {
+  padding: 12px 28px;
+  font-size: 13px;
+  color: var(--ym-text-3);
+  background: var(--ym-surface);
+  border-bottom: 1px solid var(--ym-line);
+}
+.honors {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 16px 28px;
+  background: var(--ym-surface);
+  border-bottom: 1px solid var(--ym-line);
+}
+.org-hero {
+  position: relative;
+  height: 220px;
+  background: linear-gradient(150deg, var(--ym-red-900), var(--ym-red-700));
+  border-radius: 12px 12px 0 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--ym-shadow-rest);
+  overflow: hidden;
+}
+.org-hero .org-glyph {
+  font-size: 72px;
+  font-family: 'Songti SC', 'Noto Serif SC', serif;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.92);
+  text-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
+}
+@media (max-width: 600px) {
+  .portrait-hero { height: 240px; }
+  .portrait-hero .portrait-glyph { font-size: 72px; }
+  .org-hero { height: 180px; }
+}

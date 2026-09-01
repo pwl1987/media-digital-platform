@@ -9,13 +9,14 @@ const root = document.getElementById('root');
 if (!id) {
   root.innerHTML = `<div class="state"><span class="emoji">📡</span>影像未找到</div>`;
 } else {
-  const [vRes, wRes] = await Promise.all([api.getVideo(id), api.getWorks()]);
+  const [vRes, wRes, newsRes] = await Promise.all([api.getVideo(id), api.getWorks(), api.getNews({ pageSize: 50 })]);
   if (vRes.error || !vRes.data) {
     root.innerHTML = `<div class="state"><span class="emoji">📡</span>影像加载失败</div>`;
   } else {
     const v = vRes.data;
     const works = (wRes.data && wRes.data.items) || [];
     const relatedWork = works.find((w) => (w.media || []).some((m) => m.id === v.id)) || null;
+    const relatedNews = ((newsRes.data && newsRes.data.items) || []).filter((n) => (n.relatedVideoIds || []).includes(v.id)).slice(0, 3);
     root.innerHTML = `
       <section class="detail-hero" style="padding:0;overflow:hidden">
         <div class="cover" style="position:relative;aspect-ratio:16/9;background:linear-gradient(150deg,var(--ym-red-900),var(--ym-red-700));display:flex;align-items:center;justify-content:center">
@@ -43,6 +44,12 @@ if (!id) {
           <div class="summary">${esc(relatedWork.summary || '')}</div>
         </div>
       </a>` : ''}
+      ${relatedNews.length ? `<div class="section-head"><h2>相关资讯</h2></div>
+      <div class="grid">${relatedNews.map((n) => `<a class="card" href="../news-detail/index.html?id=${encodeURIComponent(n.id)}">
+        <div><span class="badge">${esc(n.sourceLevelLabel || '官方资讯')}</span></div>
+        <div class="title">${esc(n.title)}</div>
+        <div class="meta">${esc(n.date || '')} · ${esc(n.sourceName || '')}</div>
+      </a>`).join('')}</div>` : ''}
       ${officialFooter()}
     `;
   }
