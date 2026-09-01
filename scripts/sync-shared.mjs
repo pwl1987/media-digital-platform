@@ -14,6 +14,10 @@ const root = dirname(dirname(fileURLToPath(import.meta.url)));
 const sources = ['design-system', 'api-client', 'mock-data'].map((name) => join(root, 'packages', name));
 const appsRoot = join(root, 'apps');
 
+// 端内排除项：transports/http|fetch.js 是 Node 参考实现（含 fetch sink），
+// H5/Web 端用各自 runtime/ 的内联 mock；留在 packages 源作未来接入参考，不随 vendoring 下发。
+const EXCLUDED = [/transports[\\/]http\.js$/, /transports[\\/]fetch\.js$/];
+
 for (const app of readdirSync(appsRoot)) {
   const appDir = join(appsRoot, app);
   const appJson = join(appDir, 'app.json');
@@ -25,7 +29,7 @@ for (const app of readdirSync(appsRoot)) {
   mkdirSync(target, { recursive: true });
   for (const src of sources) {
     const dest = join(target, 'packages', src.split(/[\\/]/).pop());
-    cpSync(src, dest, { recursive: true, filter: (s) => !s.includes('node_modules') });
+    cpSync(src, dest, { recursive: true, filter: (s) => !s.includes('node_modules') && !EXCLUDED.some((re) => re.test(s)) });
   }
   console.log(`synced shared packages -> apps/${app}/shared/`);
 }

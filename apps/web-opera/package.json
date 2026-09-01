@@ -1,0 +1,10 @@
+{
+  "name": "@media/web-opera",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "沂蒙小戏小剧官方 PC 门户（同源方案：零构建、共享 api-client ESM 镜像 + design token）",
+  "scripts": {
+    "start": "node ../../scripts/serve-web.mjs"
+  }
+}

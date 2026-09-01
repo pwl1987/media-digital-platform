@@ -1,7 +1,7 @@
 // 同步脚本：把 packages/mock-data/opera.js（CJS）转写为 apps/h5-opera/runtime/seed.js（ESM）
 // 用法：node scripts/sync-h5-seed.mjs
 import { createRequire } from 'node:module';
-import { readFileSync, writeFileSync } from 'node:fs';
+import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -33,6 +33,13 @@ ${objToESM(src)}
 export const lives = ${JSON.stringify(livesExtra, null, 2)};
 `;
 
-const outPath = join(root, 'apps/h5-opera/runtime/seed.js');
-writeFileSync(outPath, esm);
-console.log(`synced h5 seed -> ${outPath}`);
+// 输出到两端：H5 与 PC Web 共用同一份 ESM 种子（零漂移）
+const targets = [
+  join(root, 'apps/h5-opera/runtime/seed.js'),
+  join(root, 'apps/web-opera/runtime/seed.js')
+];
+for (const outPath of targets) {
+  mkdirSync(dirname(outPath), { recursive: true });
+  writeFileSync(outPath, esm);
+  console.log(`synced esm seed -> ${outPath}`);
+}

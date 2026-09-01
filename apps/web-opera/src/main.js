@@ -1,39 +1,366 @@
-import './style.css';
+// 沂蒙小戏小剧 PC 门户（SPA-lite：首页 + query 详情路由）
+// 数据走 runtime/client.js（与 H5 / 小程序同源 facade + 种子），零内联内容数据。
+// 样式由 index.html <link> 引入（浏览器原生 ESM 不支持 import CSS）。
+import { createExperienceClient } from '../runtime/client.js';
 
-const news = [
-  { id: 'news-001', tag: '官方资讯', title: '2026沂蒙小戏小剧展演工作持续推进', summary: '汇聚精品剧目、优秀创作与舞台力量，持续讲好沂蒙故事。', source: '沂蒙小戏小剧官方平台', date: '2026-08-29', body: '围绕精品创作、展演推广和全媒体传播，平台持续发布小戏小剧相关官方资讯与舞台内容。' },
-  { id: 'news-002', tag: '剧目动态', title: '红色题材小戏作品集中亮相', summary: '从优秀作品中感受地方文化与时代精神的交融。', source: '沂蒙小戏小剧官方平台', date: '2026-08-28', body: '一批红色题材小戏作品集中亮相，平台将持续推出剧目介绍和精彩影像。' },
-  { id: 'news-003', tag: '媒体报道', title: '聚焦沂蒙小戏小剧：让好作品走近更多观众', summary: '通过舞台、影像与全媒体传播持续扩大品牌影响力。', source: '媒体报道', date: '2026-08-27', body: '相关媒体持续关注小戏小剧传承创新与传播实践。' }
-];
-const works = [
-  { title: '沂蒙山小调', tag: '精品剧目', org: '沂蒙艺术团' },
-  { title: '红嫂情', tag: '红色题材', org: '临沂地方戏剧团' },
-  { title: '乡音里的沂蒙', tag: '地方戏', org: '沂蒙文化艺术团队' }
-];
-const events = [
-  { title: '2026沂蒙小戏小剧展演', meta: '2026-09-05 · 临沂文化艺术中心' },
-  { title: '红色题材精品专场', meta: '2026-09-12 · 临沂剧院' }
-];
-const esc = (value) => String(value).replace(/[&<>\"']/g, (ch) => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', '\"':'&quot;', "'":'&#39;' }[ch]));
+const api = createExperienceClient();
 
-function renderHome() {
-  document.querySelector('#app').innerHTML = `
-    <header class="site-header"><div class="wrap nav"><div class="brand">沂蒙小戏小剧<span>官方宣传平台</span></div><nav><a href="./index.html">首页</a><a href="#news">资讯</a><a href="#works">剧目</a><a href="#videos">视频</a><a href="#events">展演</a><a href="#topics">专题</a></nav><div class="search">搜索新闻、剧目、演员、活动</div></div></header>
+const esc = (v) => String(v == null ? '' : v).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+const fmtDate = (s) => (s || '').replace('T', ' ').slice(0, 16);
+
+// ---- 详情路由：?news= / ?work= / ?video= / ?event= / ?artist= / ?organization= / ?live= ----
+const param = new URLSearchParams(location.search);
+const newsId = param.get('news');
+const workId = param.get('work');
+const videoId = param.get('video');
+const eventId = param.get('event');
+const artistId = param.get('artist');
+const orgId = param.get('organization');
+const liveId = param.get('live');
+
+const NAV = `
+  <header class="site-header">
+    <div class="wrap nav">
+      <a class="brand" href="./index.html">沂蒙小戏小剧<span>官方宣传门户</span></a>
+      <nav>
+        <a href="./index.html">首页</a>
+        <a href="./index.html#news">资讯</a>
+        <a href="./index.html#works">剧目</a>
+        <a href="./index.html#videos">影像</a>
+        <a href="./index.html#events">展演</a>
+        <a href="./index.html#topics">专题</a>
+      </nav>
+    </div>
+  </header>`;
+
+const FOOTER = `
+  <footer>
+    <div class="wrap">沂蒙小戏小剧官方数字传播平台 · 主管单位：沂蒙小戏小剧官方平台建设工作组</div>
+  </footer>`;
+
+function detailShell({ badge, badgeGold, title, meta, quote, bodyHTML, backHref, backLabel, chainsHTML }) {
+  return `
+    ${NAV}
     <main>
-      <section class="hero"><div class="wrap hero-inner"><div><div class="eyebrow">YIMENG OPERA · OFFICIAL</div><h1>让好戏被看见<br/>让沂蒙故事被传播</h1><p>权威发布小戏小剧最新资讯、精品剧目、展演动态与舞台影像。</p><a class="hero-link" href="#news">浏览最新资讯 →</a></div><div class="hero-art">小<br/>戏<br/>小<br/>剧</div></div></section>
-      <section id="news" class="wrap section"><div class="section-head"><h2>最新资讯</h2><a href="#news">更多资讯 →</a></div><div class="news-grid">${news.map((n,i)=>`<article class="news ${i===0?'lead':''}"><div class="thumb">${i===0?'重点报道':'官方资讯'}</div><div class="tag">${esc(n.tag)}</div><h3><a href="./index.html?news=${encodeURIComponent(n.id)}">${esc(n.title)}</a></h3><p>${esc(n.summary)}</p><small>${esc(n.source)} · ${esc(n.date)}</small></article>`).join('')}</div></section>
-      <section id="works" class="tone section"><div class="wrap"><div class="section-head"><h2>精品剧目</h2><a href="#works">浏览全部 →</a></div><div class="work-grid">${works.map(w=>`<article class="work"><div class="poster">舞台<br/>影像</div><div class="tag">${esc(w.tag)}</div><h3>${esc(w.title)}</h3><p>${esc(w.org)}</p></article>`).join('')}</div></div></section>
-      <section id="events" class="wrap section"><div class="split"><div><div class="section-head"><h2>近期展演</h2><a href="#events">全部活动 →</a></div>${events.map(e=>`<article class="event"><strong>${esc(e.title)}</strong><span>${esc(e.meta)}</span><b>→</b></article>`).join('')}</div><aside id="topics" class="feature"><div class="eyebrow">专题策划</div><h2>一台好戏，讲好沂蒙故事</h2><p>汇集专题报道、幕后花絮、人物访谈与舞台影像。</p><a class="hero-link" href="#topics">进入专题 →</a></aside></div></section>
-      <section id="videos" class="tone section"><div class="wrap"><div class="section-head"><h2>精彩视频</h2><a href="#videos">更多视频 →</a></div><div class="work-grid">${['沂蒙山小调·舞台精彩片段','红嫂情·演出实录','小戏小剧展演现场'].map((v,i)=>`<article class="work"><div class="poster">▶</div><div class="tag">${i===0?'精品剧目':i===1?'演出片段':'活动现场'}</div><h3>${esc(v)}</h3><p>官方舞台影像</p></article>`).join('')}</div></div></section>
-    </main><footer><div class="wrap">沂蒙小戏小剧官方宣传平台 · 内容由统一数字内容平台提供</div></footer>`;
+      <article class="detail wrap">
+        <a class="back" href="${backHref}">← ${backLabel}</a>
+        <div class="detail-hero">
+          ${badge ? `<span class="badge ${badgeGold ? 'badge--gold' : ''}">${esc(badge)}</span>` : ''}
+          <h1>${esc(title)}</h1>
+          ${meta ? `<div class="detail-meta">${meta}</div>` : ''}
+        </div>
+        ${quote ? `<blockquote class="detail-quote">${esc(quote)}</blockquote>` : ''}
+        ${bodyHTML || ''}
+        ${chainsHTML || ''}
+      </article>
+    </main>
+    ${FOOTER}`;
 }
 
-function renderNewsDetail(item) {
+function sectionHead(title, moreHref, moreLabel) {
+  return `<div class="section-head"><h2>${title}</h2>${moreHref ? `<a href="${moreHref}">${moreLabel} →</a>` : ''}</div>`;
+}
+
+function notFound(what) {
   document.querySelector('#app').innerHTML = `
-    <header class="site-header"><div class="wrap nav"><div class="brand">沂蒙小戏小剧<span>官方宣传平台</span></div><nav><a href="./index.html">首页</a><a href="./index.html#news">资讯</a><a href="./index.html#works">剧目</a><a href="./index.html#videos">视频</a><a href="./index.html#events">展演</a></nav></div></header>
-    <main><article class="detail wrap"><a class="back" href="./index.html#news">← 返回资讯</a><div class="official-badge">官方资讯</div><h1>${esc(item.title)}</h1><div class="detail-meta">${esc(item.source)} · ${esc(item.date)}</div><p class="detail-summary">${esc(item.summary)}</p><div class="detail-body"><p>${esc(item.body)}</p><p>本平台持续聚合小戏小剧新闻稿件、剧目资料、展演信息与舞台影像，方便公众在不同渠道了解官方发布内容。</p></div><section class="detail-relations"><h2>相关内容</h2><a href="./index.html#works">精品剧目</a><a href="./index.html#events">近期展演</a><a href="./index.html#videos">精彩视频</a></section></article></main><footer><div class="wrap">沂蒙小戏小剧官方宣传平台</div></footer>`;
+    ${NAV}
+    <main><div class="wrap state"><span class="emoji">📡</span>${esc(what)}不存在或已下架</div></main>
+    ${FOOTER}`;
 }
 
-const newsId = new URLSearchParams(location.search).get('news');
-const selected = newsId ? news.find((item) => item.id === newsId) : null;
-selected ? renderNewsDetail(selected) : renderHome();
+// ---- 卡片 ----
+// 注意：外层是 div（不能 <a> 套 <a>——meta 里有剧团 inline-link）；跳转链接放在海报位与标题上
+function posterCard(w) {
+  const orgLink = w.organization && w.organization.id ? `<a class="inline-link" href="./index.html?organization=${encodeURIComponent(w.organization.id)}">${esc(w.organization.title)}</a>` : esc((w.organization && w.organization.title) || '');
+  const href = `./index.html?work=${encodeURIComponent(w.id)}`;
+  return `<div class="poster-card">
+    <a class="poster" href="${href}"><span class="poster-title">${esc(w.title)}</span></a>
+    <div class="poster-body">
+      <a class="title title-link" href="${href}">《${esc(w.title)}》</a>
+      <div class="meta">${orgLink}${w.tag ? ' · ' + esc(w.tag) : ''}</div>
+    </div>
+  </div>`;
+}
+
+function mediaCard(v) {
+  return `<a class="media-card" href="./index.html?video=${encodeURIComponent(v.id)}">
+    <div class="cover">
+      <span class="cat">${esc(v.category || '影像')}</span>
+      <span class="cover-glyph">${esc(v.title.slice(0, 8))}</span>
+      <span class="play">▶</span>
+      <span class="duration">${esc(v.durationLabel || '')}</span>
+    </div>
+    <div class="media-body"><div class="title">${esc(v.title)}</div><div class="meta">${esc(v.sourceName || '')} · ${esc(v.resolution || '')}</div></div>
+  </a>`;
+}
+
+// ---- 各类型详情 ----
+async function renderNewsDetail(id) {
+  const [nRes, wRes, vRes] = await Promise.all([api.getNewsDetail(id), api.getWorks(), api.getVideos()]);
+  const n = nRes.data;
+  if (!n) return notFound('资讯');
+  const works = (wRes.data && wRes.data.items) || [];
+  const videos = (vRes.data && vRes.data.items) || [];
+  const rw = works.filter((w) => (n.relatedWorkIds || []).includes(w.id));
+  const rv = videos.filter((v) => (n.relatedVideoIds || []).includes(v.id));
+  document.querySelector('#app').innerHTML = detailShell({
+    badge: n.sourceLevelLabel || '官方资讯',
+    title: n.title,
+    meta: `${n.date || ''} · ${n.sourceName || ''} · ${n.category || ''}`,
+    quote: n.summary,
+    bodyHTML: `<div class="detail-body"><div class="body">${(n.body || '').split('\n').filter(Boolean).map((p) => `<p>${esc(p)}</p>`).join('')}</div></div>`,
+    backHref: './index.html#news',
+    backLabel: '返回资讯',
+    chainsHTML: [
+      rw.length ? sectionHead('相关剧目') + `<div class="poster-grid">${rw.map((w) => posterCard(w)).join('')}</div>` : '',
+      rv.length ? sectionHead('相关影像') + `<div class="media-grid">${rv.map((v) => mediaCard(v)).join('')}</div>` : ''
+    ].join('')
+  });
+}
+
+async function renderWorkDetail(id) {
+  const [wRes, perfRes, newsRes, aRes] = await Promise.all([api.getWork(id), api.getPerformances({ workId: id }), api.getNews({ pageSize: 50 }), api.getArtists()]);
+  const w = wRes.data;
+  if (!w) return notFound('剧目');
+  const perfs = (perfRes.data && perfRes.data.items) || [];
+  const rn = ((newsRes.data && newsRes.data.items) || []).filter((n) => (n.relatedWorkIds || []).includes(w.id)).slice(0, 3);
+  const allArtists = (aRes.data && aRes.data.items) || [];
+  const artistLink = (name) => {
+    const hit = allArtists.find((a) => a.title === name);
+    return hit ? `<a class="inline-link" href="./index.html?artist=${encodeURIComponent(hit.id)}">${esc(name)}</a>` : esc(name);
+  };
+  const orgLink = w.organization && w.organization.id ? `<a class="inline-link" href="./index.html?organization=${encodeURIComponent(w.organization.id)}">${esc(w.organization.title)}</a>` : esc((w.organization && w.organization.title) || '');
+  document.querySelector('#app').innerHTML = detailShell({
+    badge: w.tag || '精品剧目',
+    title: `《${w.title}》`,
+    meta: `${orgLink}${w.artists && w.artists.length ? ' · ' + w.artists.map((a) => artistLink(a.title)).join(' / ') : ''}`,
+    quote: w.summary,
+    bodyHTML: `<div class="detail-body"><div class="body">${(w.body || w.summary || '正式内容接入后展示。').split('\n').filter(Boolean).map((p) => `<p>${esc(p)}</p>`).join('')}</div></div>`,
+    backHref: './index.html#works',
+    backLabel: '返回剧目',
+    chainsHTML: [
+      perfs.length ? sectionHead('演出场次') + `<div class="grid-3">${perfs.map((p) => `<div class="card"><div class="title">${esc(p.title)}</div><div class="meta">${esc(fmtDate(p.startAt))} · ${esc(p.place || '')}</div></div>`).join('')}</div>` : '',
+      rn.length ? sectionHead('相关资讯') + `<div class="grid-3">${rn.map((n) => `<a class="card" href="./index.html?news=${encodeURIComponent(n.id)}"><div class="title">${esc(n.title)}</div><div class="meta">${esc(n.date || '')} · ${esc(n.sourceName || '')}</div></a>`).join('')}</div>` : ''
+    ].join('')
+  });
+}
+
+async function renderVideoDetail(id) {
+  const [vRes, wRes] = await Promise.all([api.getVideo(id), api.getWorks()]);
+  const v = vRes.data;
+  if (!v) return notFound('影像');
+  const works = (wRes.data && wRes.data.items) || [];
+  const rw = works.find((w) => (w.media || []).some((m) => m.id === v.id));
+  document.querySelector('#app').innerHTML = `
+    ${NAV}
+    <main>
+      <article class="detail wrap">
+        <a class="back" href="./index.html#videos">← 返回影像</a>
+        <div class="video-stage">
+          <span class="official-badge">官方影像</span>
+          <span class="cat">${esc(v.category || '影像')}</span>
+          <div class="stage-title">${esc(v.title)}</div>
+          <div class="play">▶</div>
+          <span class="duration">${esc(v.durationLabel || '')}</span>
+        </div>
+        ${v.tags && v.tags.length ? `<div class="detail-tags">${v.tags.map((t) => `<span class="badge">${esc(t)}</span>`).join('')}</div>` : ''}
+        <div class="detail-body"><div class="body">
+          <div class="meta" style="font-size:13px;color:var(--ym-text-3);margin-bottom:14px">${esc(v.sourceName || '')} · ${esc(v.resolution || '')} · 时长 ${esc(v.durationLabel || '')}</div>
+          <p>媒资接入后支持在线播放。当前为官方影像档案演示，播放源由媒体服务接入后提供。</p>
+        </div></div>
+        ${rw ? sectionHead('相关剧目') + `<div class="poster-grid">${posterCard(rw)}</div>` : ''}
+      </article>
+    </main>
+    ${FOOTER}`;
+}
+
+async function renderEventDetail(id) {
+  const [eRes, perfRes, wRes] = await Promise.all([api.getEvent(id), api.getPerformances({ eventId: id }), api.getWorks()]);
+  const e = eRes.data;
+  if (!e) return notFound('活动');
+  const perfs = (perfRes.data && perfRes.data.items) || [];
+  const rws = ((wRes.data && wRes.data.items) || []).filter((w) => (e.workIds || []).includes(w.id));
+  const percent = e.capacity ? Math.min(100, Math.round((e.signedUp || 0) / e.capacity * 100)) : 0;
+  document.querySelector('#app').innerHTML = detailShell({
+    badge: e.category || '展演',
+    title: e.title,
+    meta: `${fmtDate(e.startAt)} · ${e.place || ''} · ${e.free ? '免费' : '售票'}`,
+    bodyHTML: `<div class="detail-body"><div class="body"><p>${esc(e.desc || '正式内容接入后展示。')}</p></div></div>
+      ${sectionHead('报名情况')}<div class="card sign-card"><div class="sign-bar"><div class="sign-fill" style="width:${percent}%"></div></div><span class="sign-num">${e.signedUp || 0}/${e.capacity || 0} 人</span></div>`,
+    backHref: './index.html#events',
+    backLabel: '返回展演',
+    chainsHTML: [
+      perfs.length ? sectionHead('演出场次') + `<div class="grid-3">${perfs.map((p) => `<div class="card"><div class="title">${esc(p.title)}</div><div class="meta">${esc(fmtDate(p.startAt))} · ${esc(p.place || '')}</div></div>`).join('')}</div>` : '',
+      rws.length ? sectionHead('参演剧目') + `<div class="poster-grid">${rws.map((w) => posterCard(w)).join('')}</div>` : ''
+    ].join('')
+  });
+}
+
+async function renderArtistDetail(id) {
+  const [aRes, wRes, vRes] = await Promise.all([api.getArtist(id), api.getWorks(), api.getVideos()]);
+  const a = aRes.data;
+  if (!a) return notFound('演员档案');
+  const name = a.title;
+  const works = ((wRes.data && wRes.data.items) || []).filter((w) => (w.artists || []).some((x) => x.title === name) || (name && (w.summary || '').includes(name)));
+  const titles = new Set(works.map((w) => w.title));
+  const videos = ((vRes.data && vRes.data.items) || []).filter((v) => {
+    if (!v.title) return false;
+    for (const t of titles) if (v.title.includes(t)) return true;
+    return name && v.title.includes(name);
+  }).slice(0, 6);
+  document.querySelector('#app').innerHTML = `
+    ${NAV}
+    <main>
+      <article class="detail wrap">
+        <a class="back" href="./index.html#works">← 返回剧目</a>
+        <div class="portrait-hero"><span class="official-badge">官方收录</span><div class="portrait-glyph">${esc(String(a.title || '').slice(0, 1))}</div></div>
+        <div class="name-bar"><span class="name">${esc(a.title)}</span><span class="role">${esc(a.role || '演员')}</span></div>
+        <div class="org-line">${esc(a.organization || '')}</div>
+        ${a.honors && a.honors.length ? `<div class="honors">${a.honors.map((h) => `<span class="badge badge--gold">🏅 ${esc(h)}</span>`).join('')}</div>` : ''}
+        <div class="detail-body"><div class="body"><p>${esc(a.bio || '正式内容接入后展示。')}</p></div></div>
+        ${works.length ? sectionHead('代表作品') + `<div class="poster-grid">${works.map((w) => posterCard(w)).join('')}</div>` : ''}
+        ${videos.length ? sectionHead('主演影像') + `<div class="media-grid">${videos.map((v) => mediaCard(v)).join('')}</div>` : ''}
+      </article>
+    </main>
+    ${FOOTER}`;
+}
+
+async function renderOrgDetail(id) {
+  const [oRes, wRes, vRes] = await Promise.all([api.getOrganization(id), api.getWorks(), api.getVideos()]);
+  const o = oRes.data;
+  if (!o) return notFound('剧团档案');
+  const works = ((wRes.data && wRes.data.items) || []).filter((w) => w.organization && w.organization.id === o.id);
+  const titles = new Set(works.map((w) => w.title));
+  const videos = ((vRes.data && vRes.data.items) || []).filter((v) => {
+    if (!v.title) return false;
+    for (const t of titles) if (v.title.includes(t)) return true;
+    return v.title.includes(o.title || '');
+  }).slice(0, 6);
+  document.querySelector('#app').innerHTML = `
+    ${NAV}
+    <main>
+      <article class="detail wrap">
+        <a class="back" href="./index.html#works">← 返回剧目</a>
+        <div class="org-hero"><span class="official-badge">官方收录</span><div class="org-glyph">${esc(String(o.title || '').slice(0, 1))}</div></div>
+        <div class="name-bar"><span class="name">${esc(o.title)}</span></div>
+        <div class="org-line">官方剧团 · 资料持续补充中</div>
+        <div class="detail-body"><div class="body"><p>${esc(o.summary || '正式内容接入后展示。')}</p></div></div>
+        ${works.length ? sectionHead('代表剧目') + `<div class="poster-grid">${works.map((w) => posterCard(w)).join('')}</div>` : ''}
+        ${videos.length ? sectionHead('院团影像') + `<div class="media-grid">${videos.map((v) => mediaCard(v)).join('')}</div>` : ''}
+      </article>
+    </main>
+    ${FOOTER}`;
+}
+
+async function renderLiveDetail(id) {
+  const res = await api.getLive(id);
+  const item = res.data;
+  if (!item) return notFound('直播');
+  const st = item.status === 'upcoming' ? 'scheduled' : item.status;
+  document.querySelector('#app').innerHTML = detailShell({
+    badge: st === 'ended' ? '已结束' : st === 'live' ? '直播中' : '即将直播',
+    badgeGold: st === 'ended',
+    title: item.title,
+    meta: `${fmtDate(item.startAt)} · ${item.place || ''}`,
+    quote: item.subtitle,
+    bodyHTML: `<div class="detail-body"><div class="body"><p>${st === 'ended' ? '精彩回顾 · 录播由直播服务接入后提供。' : '官方直播演示占位；开播后在此观看。'}</p></div></div>`,
+    backHref: './index.html#topics',
+    backLabel: '返回首页'
+  });
+}
+
+// ---- 首页 ----
+async function renderHome() {
+  const [nRes, wRes, eRes, vRes] = await Promise.all([api.getNews({ pageSize: 7 }), api.getWorks(), api.getEvents(), api.getVideos()]);
+  const news = (nRes.data && nRes.data.items) || [];
+  const works = (wRes.data && wRes.data.items) || [];
+  const events = (eRes.data && eRes.data.items) || [];
+  const videos = (vRes.data && vRes.data.items) || [];
+  const [head, ...rest] = news;
+  const life = (e) => e.lifecycleStatus === 'ongoing' ? '进行中' : e.lifecycleStatus === 'ended' ? '已结束' : '预告';
+
+  document.querySelector('#app').innerHTML = `
+    ${NAV}
+    <main>
+      <section class="hero">
+        <div class="wrap hero-inner">
+          <div>
+            <div class="eyebrow">YIMENG OPERA · OFFICIAL</div>
+            <h1>让好戏被看见<br/>让沂蒙故事被传播</h1>
+            <p>权威发布小戏小剧最新资讯、精品剧目、展演动态与舞台影像。</p>
+            <a class="hero-link" href="#news">浏览最新资讯 →</a>
+          </div>
+          <div class="hero-art">小<br/>戏<br/>小<br/>剧</div>
+        </div>
+      </section>
+
+      <section id="news" class="wrap section">
+        ${sectionHead('最新资讯', '#news', '更多资讯')}
+        <div class="news-split">
+          ${head ? `<a class="news-lead" href="./index.html?news=${encodeURIComponent(head.id)}">
+            <div class="lead-cover">
+              <span class="badge badge--gold">${esc(head.category || '资讯')}</span>
+              <span class="lead-title">${esc(head.title)}</span>
+              <span class="lead-summary">${esc(head.summary || '')}</span>
+              <span class="lead-meta">${esc(head.date || '')} · ${esc(head.sourceName || '')}</span>
+            </div>
+          </a>` : ''}
+          <div class="news-list">
+            ${rest.slice(0, 5).map((n) => `<a class="news-item" href="./index.html?news=${encodeURIComponent(n.id)}">
+              <div class="tag-row"><span class="badge ${n.sourceLevel === 'media' ? 'badge--gold' : ''}">${esc(n.sourceLevelLabel || '官方资讯')}</span><span class="badge badge--gold">${esc(n.category || '')}</span></div>
+              <h3>${esc(n.title)}</h3>
+              <p>${esc(n.summary || '')}</p>
+              <small>${esc(n.date || '')} · ${esc(n.sourceName || '')}</small>
+            </a>`).join('')}
+          </div>
+        </div>
+      </section>
+
+      <section id="works" class="tone section">
+        <div class="wrap">
+          ${sectionHead('精品剧目', '#works', '浏览全部')}
+          <div class="poster-grid">${works.map((w) => posterCard(w)).join('')}</div>
+        </div>
+      </section>
+
+      <section id="events" class="wrap section">
+        <div class="split">
+          <div>
+            ${sectionHead('近期展演', '#events', '全部活动')}
+            <div class="event-list">
+              ${events.map((e) => `<a class="event" href="./index.html?event=${encodeURIComponent(e.id)}">
+                <strong>${esc(e.title)}</strong>
+                <span>${esc(fmtDate(e.startAt))} · ${esc(e.place || '')}</span>
+                <em>${esc(life(e))}</em>
+                <b>→</b>
+              </a>`).join('')}
+            </div>
+          </div>
+          <aside id="topics" class="feature">
+            <div class="eyebrow">专题策划</div>
+            <h2>一台好戏，讲好沂蒙故事</h2>
+            <p>汇集专题报道、幕后花絮、人物访谈与舞台影像。</p>
+            <a class="hero-link" href="#videos">进入专题 →</a>
+          </aside>
+        </div>
+      </section>
+
+      <section id="videos" class="tone section">
+        <div class="wrap">
+          ${sectionHead('精彩影像', '#videos', '更多视频')}
+          <div class="media-grid">${videos.slice(0, 8).map((v) => mediaCard(v)).join('')}</div>
+        </div>
+      </section>
+    </main>
+    ${FOOTER}`;
+}
+
+// ---- 路由分发 ----
+if (newsId) renderNewsDetail(newsId);
+else if (workId) renderWorkDetail(workId);
+else if (videoId) renderVideoDetail(videoId);
+else if (eventId) renderEventDetail(eventId);
+else if (artistId) renderArtistDetail(artistId);
+else if (orgId) renderOrgDetail(orgId);
+else if (liveId) renderLiveDetail(liveId);
+else renderHome();
