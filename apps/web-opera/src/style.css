@@ -253,3 +253,29 @@ a.title-link:hover { color: var(--ym-red-700); }
 .live-strip .ls-body strong { font-size: 17px; display: block; }
 .live-strip .ls-body span { font-size: 13px; color: rgba(255, 255, 255, 0.72); display: block; margin-top: 4px; }
 .live-strip .ls-go { flex-shrink: 0; font-size: 13px; color: var(--ym-gold-300); border: 1px solid rgba(227, 203, 122, 0.5); border-radius: 18px; padding: 8px 18px; }
+
+/* ---- UI/UX 细节轮 ---- */
+/* 长标题截断保护 */
+.card .title, .news-item h3, .media-body .title { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden; }
+.poster-body .title { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 1; overflow: hidden; }
+.detail-hero h1 { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 3; overflow: hidden; }
+
+/* 键盘焦点可见性（可访问性） */
+a:focus-visible, button:focus-visible, input:focus-visible {
+  outline: 2px solid var(--ym-gold-500);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* 交互按压反馈 */
+.card:active, .media-card:active, .poster-card:active { transform: scale(0.99); transition: transform .08s; }
+.event:hover { background: var(--ym-surface); }
+.live-btn:active { transform: scale(0.97); }
+.back:hover { text-decoration: underline; }
+
+/* 图片/封面加载占位（接真图前的优雅降级） */
+.cover, .lead-cover, .poster, .portrait-hero, .org-hero { background-size: cover; background-position: center; }
+
+/* 锚点导航：平滑滚动 + 不被 sticky 顶栏遮挡 */
+html { scroll-behavior: smooth; }
+section[id] { scroll-margin-top: 92px; }
