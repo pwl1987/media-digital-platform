@@ -1,7 +1,7 @@
 /* 小戏小剧 H5 · 全局
    与小程序端 tokens-opera.wxss 严格对齐（红金宣纸墨）
    数据源：通过 runtime/client.js 调用共享 mock-data（同源方案）*/
-@import url('./shared/packages/design-system/tokens-opera.css');
+@import url('./tokens-opera.css');
 
 * { box-sizing: border-box; }
 

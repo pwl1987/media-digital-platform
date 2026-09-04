@@ -1,6 +1,6 @@
 /* 沂蒙小戏小剧 PC 门户 · 全局（同源 token：与小程序 / H5 严格对齐的红金宣纸墨）
    布局：宽栅格（1180 容器 + 多列），组件语言复用 H5 的 MediaCard / PosterCard / 头条大卡 */
-@import url('../shared/packages/design-system/tokens-opera.css');
+@import url('../tokens-opera.css');
 
 * { box-sizing: border-box; }
 
