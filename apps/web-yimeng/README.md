@@ -46,6 +46,19 @@ python3 -m http.server 4173 --directory apps/web-yimeng
 - `GET /api/v1/yimeng/archives?page=1&page_size=4`：档案预览
 - `POST /api/v1/yimeng/ai/chat`：多轮问答，携带 `message`、`messages`、`session_id`
 
+## 真实目录快照（无后端时的真实数据源）
+
+未配置 `apiBase` 时，门户会尝试加载同源静态资产 `./data/archives-snapshot.json`（已 gitignore，不入公开仓库）。该文件由 YimengSpirit-Multimodal 私仓脚本从清洗层生成，**仅含书目、章节题名、页码定位与处理元数据，不含正文**（原始资料 license=restricted，正文展示须另行授权）：
+
+```bash
+# 在 YimengSpirit-Multimodal 仓内执行
+python scripts/export_archive_snapshot.py \
+  --data-root /data/AI/YimengSpirit-Multimodal/data \
+  --out <本目录>/data/archives-snapshot.json
+```
+
+快照模式下：档案区显示“真实目录快照 · 非在线库”状态，支持全量检索（2010 章节目录）、筛选、分页、点击进入著录详情与来源回查；核验看板数据服务显示“目录快照”，不仍充在线库。
+
 ## 真实核验口径
 
 页面中的“已实现”表示本目录的体验结构或前端能力已落地；“已配置 / 已连接”只根据运行时检查结果显示。正式数据规模、资源授权、审核结论、模型效果、测试结论和投资金额仍以正式台账、原始凭证及现场核验记录为准。

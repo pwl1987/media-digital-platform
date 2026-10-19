@@ -238,3 +238,29 @@ footer { padding: 27px 0; color: #aaa59d; background: #171717; }
   .verification-note, .status-strip-inner, .footer-inner { align-items: flex-start; flex-direction: column; }
   .status-strip-inner { padding: 14px 0; }
 }
+
+/* W1/W2：1+4+1 总览与档案目录快照（详情视图、分页、可点击卡片） */
+.platform-grid { grid-template-columns: repeat(3, 1fr); }
+.platform-grid .stage-card p { min-height: 0; }
+.archive-clickable { cursor: pointer; transition: border-color .15s, box-shadow .15s; }
+.archive-clickable:hover, .archive-clickable:focus-visible { border-color: var(--ymh-red-800); box-shadow: 0 3px 14px rgba(143, 29, 34, .12); outline: none; }
+.archive-clickable .archive-card-foot span:last-child { color: var(--ymh-red-800); }
+.load-more { padding: 9px 18px; border: 1px solid var(--ymh-slate-600); background: var(--ymh-slate-600); color: #fff; font-size: 12px; cursor: pointer; }
+.archive-detail { grid-column: 1 / -1; padding: 22px; border: 1px solid var(--ymh-red-800); background: var(--paper-white); }
+.archive-detail h4 { margin: 10px 0 16px; color: var(--ymh-ink); font: 400 24px Georgia, "Songti SC", serif; }
+.detail-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0; border: 1px solid #ebe4d8; }
+.detail-row { display: flex; justify-content: space-between; gap: 12px; padding: 10px 14px; border-bottom: 1px solid #f0eae0; font-size: 12px; }
+.detail-row span { color: var(--ymh-stone); white-space: nowrap; }
+.detail-row strong { color: var(--ymh-ink); font-weight: 600; text-align: right; word-break: break-all; }
+.detail-note { margin-top: 14px; padding: 10px 12px; border-left: 3px solid var(--ymh-red-800); background: #faf6ee; color: #7a746b; font-size: 12px; }
+.detail-actions { display: flex; gap: 12px; margin-top: 16px; }
+.detail-actions .primary-btn { border: 1px solid var(--ymh-red-800); background: var(--ymh-red-800); color: #fff; }
+.detail-actions .ghost-btn { border: 1px solid var(--ymh-slate-600); background: transparent; color: var(--ymh-slate-600); }
+.detail-actions .primary-btn, .detail-actions .ghost-btn { padding: 9px 16px; font-size: 12px; cursor: pointer; }
+.detail-proof { margin-top: 12px; color: var(--muted); font-size: 10px; word-break: break-all; }
+.detail-grid { word-break: break-word; }
+
+@media (max-width: 900px) {
+  .platform-grid { grid-template-columns: 1fr; }
+  .detail-grid { grid-template-columns: 1fr; }
+}
