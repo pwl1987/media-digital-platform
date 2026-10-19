@@ -263,4 +263,9 @@ footer { padding: 27px 0; color: #aaa59d; background: #171717; }
 @media (max-width: 900px) {
   .platform-grid { grid-template-columns: 1fr; }
   .detail-grid { grid-template-columns: 1fr; }
+  .archive-layout { grid-template-columns: 1fr; }
+  .service-state { flex-wrap: wrap; }
 }
+
+/* R0-HARDEN-01：权威声明 fail-closed 徽标（非认定的 A 级） */
+.grade-badge-muted { padding: 2px 8px; border: 1px dashed #c9bfae; border-radius: 999px; color: #8a8578; background: #f6f2ea; font-size: 10px; font-weight: 400; white-space: nowrap; }

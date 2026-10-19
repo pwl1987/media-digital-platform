@@ -1,7 +1,8 @@
 // 样式经 index.html <link> 加载：浏览器原生 ES 模块禁止 import CSS（W0 实测白屏根因）
+// 网络访问一律走 utils/api.js facade（AGENTS.md 原则 3，R0-HARDEN-01 收口）
+import { API_BASE, api, loadArchiveSnapshot as fetchArchiveSnapshot } from '../utils/api.js';
 
 const config = window.YIMENG_DEMO_CONFIG || {};
-const API_BASE = String(config.apiBase || '').replace(/\/$/, '');
 const PROJECT_NAME = String(config.projectName || '沂蒙精神数字传承平台');
 const PROJECT_STAGE = String(config.projectStage || '阶段性研发成果演示');
 const state = {
@@ -12,6 +13,7 @@ const state = {
   archiveDetail: null,
   archiveLimit: 24,
   snapshotMeta: null,
+  snapshotError: null,
   conversation: [],
   sessionId: null,
   currentKnowledge: 'people'
@@ -89,16 +91,9 @@ function gradeLabel(grade) {
   return sourceGradeLabels[String(grade || 'D').toUpperCase()] || '来源待标注';
 }
 
-async function api(path, options = {}) {
-  if (!API_BASE) throw new Error('API_NOT_CONFIGURED');
-  const response = await fetch(`${API_BASE}${path}`, {
-    headers: { 'Content-Type': 'application/json', ...(options.headers || {}) },
-    ...options
-  });
-  if (!response.ok) throw new Error(`HTTP_${response.status}`);
-  const payload = await response.json();
-  if (payload && payload.error) throw new Error(payload.error.message || payload.error.code || 'API_ERROR');
-  return payload && Object.prototype.hasOwnProperty.call(payload, 'data') ? payload.data : payload;
+// 权威声明 fail-closed 展示：authority_claim 仅是原始来源标签，未经独立分级认定
+function authorityClaimLabel(claim, compact = false) {
+  return compact ? '未经独立分级' : claim ? `原始声明 ${claim}（未经独立认定）` : '未经独立分级';
 }
 
 function stageCards() {
@@ -293,18 +288,28 @@ function renderArchiveList() {
     count.textContent = `快照 ${items.length} / ${meta.total_chapters || items.length} 条`;
     list.innerHTML = shown.length ? shown.map((item, index) => `
       <article class="archive-card archive-clickable" data-index="${state.archiveItems.indexOf(item)}" tabindex="0" role="button" aria-label="查看 ${esc(item.title)} 详情">
-        <div class="archive-card-meta"><span>${esc(item.subtype || item.archiveType || item.type || '史料')}</span>${item.grade ? `<b>${esc(gradeLabel(item.grade))}</b>` : ''}</div>
+        <div class="archive-card-meta"><span>${esc(item.subtype || item.archiveType || item.type || '史料')}</span><b class="grade-badge-muted">${esc(authorityClaimLabel(item.authority_claim, true))}</b></div>
         <h4>${esc(item.title || '未题名章节')}</h4>
         <p>${esc(item.summary || `${item.book_name || ''} 第${item.chapter_no}章 · 页码 ${item.page_range || '待标注'}`)}</p>
         <div class="archive-card-foot"><span>${esc(item.book_name || '来源待标注')}</span><span>点击查看详情</span></div>
       </article>`).join('') + (items.length > state.archiveLimit ? `<div class="empty-state"><button class="load-more" id="archive-more" type="button">加载更多（已显示 ${shown.length} / ${items.length}）</button></div>` : '') : '<div class="empty-state">当前筛选条件没有返回记录。</div>';
-    list.querySelectorAll('.archive-clickable').forEach((card) => card.addEventListener('click', () => { state.archiveDetail = state.archiveItems[Number(card.dataset.index)]; renderArchiveDetail(); }));
+    list.querySelectorAll('.archive-clickable').forEach((card) => {
+      const open = () => { state.archiveDetail = state.archiveItems[Number(card.dataset.index)]; renderArchiveDetail(); };
+      card.addEventListener('click', open);
+      // 键盘可达（R0-HARDEN-01 验收项）：Enter/Space 触发，Esc 在详情页返回
+      card.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); open(); }
+      });
+    });
     document.querySelector('#archive-more')?.addEventListener('click', () => { state.archiveLimit += 24; renderArchiveList(); });
     return;
   }
   if (!state.service.archives || state.service.archives !== 'ready') {
     count.textContent = '未接入数据';
-    list.innerHTML = `<div class="archive-empty"><div class="empty-mark">档</div><h3>正式档案服务接入位已就绪</h3><p>当前没有配置可公开展示的真实档案服务。接入并完成审核后，此处展示史料卡、著录信息和来源回链。</p>${statusBadge('待接入真实数据', 'pending')}</div>`;
+    const failNote = state.snapshotError
+      ? `目录快照加载失败（${esc(state.snapshotError)}）。可按 apps/web-yimeng/README.md 的命令从主仓清洗层重新生成后刷新。`
+      : '当前没有配置可公开展示的真实档案服务。接入并完成审核后，此处展示史料卡、著录信息和来源回链。';
+    list.innerHTML = `<div class="archive-empty"><div class="empty-mark">档</div><h3>正式档案服务接入位已就绪</h3><p>${failNote}</p>${statusBadge('待接入真实数据', 'pending')}</div>`;
     return;
   }
   const items = archiveMatches();
@@ -321,13 +326,14 @@ function renderArchiveDetail() {
   const row = (label, value) => `<div class="detail-row"><span>${esc(label)}</span><strong>${esc(value || '—')}</strong></div>`;
   list.innerHTML = `
     <article class="archive-detail">
-      <div class="archive-card-meta"><span>${esc(item.subtype || item.type || '史料')}</span>${item.grade ? `<b>${esc(gradeLabel(item.grade))}</b>` : ''}</div>
+      <div class="archive-card-meta"><span>${esc(item.subtype || item.type || '史料')}</span><b class="grade-badge-muted">${esc(authorityClaimLabel(item.authority_claim))}</b></div>
       <h4>${esc(item.title)}</h4>
       <div class="detail-grid">
         ${row('所属书目', `${item.book_name}（${item.book_id}）`)}
         ${row('章节序号', `第 ${item.chapter_no} 章`)}
         ${row('页码定位', item.page_range)}
-        ${row('来源系统', item.source)}
+        ${row('来源', item.source)}
+        ${row('权威等级', authorityClaimLabel(item.authority_claim))}
         ${row('采集日期', item.date_added)}
         ${row('内容哈希', item.shash256 ? `${item.shash256.slice(0, 16)}…` : '—')}
         ${row('权利状态', `${item.rights === 'restricted' ? '受限（restricted）' : item.rights}`)}
@@ -335,14 +341,16 @@ function renderArchiveDetail() {
         ${row('处理状态', item.processing_status)}
         ${row('审核状态', item.review_status)}
       </div>
-      <div class="detail-note">正文内容受使用限制（${esc(item.allowed_usage || '未登记')}），本页仅提供目录级著录信息；来源系统为内网志书库，需在授权网络内打开。</div>
+      <div class="detail-note">正文内容受使用限制（${esc(item.allowed_usage || '未登记')}），本页仅提供目录级著录信息；全部条目未经独立人工审核，权威等级为原始声明而非认定结论；原始来源系统为内部志书库，其 URL 未获对外披露授权，故不提供可点击链接，来源定位以上方书目 ID、章节序号与页码为准。</div>
       <div class="detail-actions">
-        ${item.source_url ? `<a class="ghost-btn" href="${esc(item.source_url)}" target="_blank" rel="noopener">打开来源定位</a>` : ''}
         <button class="primary-btn archive-back" type="button">← 返回检索列表</button>
       </div>
-      <div class="detail-proof">来源回查凭据：shash256=${esc(item.shash256 || '未登记')} · 记录 ID ${esc(item.id)}</div>
+      <div class="detail-proof">来源回查凭据：shash256=${esc(item.shash256 || '未登记')} · 记录 ID ${esc(item.id)}（凭主仓清洗层比对）</div>
     </article>`;
   list.querySelector('.archive-back')?.addEventListener('click', () => { state.archiveDetail = null; renderArchiveList(); });
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && state.archiveDetail) { state.archiveDetail = null; renderArchiveList(); }
+  });
 }
 
 function appendMessage(role, content, extra = '') {
@@ -396,16 +404,14 @@ async function ask(question) {
 }
 
 async function loadArchiveSnapshot() {
-  // 目录级真实资料快照（本地生成，不入库）；未配置正式服务时的保底真实数据，不仍充在线库
+  // 目录级快照经 facade 加载；失败 fail-closed（不仍充在线库，不降级到伪数据）
   try {
-    const response = await fetch('./data/archives-snapshot.json');
-    if (!response.ok) throw new Error(`HTTP_${response.status}`);
-    const data = await response.json();
-    if (!Array.isArray(data?.items)) throw new Error('SNAPSHOT_FORMAT');
+    const data = await fetchArchiveSnapshot();
     state.archiveItems = data.items;
     state.snapshotMeta = data.meta || {};
     state.service.archives = 'snapshot';
-  } catch {
+  } catch (error) {
+    state.snapshotError = String(error?.message || error);
     state.service.archives = 'not-configured';
   }
 }
@@ -443,7 +449,9 @@ function updateServiceLabels() {
   if (archiveState) {
     if (state.service.archives === 'snapshot' && state.snapshotMeta) {
       const books = Array.isArray(state.snapshotMeta.books) ? state.snapshotMeta.books.map((b) => `${b.name}（${b.chapters}章）`).join('；') : '';
-      archiveState.innerHTML = `${statusBadge('真实目录快照 · 非在线库', 'ready')}<span>生成于 ${esc(String(state.snapshotMeta.generated_at || '').slice(0, 10))}，来自 ${esc(state.snapshotMeta.source_dataset || '清洗层')}：${esc(books)}。${esc(state.snapshotMeta.scope_note || '')}</span>`;
+      archiveState.innerHTML = `${statusBadge('真实目录快照 · 非在线库 · 未独立审核', 'ready')}<span>生成于 ${esc(String(state.snapshotMeta.generated_at || '').slice(0, 10))}，来自 ${esc(state.snapshotMeta.source_dataset || '清洗层')}：${esc(books)}。${esc(state.snapshotMeta.scope_note || '')}${state.snapshotMeta.counting_note ? ` 计数口径：${esc(state.snapshotMeta.counting_note)}` : ''}</span>`;
+    } else if (state.snapshotError) {
+      archiveState.innerHTML = `${statusBadge('快照加载失败', 'pending')}<span>目录快照不可用（${esc(state.snapshotError)}），档案区按无数据处理；恢复步骤见 apps/web-yimeng/README.md。</span>`;
     } else {
       archiveState.textContent = API_BASE ? '正在检测数据服务…' : '未配置正式档案服务；如存在本地目录快照将在加载后显示。';
     }

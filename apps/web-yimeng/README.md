@@ -48,16 +48,24 @@ python3 -m http.server 4173 --directory apps/web-yimeng
 
 ## 真实目录快照（无后端时的真实数据源）
 
-未配置 `apiBase` 时，门户会尝试加载同源静态资产 `./data/archives-snapshot.json`（已 gitignore，不入公开仓库）。该文件由 YimengSpirit-Multimodal 私仓脚本从清洗层生成，**仅含书目、章节题名、页码定位与处理元数据，不含正文**（原始资料 license=restricted，正文展示须另行授权）：
+未配置 `apiBase` 时，门户经 `utils/api.js` facade（页面唯一数据入口，AGENTS.md 原则 3）加载同源静态资产 `./data/archives-snapshot.json`（已 gitignore，不入公开仓库）。该文件由 YimengSpirit-Multimodal 私仓脚本从清洗层只读生成，**仅含书目、章节题名、页码定位与处理元数据，不含正文与原始来源 URL**（原始资料 license=restricted；内部志书库 URL 未获对外披露授权）：
 
 ```bash
-# 在 YimengSpirit-Multimodal 仓内执行
+# 在 YimengSpirit-Multimodal 仓内执行（主仓 tests/test_export_archive_snapshot.py 为字段/边界测试）
 python scripts/export_archive_snapshot.py \
   --data-root /data/AI/YimengSpirit-Multimodal/data \
   --out <本目录>/data/archives-snapshot.json
 ```
 
-快照模式下：档案区显示“真实目录快照 · 非在线库”状态，支持全量检索（2010 章节目录）、筛选、分页、点击进入著录详情与来源回查；核验看板数据服务显示“目录快照”，不仍充在线库。
+**临时目录丢失后的恢复**：重新 clone 本仓后快照不存在（档案区显示 fail-closed 空态与恢复指引）；按上方命令从主仓清洗层重新生成即恢复，无需其他手工步骤。
+
+**可信口径（R0-HARDEN-01）**：导出字段白名单见快照 `meta.item_field_whitelist`（无 `grade`、无 `source_url`）；`authority_claim` 仅是原始来源声明（未经独立分级认定），页面一律显示“未经独立认定”，不显示 A 级；全部条目 `review_status=无独立人工审核记录`；来源措辞不声称“授权采集”；封面/封底空占位记录已剔除（计数口径 2015/2010/2009 见 `meta.counting_note`）。
+
+快照模式下：档案区显示“真实目录快照 · 非在线库 · 未独立审核”状态，支持全量检索、筛选、分页、键盘操作（Enter/Space 进详情、Esc 返回）与著录详情；核验看板数据服务显示“目录快照”，不仍充在线库。
+
+## 浏览器自动验收
+
+`node scripts/test-web-yimeng-browser.mjs` —— 零依赖（Node ≥ 22 内置 WebSocket + Chrome DevTools 协议）。自建 `127.0.0.1:8421` 测试实例（不碰现有 8420 演示进程），覆盖：首页渲染、全量目录计数、搜索/空态、详情/返回、刷新/键盘、1920/1366/390 三分辨率、快照缺失 fail-closed 提示、监听地址核验。
 
 ## 真实核验口径
 
