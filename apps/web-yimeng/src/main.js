@@ -22,7 +22,7 @@ const state = {
 const platforms = [
   { code: '基', title: '基础设施', status: '已建研发环境', tone: 'ready', desc: '开发机、GPU 服务器与共享存储组成的研发与数据环境；正式算力与采购以台账为准。' },
   { code: 'P1', title: '多模态人工智能服务平台', status: '待接入演示', tone: 'pending', desc: 'MiniCPM-V 多轮/图像问答代码已落地；本轮演示机无 GPU 且远程服务未接通，按真实状态登记。' },
-  { code: 'P2', title: '数字资源与知识服务平台', status: '目录快照可用', tone: 'ready', desc: '6 部志书 2010 章节目录级快照可检索、可查详情、可回溯来源；正文展示受使用限制待授权。' },
+  { code: 'P2', title: '数字资源与知识服务平台', key: 'p2', status: '档案状态检测中', tone: 'pending', desc: '档案数据接入后此处展示真实规模；正文展示受使用限制待授权。' },
   { code: 'P3', title: '智能视听与数字资产生产平台', status: '待接入入口', tone: 'pending', desc: '复用既有智能视听工作站；本轮未接通入口，不显示为已建成。' },
   { code: 'P4', title: '数字文化应用服务平台', status: '部分可用', tone: 'ready', desc: '本门户为阶段成果演示入口；小程序等公众端产品另行核验，不混入平台完成量。' },
   { code: '安', title: '国产化适配与安全可信支撑体系', status: '规划建设中', tone: 'pending', desc: '安全扫描与审计日志已有研发基础；国产化适配与测评以正式记录为准，不预标完成。' }
@@ -94,6 +94,13 @@ function gradeLabel(grade) {
 // 权威声明 fail-closed 展示：authority_claim 仅是原始来源标签，未经独立分级认定
 function authorityClaimLabel(claim, compact = false) {
   return compact ? '未经独立分级' : claim ? `原始声明 ${claim}（未经独立认定）` : '未经独立分级';
+}
+
+// 等级 fail-closed（R0-HARDEN-02）：仅有可核验的独立审核信号才展示认定等级，
+// 否则一律「未经独立认定」——API 返回 grade=A 不足以自称「官方档案」
+function gradeDisplay(item) {
+  const verified = item && (item.verified === true || item.reviewStatus === '已核验');
+  return verified ? gradeLabel(item.grade) : '未经独立认定';
 }
 
 function stageCards() {
@@ -177,9 +184,9 @@ function shell() {
         <div class="section-head"><div><span class="section-kicker">PROJECT OVERVIEW · 1+4+1</span><h2>沂蒙精神大模型 · 项目总览</h2></div><p>备案项目名称为“沂蒙精神大模型”，本门户为其公众传播产品“沂蒙精神数字传承平台”的阶段成果演示入口。下列 1+4+1 架构状态按实际核验登记，未建成不显示为已建成。</p></div>
         <div class="stage-grid platform-grid">${platforms.map((p) => `
           <article class="stage-card">
-            <div class="stage-top"><span class="stage-code">${esc(p.code)}</span>${statusBadge(p.status, p.tone)}</div>
+            <div class="stage-top"><span class="stage-code">${esc(p.code)}</span><span${p.key ? ` id="${p.key}-status"` : ''}>${statusBadge(p.status, p.tone)}</span></div>
             <h3>${esc(p.title)}</h3>
-            <p>${esc(p.desc)}</p>
+            <p${p.key ? ` id="${p.key}-desc"` : ''}>${esc(p.desc)}</p>
           </article>
         `).join('')}</div>
       </section>
@@ -314,7 +321,7 @@ function renderArchiveList() {
   }
   const items = archiveMatches();
   count.textContent = `当前页 ${items.length} 条`;
-  list.innerHTML = items.length ? items.map((item) => `<article class="archive-card"><div class="archive-card-meta"><span>${esc(item.archiveType || item.type || '史料')}</span>${item.grade ? `<b>${esc(gradeLabel(item.grade))}</b>` : ''}</div><h4>${esc(item.title || '未命名资料')}</h4><p>${esc(item.summary || '已接入记录，详情以服务返回为准。')}</p><div class="archive-card-foot"><span>${esc(item.year || item.date || '年代待标注')}</span><span>${esc(item.source || '来源待标注')}</span></div></article>`).join('') : '<div class="empty-state">当前筛选条件没有返回记录。</div>';
+  list.innerHTML = items.length ? items.map((item) => `<article class="archive-card"><div class="archive-card-meta"><span>${esc(item.archiveType || item.type || '史料')}</span>${item.grade ? `<b class="grade-badge-muted">${esc(gradeDisplay(item))}</b>` : ''}</div><h4>${esc(item.title || '未命名资料')}</h4><p>${esc(item.summary || '已接入记录，详情以服务返回为准。')}</p><div class="archive-card-foot"><span>${esc(item.year || item.date || '年代待标注')}</span><span>${esc(item.source || '来源待标注')}</span></div></article>`).join('') : '<div class="empty-state">当前筛选条件没有返回记录。</div>';
 }
 
 function renderArchiveDetail() {
@@ -369,7 +376,7 @@ function renderSources(data) {
   const evidence = Array.isArray(data?.evidence) ? data.evidence : [];
   const related = Array.isArray(data?.related) ? data.related : [];
   if (!sources.length && !evidence.length && !related.length) return '';
-  const sourceItems = sources.map((item) => `<li><span class="grade-badge">${esc(gradeLabel(item.grade))}</span><span>${esc(item.title || item.name || item.id || '未命名来源')}</span></li>`).join('');
+  const sourceItems = sources.map((item) => `<li><span class="grade-badge-muted">${esc(gradeDisplay(item))}</span><span>${esc(item.title || item.name || item.id || '未命名来源')}</span></li>`).join('');
   const evidenceItems = evidence.map((item) => `<li>${esc(item.title || item.text || item.id || item)}</li>`).join('');
   const relatedItems = related.map((item) => `<li>${esc(item.title || item.name || item.id || item)}</li>`).join('');
   return `<div class="sources-title">回答依据与关联内容</div>${sourceItems ? `<strong>参考来源</strong><ul>${sourceItems}</ul>` : ''}${evidenceItems ? `<strong>证据片段</strong><ul>${evidenceItems}</ul>` : ''}${relatedItems ? `<strong>相关内容</strong><ul>${relatedItems}</ul>` : ''}`;
@@ -460,6 +467,27 @@ function updateServiceLabels() {
   if (aiState) aiState.textContent = stateLabel(state.service.ai);
   const time = document.querySelector('#verification-time');
   if (time) time.textContent = state.service.checkedAt ? state.service.checkedAt.toLocaleTimeString('zh-CN', { hour: '2-digit', minute: '2-digit' }) : '尚未检查';
+  updatePlatformStatus();
+}
+
+// P2 卡片状态运行时取数（R0-HARDEN-02）：目录规模从快照 meta 读取，
+// 快照缺失/未配置/加载失败/无审核信号时不显示「快照可用」或权威认定
+function updatePlatformStatus() {
+  const badge = document.querySelector('#p2-status');
+  const desc = document.querySelector('#p2-desc');
+  if (!badge || !desc) return;
+  if (state.service.archives === 'snapshot' && state.snapshotMeta) {
+    const meta = state.snapshotMeta;
+    const books = Array.isArray(meta.books) ? meta.books.length : 0;
+    badge.innerHTML = statusBadge(`目录快照可用（${meta.total_chapters} 条）`, 'ready');
+    desc.textContent = `${books} 部志书 ${meta.total_chapters} 章节目录级快照可检索、可查详情、可回溯来源（运行时取自快照 meta，未独立审核）；正文展示受使用限制待授权。`;
+  } else if (state.service.archives === 'ready') {
+    badge.innerHTML = statusBadge('档案服务已连接（未独立审核）', 'ready');
+    desc.textContent = `正式档案服务已接入，当前页 ${state.archiveItems.length} 条；等级与审核状态以服务返回为准，无独立审核信号时不作权威认定。`;
+  } else {
+    badge.innerHTML = statusBadge('档案数据未接入', 'pending');
+    desc.textContent = '目录快照未加载且未配置正式档案服务；接入并完成审核后展示真实规模；正文展示受使用限制待授权。';
+  }
 }
 
 function wireInteractions() {

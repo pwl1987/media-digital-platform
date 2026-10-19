@@ -67,6 +67,10 @@ python scripts/export_archive_snapshot.py \
 
 `node scripts/test-web-yimeng-browser.mjs` —— 零依赖（Node ≥ 22 内置 WebSocket + Chrome DevTools 协议）。自建 `127.0.0.1:8421` 测试实例（不碰现有 8420 演示进程），覆盖：首页渲染、全量目录计数、搜索/空态、详情/返回、刷新/键盘、1920/1366/390 三分辨率、快照缺失 fail-closed 提示、监听地址核验。
 
+**安全隔离（R0-HARDEN-02）**：失败态模拟采用 CDP 网络阻断（`Network.setBlockedURLs`），不 mv/rm 真实快照；端口预检占用即退出（不杀他人进程）；子进程 PID 可追踪、try/finally 清理；前后校验快照 SHA/大小不变、8420 首页/快照保持 200。另含模拟 API 用例：`grade=A` 但无审核信号时不显示「官方档案/A 级」，P2 状态不因此提升。
+
+**统一真实口径（R0-HARDEN-02）**：P2 总览卡目录规模运行时取自快照 `meta.total_chapters`（无硬编码计数）；快照缺失/未配置/加载失败时 P2 显示「档案数据未接入」，不显示「快照可用」；等级展示 fail-closed：仅当存在可核验独立审核信号（`verified=true` 或 `reviewStatus='已核验'`）才展示认定等级，否则一律「未经独立认定」。
+
 ## 真实核验口径
 
 页面中的“已实现”表示本目录的体验结构或前端能力已落地；“已配置 / 已连接”只根据运行时检查结果显示。正式数据规模、资源授权、审核结论、模型效果、测试结论和投资金额仍以正式台账、原始凭证及现场核验记录为准。
